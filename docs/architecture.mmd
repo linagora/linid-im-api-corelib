@@ -1,0 +1,31 @@
+flowchart TD
+    subgraph Client [External Client REST API]
+        C[HTTP Request]
+    end
+
+    subgraph API [Application: dm-api]
+        A[dm-api]
+        A -->|Dynamically loads| Loader[Plugin Loader]
+        A -->|Uses| Core[dm-api-core]
+    end
+
+    subgraph CoreLib [Library: dm-api-core]
+        Core --> Config[Dynamic Configuration]
+        Core --> EntityService[DynamicEntityService]
+        Core --> RoutingService[DynamicRoutingService]
+        Core --> Validation[ValidationEngine]
+        Core --> Tasks[TaskExecutor]
+    end
+
+    subgraph Plugins [Dynamic Plugins]
+        PL1[LdapProviderPlugin]
+        PL2[ApiProviderPlugin]
+        PL3[CustomRoutePlugin]
+        PL4[CustomTaskPlugin]
+        PL5[ValidationPluginXYZ]
+    end
+
+    C --> A
+    Loader -->|Scans plugin directory| Plugins
+    Plugins -->|Injected into| Core
+    A -->|Exposes API| C
