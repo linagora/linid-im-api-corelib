@@ -1,0 +1,165 @@
+stages:
+  - validate
+  - test
+  - release
+
+variables:
+  GIT_DEPTH: 0
+  MAVEN_CLI_OPTS: "-B -ntp"
+  MAVEN_PROJECT_FILE: "pom.xml"
+
+# ---------------- Check branch name JOB ----------------
+branch-name-check:
+  stage: validate
+  image: alpine:latest
+  tags:
+    - check-author
+    - curl
+    - docker
+    - docker-medium
+    - packages.linagora.com
+    - shared
+    - ultralight
+  script:
+    - 'echo "Checking branch name: $CI_COMMIT_REF_NAME"'
+    - |
+      if ! echo "$CI_COMMIT_REF_NAME" | grep -Eq '^(main|dev|release\/[0-9]+\.[0-9]+\.[0-9]+|feature\/[a-z0-9._-]+|hotfix\/[a-z0-9._-]+)$'; then
+        echo "❌ Invalid branch name: $CI_COMMIT_REF_NAME"
+        echo "✅ Allowed formats: main, dev, release/x.y.z, feature/xxx, hotfix/xxx"
+        exit 1
+      fi
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: always
+    - when: never
+
+# ---------------- Check commit message JOB ----------------
+commit-message-check:
+  stage: validate
+  image: maven:3.9.9-eclipse-temurin-21
+  tags:
+    - check-author
+    - curl
+    - docker
+    - docker-medium
+    - packages.linagora.com
+    - shared
+    - ultralight
+  script:
+    - mvn io.github.zorin95670:semantic-version:0.2.0:check-commit
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: always
+    - when: never
+
+# ---------------- Checkstyle validation JOB ----------------
+checkstyle:
+  stage: validate
+  image: maven:3.9.9-eclipse-temurin-21
+  tags:
+    - check-author
+    - curl
+    - docker
+    - docker-medium
+    - packages.linagora.com
+    - shared
+    - ultralight
+  script:
+    - mvn checkstyle:check
+  artifacts:
+    when: always
+    reports:
+      junit: target/checkstyle-result.xml
+    paths:
+      - target/checkstyle-result.xml
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: always
+    - when: never
+
+# ---------------- Execute dependency check JOB ----------------
+dependency-updates:
+  image: maven:3.9.6-eclipse-temurin-11
+  stage: validate
+  tags:
+    - check-author
+    - curl
+    - docker
+    - docker-medium
+    - packages.linagora.com
+    - shared
+    - ultralight
+  script:
+    - mvn versions:display-dependency-updates
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: always
+    - when: never
+
+# ---------------- Execute unit test JOB ----------------
+unit-test:
+  stage: test
+  image: maven:3.9.9-eclipse-temurin-21
+  tags:
+    - check-author
+    - curl
+    - docker
+    - docker-medium
+    - packages.linagora.com
+    - shared
+    - ultralight
+  script:
+    - mvn $MAVEN_CLI_OPTS test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: always
+    - when: never
+
+# ---------------- Execute mutation test JOB ----------------
+mutation-test:
+  stage: test
+  image: maven:3.9.9-eclipse-temurin-21
+  dependencies:
+    - unit-test
+  tags:
+    - check-author
+    - curl
+    - docker
+    - docker-medium
+    - packages.linagora.com
+    - shared
+    - ultralight
+  script:
+    - mvn $MAVEN_CLI_OPTS test
+    - mvn org.pitest:pitest-maven:mutationCoverage
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: always
+    - when: never
+
+# ---------------- Generate new version JOB ----------------
+release:
+  image: maven:3.9.9-eclipse-temurin-21
+  stage: release
+  tags:
+    - check-author
+    - curl
+    - docker
+    - docker-medium
+    - packages.linagora.com
+    - shared
+    - ultralight
+  before_script:
+    - echo "Setting up Git"
+    - apt-get update && apt-get install -y git
+    - git config user.email "ci-bot@example.com"
+    - git config user.name "CI Bot"
+    - git remote set-url origin https://oauth2:${GITLAB_TOKEN}@ci.linagora.com/linagora/lrs/LinID/linid-dm-v2/dm-api-core.git
+    - git fetch --tags
+  script:
+    - mvn io.github.zorin95670:semantic-version:0.2.0:release
+    - git push origin main && git push origin --tags
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: always
+    - when: never
