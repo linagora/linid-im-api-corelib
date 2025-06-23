@@ -30,8 +30,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.linagora.linid.dmapicore.plugin.config.dto.EntityConfiguration;
 import org.linagora.linid.dmapicore.plugin.config.dto.RouteConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
@@ -57,6 +59,11 @@ class AbstractRoutePluginTest {
     @Override
     public boolean supports(@NonNull String s) {
       return false;
+    }
+
+    @Override
+    public List<RouteDescription> getRoutes(List<EntityConfiguration> entities) {
+      return List.of();
     }
 
     @Override

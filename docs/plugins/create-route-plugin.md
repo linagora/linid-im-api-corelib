@@ -12,6 +12,7 @@ operations.
 package org.linagora.linid.ldap;
 
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.List;
 import org.linagora.linid.dmapicore.plugin.config.PluginConfigurationService;
 import org.linagora.linid.dmapicore.plugin.provider.ProviderFactory;
 import org.linagora.linid.dmapicore.plugin.route.AbstractRoutePlugin;
@@ -46,6 +47,12 @@ public class LdapRoutePlugin extends AbstractRoutePlugin {
   }
 
   @Override
+  public List<RouteDescription> getRoutes(List<EntityConfiguration> entities) {
+    // Return all routes managed by you plugins.
+    return List.of();
+  }
+
+  @Override
   public boolean match(String url, String method) {
     return "GET".equals(method) && url.endsWith("/api/export");
   }
@@ -62,6 +69,8 @@ public class LdapRoutePlugin extends AbstractRoutePlugin {
 
 ## 🔧 How It Works
 
+* `getRoutes(List<EntityConfiguration> entities)`: Returns the list of route descriptions dynamically generated based on
+  the provided entity configurations.
 * `match(String url, String method)`: defines which routes this plugin handles.
 * `execute(HttpServletRequest request)`: performs the logic for the matched route.
 

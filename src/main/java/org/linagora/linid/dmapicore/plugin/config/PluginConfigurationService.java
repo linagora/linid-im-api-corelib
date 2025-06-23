@@ -33,6 +33,8 @@ import org.linagora.linid.dmapicore.plugin.config.dto.ProviderConfiguration;
 import org.linagora.linid.dmapicore.plugin.config.dto.RouteConfiguration;
 import org.linagora.linid.dmapicore.plugin.config.dto.TaskConfiguration;
 import org.linagora.linid.dmapicore.plugin.config.dto.ValidationConfiguration;
+import org.linagora.linid.dmapicore.plugin.entity.EntityDescription;
+import org.linagora.linid.dmapicore.plugin.route.RouteDescription;
 
 /**
  * Service interface to access plugin-related configurations.
@@ -44,8 +46,8 @@ public interface PluginConfigurationService {
    * Retrieves the configuration for the entity identified by the given name.
    *
    * @param name the name of the entity configuration to retrieve
-   * @return an {@link Optional} containing the {@link EntityConfiguration} if found, or {@link
-   *     Optional#empty()} if no configuration exists for the given name
+   * @return an {@link Optional} containing the {@link EntityConfiguration} if found, or {@link Optional#empty()} if no
+   *     configuration exists for the given name
    */
   Optional<EntityConfiguration> getEntityConfiguration(String name);
 
@@ -53,16 +55,16 @@ public interface PluginConfigurationService {
    * Retrieves the configuration for the provider identified by the given name.
    *
    * @param name the name of the provider configuration to retrieve
-   * @return an {@link Optional} containing the {@link ProviderConfiguration} if found, or {@link
-   *     Optional#empty()} if no configuration exists for the given name
+   * @return an {@link Optional} containing the {@link ProviderConfiguration} if found, or {@link Optional#empty()} if no
+   *     configuration exists for the given name
    */
   Optional<ProviderConfiguration> getProviderConfiguration(String name);
 
   /**
    * Retrieves the list of configured routes.
    *
-   * @return a list of {@link RouteConfiguration} objects. The list may be empty if no routes are
-   *     configured, but is never {@code null}.
+   * @return a list of {@link RouteConfiguration} objects. The list may be empty if no routes are configured, but is never
+   *     {@code null}.
    */
   List<RouteConfiguration> getRoutesConfiguration();
 
@@ -70,8 +72,8 @@ public interface PluginConfigurationService {
    * Retrieves the configuration for the task identified by the given name.
    *
    * @param name the name of the task configuration to retrieve
-   * @return an {@link Optional} containing the {@link TaskConfiguration} if found, or {@link
-   *     Optional#empty()} if no configuration exists for the given name
+   * @return an {@link Optional} containing the {@link TaskConfiguration} if found, or {@link Optional#empty()} if no
+   *     configuration exists for the given name
    */
   Optional<TaskConfiguration> getTaskConfiguration(String name);
 
@@ -79,8 +81,30 @@ public interface PluginConfigurationService {
    * Retrieves the configuration for the validation identified by the given name.
    *
    * @param name the name of the validation configuration to retrieve
-   * @return an {@link Optional} containing the {@link ValidationConfiguration} if found, or {@link
-   *     Optional#empty()} if no configuration exists for the given name
+   * @return an {@link Optional} containing the {@link ValidationConfiguration} if found, or {@link Optional#empty()} if no
+   *     configuration exists for the given name
    */
   Optional<ValidationConfiguration> getValidationConfiguration(String name);
+
+  /**
+   * Retrieves all route descriptions available in the application.
+   *
+   * @return a list of {@link RouteDescription} representing all HTTP routes.
+   */
+  List<RouteDescription> getRouteDescriptions();
+
+  /**
+   * Retrieves all entity descriptions configured in the application.
+   *
+   * @return a list of {@link EntityDescription} representing all entities.
+   */
+  List<EntityDescription> getEntityDescriptions();
+
+  /**
+   * Retrieves the description of a single entity by its name.
+   *
+   * @param name the name of the entity to retrieve
+   * @return an {@link Optional} containing the entity description if found, otherwise empty
+   */
+  Optional<EntityDescription> getEntityDescription(String name);
 }

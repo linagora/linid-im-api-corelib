@@ -26,58 +26,25 @@
 
 package org.linagora.linid.dmapicore.plugin.route;
 
-import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
-import org.linagora.linid.dmapicore.plugin.config.dto.EntityConfiguration;
-import org.linagora.linid.dmapicore.plugin.config.dto.RouteConfiguration;
-import org.springframework.http.ResponseEntity;
-import org.springframework.plugin.core.Plugin;
+import org.springframework.lang.NonNull;
 
 /**
- * Interface defining a plugin for routing HTTP requests.
+ * Represents a REST route exposed by the application.
  *
- * <p>Implementations decide if they match a given URL and HTTP method, and execute the
- * corresponding logic for the matched request.
+ * <p>
+ * Includes the HTTP method, the route path, and any path variables. Typically used for route introspection or documentation
+ * purposes.
+ *
+ * @param method the HTTP method (e.g., GET, POST, PUT, DELETE)
+ * @param path the full route path (e.g., "/entities/{entity}")
+ * @param entity the name of the entity this route is related to; may be {@code null} for generic routes
+ * @param variables the list of path variable names used in the route (e.g., ["entity"])
  */
-public interface RoutePlugin extends Plugin<String> {
-
-  /**
-   * Returns the current configuration of the route.
-   *
-   * @return the route configuration
-   */
-  RouteConfiguration getConfiguration();
-
-  /**
-   * Sets the configuration of the route.
-   *
-   * @param configuration the route configuration to set
-   */
-  void setConfiguration(RouteConfiguration configuration);
-
-  /**
-   * Returns the list of route descriptions defined in the application, potentially derived from the provided list of entity
-   * configurations.
-   *
-   * @param entities the list of entity configurations used to generate routes
-   * @return list of all route descriptions (HTTP method, path, variables)
-   */
-  List<RouteDescription> getRoutes(List<EntityConfiguration> entities);
-
-  /**
-   * Determines if this plugin matches the given URL and HTTP method.
-   *
-   * @param url the URL of the incoming request
-   * @param method the HTTP method (GET, POST, etc.) of the incoming request
-   * @return {@code true} if the plugin matches the request, {@code false} otherwise
-   */
-  boolean match(String url, String method);
-
-  /**
-   * Executes the logic associated with the given HTTP request.
-   *
-   * @param request the HTTP servlet request to be processed
-   * @return a {@link ResponseEntity} representing the response of the execution
-   */
-  ResponseEntity<?> execute(HttpServletRequest request);
+public record RouteDescription(
+    String method,
+    String path,
+    String entity,
+    @NonNull List<String> variables
+) {
 }

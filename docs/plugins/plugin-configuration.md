@@ -1,6 +1,8 @@
 # Plugin Configuration System
 
-This plugin system enables dynamic configuration of **providers**, **entities**, **routes**, **validations**, and **tasks** using a YAML or JSON-based format. It is designed to allow runtime definition of data models, integrations, and processing logic with no need for code changes.
+This plugin system enables dynamic configuration of **providers**, **entities**, **routes**, **validations**, and *
+*tasks** using a YAML or JSON-based format. It is designed to allow runtime definition of data models, integrations, and
+processing logic with no need for code changes.
 
 ---
 
@@ -143,6 +145,10 @@ entities:
     attributes:
       - name: id
         type: UUID
+        required: true
+        input: text
+        inputSettings:
+          option: "X"
         validations:
           - type: regex
             pattern: ^/d$
@@ -161,6 +167,9 @@ Each attribute supports:
 
 * `name`: Attribute name.
 * `type`: Attribute type (e.g., `UUID`, `String`, etc.).
+* `required`: Boolean indicating whether the attribute is mandatory.
+* `input`: String specifying the front-end input type to use (e.g., "text", "select", "checkbox").
+* `inputSettings`: Map of settings for the input type, such as options, placeholders, or validation constraints.
 * `validations`: Optional list of validation rules.
 
 #### Validations
@@ -178,6 +187,10 @@ If global configuration are set, options defined in this section will override i
 
 Refer to each plugin’s documentation for the complete list of supported options.
 
+#### Input
+
+> ⚠️ **Under construction:** This feature is still being developed and may change in future versions.
+
 ---
 
 ## Phases
@@ -193,4 +206,5 @@ Lifecycle phases define when tasks or validations are executed:
 
 ## Extensibility
 
-All components (providers, tasks, routes) support arbitrary custom fields to allow plugin-specific configuration without schema changes. This makes the system flexible and extensible for multiple use cases.
+All components (providers, tasks, routes) support arbitrary custom fields to allow plugin-specific configuration without
+schema changes. This makes the system flexible and extensible for multiple use cases.

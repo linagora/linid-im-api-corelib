@@ -32,8 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Configuration class representing an attribute with its name, type, validations, and additional
- * arbitrary access properties.
+ * Configuration class representing an attribute with its name, type, validations, and additional arbitrary access properties.
  *
  * <p>The {@code access} map collects any extra properties not explicitly mapped to fields, allowing
  * flexible extension of attribute configuration.
@@ -41,28 +40,56 @@ import java.util.Map;
 public class AttributeConfiguration {
 
   /**
-   * Map holding additional configuration properties used by providers to access or handle this
-   * attribute, beyond the predefined fields.
+   * Map holding additional configuration properties used by providers to access or handle this attribute, beyond the predefined
+   * fields.
    *
    * <p>These properties are populated via {@link JsonAnySetter} during JSON deserialization.
    */
-  private final Map<String, Object> access = new HashMap<>();
-
-  /** The name of the attribute. */
-  private String name;
-
-  /** The type of the attribute (e.g., "string", "integer"). */
-  private String type;
-
-  /** List of validation configurations associated with this attribute. */
-  private List<ValidationConfiguration> validations;
-
-  /** Default constructor. */
-  public AttributeConfiguration() {}
+  private Map<String, Object> access = new HashMap<>();
 
   /**
-   * Adds a property to the {@code access} map if the property key is not one of the predefined
-   * fields ("name", "type", "validations").
+   * The name of the attribute.
+   */
+  private String name;
+
+  /**
+   * The type of the attribute (e.g., "string", "integer").
+   */
+  private String type;
+
+  /**
+   * List of validation configurations associated with this attribute.
+   */
+  private List<ValidationConfiguration> validations;
+
+  /**
+   * Indicates whether the attribute is required.
+   */
+  private boolean required;
+
+  /**
+   * Specifies the type of front-end input to use for this attribute.
+   *
+   * <p>This value guides the front-end on how to render the attribute.
+   */
+  private String input;
+
+  /**
+   * Additional settings to configure the behavior and appearance of the input component.
+   *
+   * <p>This map allows specifying arbitrary key-value pairs to fine-tune input rendering.
+   */
+  private Map<String, Object> inputSettings;
+
+  /**
+   * Default constructor.
+   */
+  public AttributeConfiguration() {
+  }
+
+  /**
+   * Adds a property to the {@code access} map if the property key is not one of the predefined fields ("name", "type",
+   * "validations").
    *
    * @param key the property name
    * @param value the property value
@@ -129,8 +156,8 @@ public class AttributeConfiguration {
   }
 
   /**
-   * Returns the map of additional configuration properties used by providers to access or process
-   * this attribute, beyond the predefined fields.
+   * Returns the map of additional configuration properties used by providers to access or process this attribute, beyond the
+   * predefined fields.
    *
    * <p>This map contains supplementary provider-specific settings deserialized from JSON and stored
    * in the {@code access} field.
@@ -139,5 +166,76 @@ public class AttributeConfiguration {
    */
   public Map<String, Object> getAccess() {
     return access;
+  }
+
+  /**
+   * Sets the map of additional provider-specific configuration properties used to access or handle this attribute.
+   *
+   * <p>This map contains arbitrary key-value pairs defined under the {@code access}
+   * section in the configuration, and can be used by plugin providers to pass custom settings for the attribute (e.g., database
+   * column mappings, LDAP field names, etc.).
+   *
+   * @param access the map of additional access properties to associate with this attribute
+   */
+  public void setAccess(final Map<String, Object> access) {
+    this.access = access;
+  }
+
+  /**
+   * Indicates whether the attribute is required.
+   *
+   * <p>
+   * This flag determines if a value must be provided for the attribute. It can be used by front-end clients or validation logic
+   * to enforce mandatory fields.
+   *
+   * @return {@code true} if the attribute is required; {@code false} otherwise
+   */
+  public boolean getRequired() {
+    return required;
+  }
+
+  /**
+   * Sets whether the attribute is required.
+   *
+   * @param required {@code true} to mark the attribute as mandatory; {@code false} otherwise
+   */
+  public void setRequired(boolean required) {
+    this.required = required;
+  }
+
+  /**
+   * Specifies the front-end input type to use for this attribute.
+   *
+   * @return the input type to be used by the front-end
+   */
+  public String getInput() {
+    return input;
+  }
+
+  /**
+   * Sets the input type used by the front-end for this attribute.
+   *
+   * @param input the input type
+   */
+  public void setInput(String input) {
+    this.input = input;
+  }
+
+  /**
+   * Returns the map of additional settings used to configure the input component on the front-end.
+   *
+   * @return a map of input-specific settings
+   */
+  public Map<String, Object> getInputSettings() {
+    return inputSettings;
+  }
+
+  /**
+   * Sets the additional front-end settings for the input component.
+   *
+   * @param inputSettings a map of input-specific settings
+   */
+  public void setInputSettings(Map<String, Object> inputSettings) {
+    this.inputSettings = inputSettings;
   }
 }

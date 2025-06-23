@@ -102,4 +102,37 @@ class AttributeConfigurationTest {
     assertDoesNotThrow(() -> access.put("newKey", "newValue"));
     assertEquals("newValue", attr.getAccess().get("newKey"));
   }
+
+  @Test
+  @DisplayName("Test required getter and setter")
+  void testRequired() {
+    AttributeConfiguration attr = new AttributeConfiguration();
+    attr.setRequired(true);
+
+    assertTrue(attr.getRequired());
+  }
+
+  @Test
+  @DisplayName("Test input getter and setter")
+  void testInput() {
+    AttributeConfiguration attr = new AttributeConfiguration();
+    attr.setInput("text");
+
+    assertEquals("text", attr.getInput());
+  }
+
+  @Test
+  @DisplayName("Test inputSettings getter and setter")
+  void testInputSettings() {
+    AttributeConfiguration attr = new AttributeConfiguration();
+    Map<String, Object> settings = Map.of("placeholder", "Enter your username", "maxLength", 255);
+
+    attr.setInputSettings(settings);
+
+    assertNotNull(attr.getInputSettings());
+    assertEquals(2, attr.getInputSettings().size());
+    assertEquals("Enter your username", attr.getInputSettings().get("placeholder"));
+    assertEquals(255, attr.getInputSettings().get("maxLength"));
+  }
+
 }

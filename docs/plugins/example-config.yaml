@@ -36,11 +36,13 @@ entities:
     route: users
     provider: LDAP1
     tasks:
-        - name: saveDocument
-          phase: [ 'beforeCreate', 'beforeExport' ]
+      - name: saveDocument
+        phase: [ 'beforeCreate', 'beforeExport' ]
     attributes:
       - name: id
         type: UUID
+        required: true
+        input: text
         validations:
           - name: regex1
           - type: regex

@@ -24,60 +24,26 @@
  * LinID Directory Manager software.
  */
 
-package org.linagora.linid.dmapicore.plugin.route;
+package org.linagora.linid.dmapicore.plugin.entity;
 
-import jakarta.servlet.http.HttpServletRequest;
-import java.util.List;
-import org.linagora.linid.dmapicore.plugin.config.dto.EntityConfiguration;
-import org.linagora.linid.dmapicore.plugin.config.dto.RouteConfiguration;
-import org.springframework.http.ResponseEntity;
-import org.springframework.plugin.core.Plugin;
+import java.util.Map;
 
 /**
- * Interface defining a plugin for routing HTTP requests.
+ * Describes a single attribute of an entity, including its type, input configuration, and whether it is required or validated.
  *
- * <p>Implementations decide if they match a given URL and HTTP method, and execute the
- * corresponding logic for the matched request.
+ * @param name the name of the attribute (e.g., "email", "age")
+ * @param type the backend type of the attribute (e.g., "string", "integer")
+ * @param required whether the attribute is required
+ * @param hasValidations whether the attribute has validation rules
+ * @param input the UI input type to be used on the front-end (e.g., "text", "select")
+ * @param inputSettings settings for the input (e.g., options, placeholder)
  */
-public interface RoutePlugin extends Plugin<String> {
-
-  /**
-   * Returns the current configuration of the route.
-   *
-   * @return the route configuration
-   */
-  RouteConfiguration getConfiguration();
-
-  /**
-   * Sets the configuration of the route.
-   *
-   * @param configuration the route configuration to set
-   */
-  void setConfiguration(RouteConfiguration configuration);
-
-  /**
-   * Returns the list of route descriptions defined in the application, potentially derived from the provided list of entity
-   * configurations.
-   *
-   * @param entities the list of entity configurations used to generate routes
-   * @return list of all route descriptions (HTTP method, path, variables)
-   */
-  List<RouteDescription> getRoutes(List<EntityConfiguration> entities);
-
-  /**
-   * Determines if this plugin matches the given URL and HTTP method.
-   *
-   * @param url the URL of the incoming request
-   * @param method the HTTP method (GET, POST, etc.) of the incoming request
-   * @return {@code true} if the plugin matches the request, {@code false} otherwise
-   */
-  boolean match(String url, String method);
-
-  /**
-   * Executes the logic associated with the given HTTP request.
-   *
-   * @param request the HTTP servlet request to be processed
-   * @return a {@link ResponseEntity} representing the response of the execution
-   */
-  ResponseEntity<?> execute(HttpServletRequest request);
+public record AttributeDescription(
+    String name,
+    String type,
+    boolean required,
+    boolean hasValidations,
+    String input,
+    Map<String, Object> inputSettings
+) {
 }
