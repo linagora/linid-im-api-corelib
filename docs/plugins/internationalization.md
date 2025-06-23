@@ -61,10 +61,7 @@ src/main/resources/i18n/en.json
 Validation plugins return an `Optional<I18nMessage>` to signal a validation failure:
 
 ```java
-return Optional.of(I18nMessage.of(
-                       "myplugin.error.regex.invalid",
-                   Map.of("pattern", pattern, "value",value)
-));
+return Optional.of(I18nMessage.of("myplugin.error.regex.invalid", Map.of("pattern", pattern, "value", value)));
 ```
 
 ### Validation Context
@@ -89,6 +86,22 @@ Inside a validation plugin, you receive additional context such as:
 * Always provide useful keys and parameter names.
 * Group your messages logically (e.g., `error.*`, `info.*`, `success.*`).
 * Document expected i18n keys and parameters in your plugin's documentation.
+
+---
+
+## 🧰 Default Application Message Keys
+
+The Directory Manager API provides a set of **default i18n message keys** that are used across all plugins and core components. These messages cover common error scenarios and can be overridden in your plugin if needed.
+
+| Key                                   | Context Parameters   | Description                                              |
+| ------------------------------------- | -------------------- | -------------------------------------------------------- |
+| `error.plugin.default.missing.option` | `option`             | A required option is missing.                            |
+| `error.plugin.default.invalid.option` | `option`, `value`    | An option has an invalid value.                          |
+| `error.router.unknown.route`          | `route`              | An unknown API route was requested.                      |
+| `error.entity.unknown`                | `entity`             | The requested entity does not exist.                     |
+| `error.entity.attributes`             | `entity`             | An error occurred while retrieving entity attributes.    |
+| `error.provider.unknown`              | `provider`, `entity` | The specified provider for the given entity is unknown.  |
+| `error.plugin.unknown`                | `type`               | A plugin of the given type is not recognized or missing. |
 
 ---
 
