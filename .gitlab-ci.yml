@@ -155,7 +155,9 @@ release:
     - git config user.email "ci-bot@example.com"
     - git config user.name "CI Bot"
     - git remote set-url origin https://oauth2:${GITLAB_TOKEN}@ci.linagora.com/linagora/lrs/LinID/linid-dm-v2/dm-api-core.git
-    - git fetch --tags
+    - git fetch --all
+    - git checkout main
+    - git pull -r
   script:
     - mvn io.github.zorin95670:semantic-version:0.2.0:release
     - git push origin main && git push origin --tags
