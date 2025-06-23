@@ -26,7 +26,6 @@
 
 package org.linagora.linid.dmapicore.plugin.config.dto;
 
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +41,6 @@ public class AttributeConfiguration {
   /**
    * Map holding additional configuration properties used by providers to access or handle this attribute, beyond the predefined
    * fields.
-   *
-   * <p>These properties are populated via {@link JsonAnySetter} during JSON deserialization.
    */
   private Map<String, Object> access = new HashMap<>();
 
@@ -85,20 +82,6 @@ public class AttributeConfiguration {
    * Default constructor.
    */
   public AttributeConfiguration() {
-  }
-
-  /**
-   * Adds a property to the {@code access} map if the property key is not one of the predefined fields ("name", "type",
-   * "validations").
-   *
-   * @param key the property name
-   * @param value the property value
-   */
-  @JsonAnySetter
-  public void addAccess(final String key, final Object value) {
-    if (!"name".equals(key) && !"type".equals(key) && !"validations".equals(key)) {
-      this.access.put(key, value);
-    }
   }
 
   /**

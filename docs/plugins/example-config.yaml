@@ -35,6 +35,9 @@ entities:
   - name: user
     route: users
     provider: LDAP1
+    access:
+      baseDn: "ou=users,dc=example,dc=com"
+      filter: "(objectClass=person)"
     tasks:
       - name: saveDocument
         phase: [ 'beforeCreate', 'beforeExport' ]
@@ -43,6 +46,8 @@ entities:
         type: UUID
         required: true
         input: text
+        access:
+          ldapField: id
         validations:
           - name: regex1
           - type: regex

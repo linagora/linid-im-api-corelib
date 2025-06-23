@@ -125,6 +125,7 @@ An **entity** defines a managed object with:
 * `route`: (Optional) Associated route.
 * `tasks`: List of tasks to run at specific lifecycle phases.
 * `attributes`: List of entity attributes with type and validations.
+* `access`: (Optional) A map of additional custom options used by the provider to access or resolve the entity.
 
 ### Example
 
@@ -133,6 +134,9 @@ entities:
   - name: user
     provider: LDAP1
     route: users
+    access:
+      baseDn: "ou=users,dc=example,dc=com"
+      filter: "(objectClass=person)"
     tasks:
       - type: S3SaveTask
         phase: [ 'beforeCreate', 'beforeExport' ]
@@ -149,6 +153,8 @@ entities:
         input: text
         inputSettings:
           option: "X"
+        access:
+          ldapField: givenName
         validations:
           - type: regex
             pattern: ^/d$
@@ -171,6 +177,7 @@ Each attribute supports:
 * `input`: String specifying the front-end input type to use (e.g., "text", "select", "checkbox").
 * `inputSettings`: Map of settings for the input type, such as options, placeholders, or validation constraints.
 * `validations`: Optional list of validation rules.
+* `access`: (Optional) A map of additional provider-specific settings to retrieve or store the attribute.
 
 #### Validations
 

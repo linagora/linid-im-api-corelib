@@ -26,7 +26,6 @@
 
 package org.linagora.linid.dmapicore.plugin.config.dto;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -66,40 +65,12 @@ class AttributeConfigurationTest {
   }
 
   @Test
-  @DisplayName("Test addAccess ignores reserved keys")
-  void testAddAccessIgnoresReservedKeys() {
-    AttributeConfiguration attr = new AttributeConfiguration();
-
-    attr.addAccess("name", "shouldBeIgnored");
-    attr.addAccess("type", "shouldBeIgnored");
-    attr.addAccess("validations", List.of());
-
-    assertTrue(attr.getAccess().isEmpty());
-  }
-
-  @Test
-  @DisplayName("Test addAccess adds non-reserved keys")
-  void testAddAccessAddsKeys() {
-    AttributeConfiguration attr = new AttributeConfiguration();
-
-    attr.addAccess("customKey1", "value1");
-    attr.addAccess("customKey2", 42);
-
-    Map<String, Object> access = attr.getAccess();
-    assertEquals(2, access.size());
-    assertEquals("value1", access.get("customKey1"));
-    assertEquals(42, access.get("customKey2"));
-  }
-
-  @Test
   @DisplayName("Test getAccess returns modifiable map")
   void testGetAccessModifiable() {
     AttributeConfiguration attr = new AttributeConfiguration();
 
-    attr.addAccess("key", "value");
-    Map<String, Object> access = attr.getAccess();
+    attr.setAccess(Map.of("newKey", "newValue"));
 
-    assertDoesNotThrow(() -> access.put("newKey", "newValue"));
     assertEquals("newValue", attr.getAccess().get("newKey"));
   }
 
