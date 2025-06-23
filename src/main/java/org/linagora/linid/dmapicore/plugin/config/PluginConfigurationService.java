@@ -32,6 +32,7 @@ import org.linagora.linid.dmapicore.plugin.config.dto.EntityConfiguration;
 import org.linagora.linid.dmapicore.plugin.config.dto.ProviderConfiguration;
 import org.linagora.linid.dmapicore.plugin.config.dto.RouteConfiguration;
 import org.linagora.linid.dmapicore.plugin.config.dto.TaskConfiguration;
+import org.linagora.linid.dmapicore.plugin.config.dto.ValidationConfiguration;
 
 /**
  * Service interface to access plugin-related configurations.
@@ -73,4 +74,13 @@ public interface PluginConfigurationService {
    *     Optional#empty()} if no configuration exists for the given name
    */
   Optional<TaskConfiguration> getTaskConfiguration(String name);
+
+  /**
+   * Retrieves the configuration for the validation identified by the given name.
+   *
+   * @param name the name of the validation configuration to retrieve
+   * @return an {@link Optional} containing the {@link ValidationConfiguration} if found, or {@link
+   *     Optional#empty()} if no configuration exists for the given name
+   */
+  Optional<ValidationConfiguration> getValidationConfiguration(String name);
 }
