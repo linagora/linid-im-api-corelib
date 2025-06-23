@@ -37,7 +37,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("Test class: I18nMessage")
-public class I18nMessageTest {
+class I18nMessageTest {
 
   @Test
   @DisplayName("Create I18nMessage with key only")

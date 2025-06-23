@@ -37,7 +37,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 
 @DisplayName("Test class: AbstractRoutePlugin")
-public class AbstractRoutePluginTest {
+class AbstractRoutePluginTest {
   @Test
   @DisplayName("Test setConfiguration and getConfiguration")
   void testSetAndGetConfiguration() {

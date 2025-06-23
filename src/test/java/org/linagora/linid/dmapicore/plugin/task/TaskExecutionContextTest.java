@@ -33,7 +33,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("Test class: TaskExecutionContext")
-public class TaskExecutionContextTest {
+class TaskExecutionContextTest {
 
   @Test
   @DisplayName("Should return value if type matches")

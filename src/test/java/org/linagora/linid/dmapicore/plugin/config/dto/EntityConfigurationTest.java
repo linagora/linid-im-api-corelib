@@ -37,7 +37,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("Test class: EntityConfiguration")
-public class EntityConfigurationTest {
+class EntityConfigurationTest {
   @Test
   @DisplayName("Test name getter and setter")
   void testName() {

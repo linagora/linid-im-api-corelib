@@ -37,7 +37,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("Test class: ValidationConfiguration")
-public class ValidationConfigurationTest {
+class ValidationConfigurationTest {
 
   @Test
   @DisplayName("Test getType and setType")
