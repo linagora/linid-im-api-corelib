@@ -10,6 +10,7 @@ processing logic with no need for code changes.
 
 The configuration contains four main sections:
 
+- `authorization`: Defines how access control is enforced.
 - `providers`: External data sources or services.
 - `routes`: API or processing endpoints.
 - `tasks`: Reusable processing steps or background jobs.
@@ -25,11 +26,60 @@ tasks:
   - ...
 validations:
   - ...
+authorization:
+  ...
 entities:
   - ...
 ````
 
 📄 See a full example here: [example-config.yaml](example-config.yaml)
+
+---
+
+## 🔐 Authorization
+
+An **authorization** plugin defines how access control is applied across the API. It handles token validation and access
+checks for each action on entities or routes.
+
+### 🧩 Structure
+
+Each authorization configuration includes:
+
+* `type`: The plugin type (e.g., `jwt`, `custom`, etc.).
+
+  > ✅ Special values:
+  >
+  > * `deny-all`: Denies **all** access (default behavior if no plugin is configured).
+  > * `allow-all`: Grants **all** access without restriction (use with caution).
+
+* Custom plugin-specific options (e.g., `issuer`, `audience`, `rolesClaim`, etc.).
+
+### 🧪 Example
+
+```yaml
+authorization:
+  type: jwt
+  issuer: https://auth.example.com
+  audience: linid-api
+  rolesClaim: roles
+```
+
+Or to allow everything (no access control):
+
+```yaml
+authorization:
+  type: allow-all
+```
+
+Or to explicitly deny everything:
+
+```yaml
+authorization:
+  type: deny-all
+```
+
+> 📌 You can also define fine-grained authorization rules per entity or route (e.g., specify which roles can `read`,
+`update`, `delete`, etc.).
 
 ---
 

@@ -5,6 +5,7 @@ execution logic for the **Directory Manager** platform.
 
 It acts as the **foundation layer** for dynamically loading, wiring, and executing external plugins, including:
 
+* **Authorization** (e.g., RBack, Jwt, LDAP)
 * **Providers** (e.g., LDAP, REST, databases)
 * **Routes** (custom processing flows)
 * **Tasks** (phased executions on entities)
@@ -56,6 +57,12 @@ lifecycle**:
 ```text
 -> Load entity configuration
 -> Load associated ProviderPlugin
+-> Execute Tasks (phase: beforeTokenValidationAction)
+-> Validate token with AuthorizationPlugin
+-> Execute Tasks (phase: afterTokenValidationCreate)
+-> Execute Tasks (phase: beforePermissionValidationCreate)
+-> Validation authorization with AuthorizationPlugin
+-> Execute Tasks (phase: afterPermissionValidationCreate)
 -> Execute Tasks (phase: beforeValidationAction)
 -> Run validations using ValidationEngine
 -> Execute Tasks (phase: afterValidationAction)
@@ -76,6 +83,7 @@ every step of the process.
 To extend the platform, you can create your own plugins by implementing the proper interfaces.
 
 * [📄 How to create a plugin - The basics](docs/plugins/how-to-create-a-plugin.md)
+* [🛡️ How to Create an Authorization Plugin](./docs/plugins/create-authorization-plugin.md)
 * [🔌 How to Create a Provider Plugin](./docs/plugins/create-provider-plugin.md)
 * [🛣️ How to Create a Route Plugin](./docs/plugins/create-route-plugin.md)
 * [✅ How to Create a Validation Plugin](./docs/plugins/create-validation-plugin.md)
@@ -86,6 +94,7 @@ To extend the platform, you can create your own plugins by implementing the prop
 
 All plugins should implement one of the provided interfaces in the `org.linagora.linid.dmapicore.plugin` namespace:
 
+* `AuthorizationPlugin`
 * `ProviderPlugin`
 * `RoutePlugin`
 * `TaskPlugin`

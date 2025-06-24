@@ -115,4 +115,4 @@ throw new ApiException(
 
 ## 🔍 Related Topics
 
-* [Getting Started with Plugin Creation](./How-to-create-a-plugin.md)
+* [Getting Started with Plugin Creation](./how-to-create-a-plugin.md)

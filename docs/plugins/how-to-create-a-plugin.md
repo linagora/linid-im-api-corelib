@@ -85,6 +85,7 @@ You can retrieve translations in your plugin using the i18n service available in
 
 Once the project is set up, you can create different plugin types by implementing the appropriate interface:
 
+* [Creating an Authorization Plugin](./create-authorization-plugin.md)
 * [Creating a Provider Plugin](./create-provider-plugin.md)
 * [Creating a Task Plugin](./create-task-plugin.md)
 * [Creating a Route Plugin](./create-route-plugin.md)
@@ -110,6 +111,7 @@ The plugin will be discovered and loaded automatically at application startup.
 
 ## 🛠️ Next Steps
 
+* [Creating an Authorization Plugin](./create-authorization-plugin.md)
 * [Creating a Provider Plugin](./create-provider-plugin.md)
 * [Creating a Task Plugin](./create-task-plugin.md)
 * [Creating a Route Plugin](./create-route-plugin.md)

@@ -2,19 +2,26 @@ sequenceDiagram
     participant Client
     participant GenericController
     participant DynamicEntityService
-    participant TaskExecutor
+    participant TaskEngine
+    participant AuthorizationPlugin
     participant ValidationEngine
     participant ProviderPlugin
     Client ->> GenericController: POST /api/<entity>
     GenericController ->> DynamicEntityService: handleCreate()
     DynamicEntityService ->> DynamicEntityService: Load entity config + plugin
-    DynamicEntityService ->> TaskExecutor: BeforeValidationCreate
+    DynamicEntityService ->> TaskEngine: beforeTokenValidationCreate
+    DynamicEntityService ->> AuthorizationPlugin: validateToken(...)
+    DynamicEntityService ->> TaskEngine: AfterTokenValidationCreate
+    DynamicEntityService ->> TaskEngine: beforePermissionValidationCreate
+    DynamicEntityService ->> AuthorizationPlugin: isAuthorized(...)
+    DynamicEntityService ->> TaskEngine: afterPermissionValidationCreate
+    DynamicEntityService ->> TaskEngine: BeforeValidationCreate
     DynamicEntityService ->> ValidationEngine: validate(entity, beforeCreate)
     ValidationEngine -->> DynamicEntityService: validation result
-    DynamicEntityService ->> TaskExecutor: AfterValidationCreate
-    DynamicEntityService ->> TaskExecutor: BeforeCreate
+    DynamicEntityService ->> TaskEngine: AfterValidationCreate
+    DynamicEntityService ->> TaskEngine: BeforeCreate
     DynamicEntityService ->> ProviderPlugin: create(entity)
     ProviderPlugin -->> DynamicEntityService: created entity
-    DynamicEntityService ->> TaskExecutor: AfterCreate
+    DynamicEntityService ->> TaskEngine: AfterCreate
     DynamicEntityService -->> GenericController: return result
     GenericController -->> Client: HTTP 201 Created

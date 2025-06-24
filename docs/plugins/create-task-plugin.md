@@ -21,22 +21,22 @@ import org.springframework.lang.NonNull;
 
 public class LdapTaskPlugin implements TaskPlugin {
 
-    @Override
-    public boolean supports(@NonNull String type) {
-        return "ldap".equals(type);
-    }
+  @Override
+  public boolean supports(@NonNull String type) {
+    return "ldap".equals(type);
+  }
 
-    @Override
-    public void execute(DynamicEntity entity, TaskExecutionContext context) {
-        // Access values from the context
-        String phase = context.get("DATA", String.class);
-        System.out.println("Executing LDAP task for data: " + data);
+  @Override
+  public void execute(DynamicEntity entity, TaskExecutionContext context) {
+    // Access values from the context
+    String phase = context.get("DATA", String.class);
+    System.out.println("Executing LDAP task for data: " + data);
 
-        // Optionally modify the entity
-        entity.getAttributes().put("ldapHandled", true);
-        // Or distribute new context
-        context.put("ldapInformation", "test");
-    }
+    // Optionally modify the entity
+    entity.getAttributes().put("ldapHandled", true);
+    // Or distribute new context
+    context.put("ldapInformation", "test");
+  }
 }
 ```
 
@@ -87,4 +87,4 @@ Once your task plugin is implemented:
 
 ## 🔍 Related Topics
 
-* [Getting Started with Plugin Creation](./How-to-create-a-plugin.md)
+* [Getting Started with Plugin Creation](./how-to-create-a-plugin.md)

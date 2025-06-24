@@ -21,24 +21,24 @@ import java.util.Optional;
 @Component
 public class NotNullValidationPlugin implements ValidationPlugin {
 
-    @Override
-    public boolean supports(String type) {
-        return "not-null".equals(type);
+  @Override
+  public boolean supports(String type) {
+    return "not-null".equals(type);
+  }
+
+  @Override
+  public Optional<I18nMessage> validate(ValidationConfiguration configuration, Object value) {
+    boolean checkEmpty = this.getOption(configuration, "check-empty", boolean.class).orElse(false);
+    if (value == null) {
+      return Optional.of(I18nMessage.of("error.plugin.notnull.invalid"));
     }
 
-    @Override
-    public Optional<I18nMessage> validate(ValidationConfiguration configuration, Object value) {
-        boolean checkEmpty = this.getOption(configuration, "check-empty", boolean.class).orElse(false);
-        if (value == null) {
-            return Optional.of(I18nMessage.of("error.plugin.notnull.invalid"));
-        }
-
-        if (checkEmpty && value.toString().isEmpty()) {
-            return Optional.of(I18nMessage.of("error.plugin.notnull.empty"));
-        }
-
-        return Optional.empty();
+    if (checkEmpty && value.toString().isEmpty()) {
+      return Optional.of(I18nMessage.of("error.plugin.notnull.empty"));
     }
+
+    return Optional.empty();
+  }
 }
 ```
 
@@ -77,7 +77,7 @@ Add this to your `src/main/resources/i18n/en.json` file. Remember to prefix all 
 
 ## 🔍 Related Topics
 
-* [Getting Started with Plugin Creation](./How-to-create-a-plugin.md)
+* [Getting Started with Plugin Creation](./how-to-create-a-plugin.md)
 
 ---
 

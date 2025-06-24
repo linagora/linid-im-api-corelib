@@ -60,7 +60,8 @@ public class LdapProviderPlugin implements ProviderPlugin {
   }
 
   @Override
-  public Page<DynamicEntity> findAll(ProviderConfiguration configuration, MultiValueMap<String, String> filters, Pageable pageable) {
+  public Page<DynamicEntity> findAll(ProviderConfiguration configuration, MultiValueMap<String, String> filters,
+                                     Pageable pageable) {
     return Page.empty();
   }
 }
@@ -139,4 +140,4 @@ at runtime.
 
 ## 🔍 Related Topics
 
-* [Getting Started with Plugin Creation](./How-to-create-a-plugin.md)
+* [Getting Started with Plugin Creation](./how-to-create-a-plugin.md)

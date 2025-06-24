@@ -14,7 +14,9 @@ flowchart TD
         Core --> EntityService[DynamicEntityService]
         Core --> RoutingService[DynamicRoutingService]
         Core --> Validation[ValidationEngine]
-        Core --> Tasks[TaskExecutor]
+        Core --> Tasks[TaskEngine]
+        Core --> Provider[ProviderFactory]
+        Core --> Authorization[AuthorizationFactory]
     end
 
     subgraph Plugins [Dynamic Plugins]
