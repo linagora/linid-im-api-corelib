@@ -26,75 +26,84 @@
 
 package org.linagora.linid.dmapicore.plugin.entity;
 
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Service interface responsible for handling CRUD operations on dynamic entities.
+ * Service interface for performing CRUD operations on dynamically defined entities.
  *
- * <p>This interface abstracts operations over entities whose structure is defined dynamically at
- * runtime based on route and external configuration.
+ * <p>Entities are defined at runtime based on route-specific configuration. This interface abstracts
+ * the logic required to create, update, delete, and query such entities in a generic way, allowing the system to operate on
+ * flexible schemas without requiring static definitions.
  */
 public interface DynamicEntityService {
 
   /**
-   * Handles the creation of a dynamic entity for the given route.
+   * Creates a new dynamic entity for the specified route.
    *
-   * @param route the route name identifying the entity type
-   * @param body the entity data to create
-   * @return the created {@link DynamicEntity}
+   * @param request the HTTP request context
+   * @param entity the name of the dynamic entity type (defined by route)
+   * @param body the entity attributes to persist
+   * @return the newly created {@link DynamicEntity}
    */
-  DynamicEntity handleCreate(String route, Map<String, Object> body);
+  DynamicEntity handleCreate(HttpServletRequest request, String entity, Map<String, Object> body);
 
   /**
-   * Handles the full update (replace) of an existing dynamic entity by ID.
+   * Fully replaces an existing dynamic entity identified by its ID.
    *
-   * @param route the route name identifying the entity type
-   * @param id the identifier of the entity to update
-   * @param body the new data to replace the existing entity
+   * @param request the HTTP request context
+   * @param entity the name of the dynamic entity type
+   * @param id the unique identifier of the entity to update
+   * @param body the complete set of attributes to replace the entity with
    * @return the updated {@link DynamicEntity}
    */
-  DynamicEntity handleUpdate(String route, String id, Map<String, Object> body);
+  DynamicEntity handleUpdate(HttpServletRequest request, String entity, String id, Map<String, Object> body);
 
   /**
-   * Handles a partial update of an existing dynamic entity by ID.
+   * Partially updates an existing dynamic entity identified by its ID.
    *
-   * @param route the route name identifying the entity type
-   * @param id the identifier of the entity to patch
-   * @param body the partial data to apply
+   * @param request the HTTP request context
+   * @param entity the name of the dynamic entity type
+   * @param id the unique identifier of the entity to patch
+   * @param body a map of attributes to update
    * @return the patched {@link DynamicEntity}
    */
-  DynamicEntity handlePatch(String route, String id, Map<String, Object> body);
+  DynamicEntity handlePatch(HttpServletRequest request, String entity, String id, Map<String, Object> body);
 
   /**
-   * Handles the deletion of an existing dynamic entity by ID.
+   * Deletes an existing dynamic entity by its ID.
    *
-   * @param route the route name identifying the entity type
-   * @param id the identifier of the entity to delete
-   * @return {@code true} if the entity was successfully deleted, {@code false} otherwise
+   * @param request the HTTP request context
+   * @param entity the name of the dynamic entity type
+   * @param id the unique identifier of the entity to delete
+   * @return {@code true} if the entity was deleted, {@code false} if it was not found or could not be deleted
    */
-  boolean handleDelete(String route, String id);
+  boolean handleDelete(HttpServletRequest request, String entity, String id);
 
   /**
-   * Retrieves a dynamic entity by its ID for the given route.
+   * Retrieves a dynamic entity by its ID.
    *
-   * @param route the route name identifying the entity type
-   * @param id the identifier of the entity to retrieve
-   * @return the found {@link DynamicEntity}, or {@code null} if not found
+   * @param request the HTTP request context
+   * @param entity the name of the dynamic entity type
+   * @param id the unique identifier of the entity
+   * @return the matching {@link DynamicEntity}, or {@code null} if not found
    */
-  DynamicEntity handleFindById(String route, String id);
+  DynamicEntity handleFindById(HttpServletRequest request, String entity, String id);
 
   /**
-   * Retrieves a paginated list of dynamic entities for the given route, applying any filter and
-   * pagination parameters provided.
+   * Retrieves a paginated list of dynamic entities matching the provided filters.
    *
-   * @param route the route name identifying the entity type
-   * @param filters query parameters to filter results
-   * @param pageable the pagination and sorting information
-   * @return a {@link Page} of {@link DynamicEntity} instances
+   * @param request the HTTP request context
+   * @param entity the name of the dynamic entity type
+   * @param filters a map of query parameters used to filter the results
+   * @param pageable pagination and sorting options
+   * @return a {@link Page} of matching {@link DynamicEntity} instances
    */
-  Page<DynamicEntity> handleFindAll(
-      String route, MultiValueMap<String, String> filters, Pageable pageable);
+  Page<DynamicEntity> handleFindAll(HttpServletRequest request,
+                                    String entity,
+                                    MultiValueMap<String, String> filters,
+                                    Pageable pageable);
 }

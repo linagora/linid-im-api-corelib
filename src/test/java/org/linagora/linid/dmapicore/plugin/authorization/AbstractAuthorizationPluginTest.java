@@ -24,69 +24,69 @@
  * LinID Directory Manager software.
  */
 
-package org.linagora.linid.dmapicore.plugin.config.dto;
+package org.linagora.linid.dmapicore.plugin.authorization;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.linagora.linid.dmapicore.plugin.config.dto.AuthorizationConfiguration;
+import org.linagora.linid.dmapicore.plugin.config.dto.RootConfiguration;
+import org.linagora.linid.dmapicore.plugin.entity.DynamicEntity;
+import org.linagora.linid.dmapicore.plugin.task.TaskExecutionContext;
+import org.springframework.lang.NonNull;
+import org.springframework.util.MultiValueMap;
 
-@DisplayName("Test class: RootConfiguration")
-class RootConfigurationTest {
-
+@DisplayName("Test class: AbstractAuthorizationPlugin")
+class AbstractAuthorizationPluginTest {
   @Test
-  @DisplayName("Test getters and setters for entities")
-  void testEntities() {
-    RootConfiguration config = new RootConfiguration();
-    List<EntityConfiguration> entities = new ArrayList<>();
-    config.setEntities(entities);
-    assertSame(entities, config.getEntities());
+  @DisplayName("Test setConfiguration and getConfiguration")
+  void testSetAndGetConfiguration() {
+    var plugin = new TestAuthorizationPlugin();
+    var config = new AuthorizationConfiguration();
+    config.setType("testAuthorization");
+
+    plugin.setConfiguration(config);
+
+    AuthorizationConfiguration retrievedConfig = plugin.getConfiguration();
+
+    assertNotNull(retrievedConfig);
+    assertEquals("testAuthorization", retrievedConfig.getType());
   }
 
-  @Test
-  @DisplayName("Test getters and setters for providers")
-  void testProviders() {
-    RootConfiguration config = new RootConfiguration();
-    List<ProviderConfiguration> providers = new ArrayList<>();
-    config.setProviders(providers);
-    assertSame(providers, config.getProviders());
-  }
+  private static class TestAuthorizationPlugin extends AbstractAuthorizationPlugin {
+    @Override
+    public boolean supports(@NonNull String s) {
+      return false;
+    }
 
-  @Test
-  @DisplayName("Test getters and setters for authorization")
-  void testAuthorization() {
-    RootConfiguration config = new RootConfiguration();
-    var authorization = new AuthorizationConfiguration();
-    config.setAuthorization(authorization);
-    assertSame(authorization, config.getAuthorization());
-  }
+    @Override
+    public void updateConfiguration(RootConfiguration configuration) {
 
-  @Test
-  @DisplayName("Test getters and setters for routes")
-  void testRoutes() {
-    RootConfiguration config = new RootConfiguration();
-    List<RouteConfiguration> routes = new ArrayList<>();
-    config.setRoutes(routes);
-    assertSame(routes, config.getRoutes());
-  }
+    }
 
-  @Test
-  @DisplayName("Test getters and setters for tasks")
-  void testTasks() {
-    RootConfiguration config = new RootConfiguration();
-    List<TaskConfiguration> tasks = new ArrayList<>();
-    config.setTasks(tasks);
-    assertSame(tasks, config.getTasks());
-  }
+    @Override
+    public void validateToken(HttpServletRequest request, TaskExecutionContext context) {
 
-  @Test
-  @DisplayName("Test getters and setters for validations")
-  void testValidations() {
-    RootConfiguration config = new RootConfiguration();
-    List<ValidationConfiguration> validations = new ArrayList<>();
-    config.setValidations(validations);
-    assertSame(validations, config.getValidations());
+    }
+
+    @Override
+    public void isAuthorized(HttpServletRequest request, DynamicEntity entity, String action, TaskExecutionContext context) {
+
+    }
+
+    @Override
+    public void isAuthorized(HttpServletRequest request, DynamicEntity entity, String id, String action,
+                             TaskExecutionContext context) {
+
+    }
+
+    @Override
+    public void isAuthorized(HttpServletRequest request, DynamicEntity entity, MultiValueMap<String, String> filters,
+                             String action, TaskExecutionContext context) {
+
+    }
   }
 }

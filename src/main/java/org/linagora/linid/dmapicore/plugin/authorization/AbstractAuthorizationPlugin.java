@@ -24,35 +24,50 @@
  * LinID Directory Manager software.
  */
 
-/**
- * Module declaration for org.linagora.linid.
- *
- * <p>This module exports packages related to Directory Manager API Core plugin system, including
- * configuration, providers, routing, tasks, validation, and entities.
- *
- * <p>It requires various Spring and Jackson modules as dependencies.
- */
-module org.linagora.linid {
-  exports org.linagora.linid.dmapicore.exception;
-  exports org.linagora.linid.dmapicore.i18n;
-  exports org.linagora.linid.dmapicore.plugin.authorization;
-  exports org.linagora.linid.dmapicore.plugin.config;
-  exports org.linagora.linid.dmapicore.plugin.config.dto;
-  exports org.linagora.linid.dmapicore.plugin.provider;
-  exports org.linagora.linid.dmapicore.plugin.route;
-  exports org.linagora.linid.dmapicore.plugin.task;
-  exports org.linagora.linid.dmapicore.plugin.validation;
-  exports org.linagora.linid.dmapicore.plugin.entity;
+package org.linagora.linid.dmapicore.plugin.authorization;
 
-  requires spring.plugin.core;
-  requires com.fasterxml.jackson.annotation;
-  requires spring.data.commons;
-  requires java.net.http;
-  requires spring.web;
-  requires org.apache.tomcat.embed.core;
-  requires spring.core;
-  requires spring.context;
-  requires spring.beans;
-  requires com.fasterxml.jackson.databind;
-  requires com.fasterxml.jackson.dataformat.yaml;
+import org.linagora.linid.dmapicore.plugin.config.dto.AuthorizationConfiguration;
+
+/**
+ * Base class for implementing {@link AuthorizationPlugin} instances.
+ *
+ * <p>This abstract class provides a default implementation for handling the {@link AuthorizationConfiguration}
+ * lifecycle, including its storage and basic accessor methods. Subclasses are expected to implement the actual authorization
+ * logic (e.g., token validation, permission checks).
+ *
+ * <p>It serves as a convenience layer for plugin authors to avoid repeating boilerplate configuration code.
+ */
+public abstract class AbstractAuthorizationPlugin implements AuthorizationPlugin {
+
+  /**
+   * The authorization configuration instance used by this plugin.
+   */
+  private AuthorizationConfiguration configuration;
+
+  /**
+   * Default constructor.
+   */
+  public AbstractAuthorizationPlugin() {
+    super();
+  }
+
+  /**
+   * Returns the current {@link AuthorizationConfiguration} used by this plugin.
+   *
+   * @return the active configuration
+   */
+  @Override
+  public AuthorizationConfiguration getConfiguration() {
+    return configuration;
+  }
+
+  /**
+   * Sets the {@link AuthorizationConfiguration} for this plugin.
+   *
+   * @param configuration the configuration to apply
+   */
+  @Override
+  public void setConfiguration(final AuthorizationConfiguration configuration) {
+    this.configuration = configuration;
+  }
 }

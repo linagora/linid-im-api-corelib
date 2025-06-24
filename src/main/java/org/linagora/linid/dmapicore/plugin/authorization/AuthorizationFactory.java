@@ -24,35 +24,26 @@
  * LinID Directory Manager software.
  */
 
-/**
- * Module declaration for org.linagora.linid.
- *
- * <p>This module exports packages related to Directory Manager API Core plugin system, including
- * configuration, providers, routing, tasks, validation, and entities.
- *
- * <p>It requires various Spring and Jackson modules as dependencies.
- */
-module org.linagora.linid {
-  exports org.linagora.linid.dmapicore.exception;
-  exports org.linagora.linid.dmapicore.i18n;
-  exports org.linagora.linid.dmapicore.plugin.authorization;
-  exports org.linagora.linid.dmapicore.plugin.config;
-  exports org.linagora.linid.dmapicore.plugin.config.dto;
-  exports org.linagora.linid.dmapicore.plugin.provider;
-  exports org.linagora.linid.dmapicore.plugin.route;
-  exports org.linagora.linid.dmapicore.plugin.task;
-  exports org.linagora.linid.dmapicore.plugin.validation;
-  exports org.linagora.linid.dmapicore.plugin.entity;
+package org.linagora.linid.dmapicore.plugin.authorization;
 
-  requires spring.plugin.core;
-  requires com.fasterxml.jackson.annotation;
-  requires spring.data.commons;
-  requires java.net.http;
-  requires spring.web;
-  requires org.apache.tomcat.embed.core;
-  requires spring.core;
-  requires spring.context;
-  requires spring.beans;
-  requires com.fasterxml.jackson.databind;
-  requires com.fasterxml.jackson.dataformat.yaml;
+/**
+ * Factory interface for retrieving an {@link AuthorizationPlugin} instance.
+ *
+ * <p>This abstraction allows different authorization plugins to be injected dynamically
+ * depending on configuration or context.
+ *
+ * <p>By default, this factory should return a plugin that denies all operations
+ * (e.g., {@code DenyAllAuthorizationPlugin}) to enforce secure defaults when no plugin is explicitly configured.
+ */
+public interface AuthorizationFactory {
+
+  /**
+   * Returns the selected {@link AuthorizationPlugin} to be used by the system.
+   *
+   * <p>If no plugin is explicitly configured or matched, the factory should return
+   * a safe default such as a {@code DenyAllAuthorizationPlugin}, which blocks all operations.
+   *
+   * @return the resolved authorization plugin
+   */
+  AuthorizationPlugin getAuthorizationPlugin();
 }

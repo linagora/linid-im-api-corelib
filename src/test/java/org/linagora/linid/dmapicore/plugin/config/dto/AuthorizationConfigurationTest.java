@@ -26,67 +26,48 @@
 
 package org.linagora.linid.dmapicore.plugin.config.dto;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("Test class: RootConfiguration")
-class RootConfigurationTest {
-
+@DisplayName("Test class: AuthorizationConfiguration")
+public class AuthorizationConfigurationTest {
   @Test
-  @DisplayName("Test getters and setters for entities")
-  void testEntities() {
-    RootConfiguration config = new RootConfiguration();
-    List<EntityConfiguration> entities = new ArrayList<>();
-    config.setEntities(entities);
-    assertSame(entities, config.getEntities());
+  void testTypeGetterSetter() {
+    AuthorizationConfiguration config = new AuthorizationConfiguration();
+    assertNull(config.getType());
+
+    config.setType("ldap");
+    assertEquals("ldap", config.getType());
   }
 
   @Test
-  @DisplayName("Test getters and setters for providers")
-  void testProviders() {
-    RootConfiguration config = new RootConfiguration();
-    List<ProviderConfiguration> providers = new ArrayList<>();
-    config.setProviders(providers);
-    assertSame(providers, config.getProviders());
+  void testAddOptionAddsKeyValueExceptType() {
+    AuthorizationConfiguration config = new AuthorizationConfiguration();
+
+    config.addOption("foo", "bar");
+    config.addOption("number", 42);
+    config.addOption("type", "shouldBeIgnored");
+
+    assertEquals(2, config.getOptions().size());
+    assertEquals("bar", config.getOptions().get("foo"));
+    assertEquals(42, config.getOptions().get("number"));
+    assertFalse(config.getOptions().containsKey("type"));
   }
 
   @Test
-  @DisplayName("Test getters and setters for authorization")
-  void testAuthorization() {
-    RootConfiguration config = new RootConfiguration();
-    var authorization = new AuthorizationConfiguration();
-    config.setAuthorization(authorization);
-    assertSame(authorization, config.getAuthorization());
-  }
+  void testOptionsMapIsMutable() {
+    AuthorizationConfiguration config = new AuthorizationConfiguration();
+    config.addOption("key", "value");
 
-  @Test
-  @DisplayName("Test getters and setters for routes")
-  void testRoutes() {
-    RootConfiguration config = new RootConfiguration();
-    List<RouteConfiguration> routes = new ArrayList<>();
-    config.setRoutes(routes);
-    assertSame(routes, config.getRoutes());
-  }
+    assertTrue(config.getOptions().containsKey("key"));
 
-  @Test
-  @DisplayName("Test getters and setters for tasks")
-  void testTasks() {
-    RootConfiguration config = new RootConfiguration();
-    List<TaskConfiguration> tasks = new ArrayList<>();
-    config.setTasks(tasks);
-    assertSame(tasks, config.getTasks());
-  }
-
-  @Test
-  @DisplayName("Test getters and setters for validations")
-  void testValidations() {
-    RootConfiguration config = new RootConfiguration();
-    List<ValidationConfiguration> validations = new ArrayList<>();
-    config.setValidations(validations);
-    assertSame(validations, config.getValidations());
+    config.getOptions().put("newKey", 123);
+    assertEquals(2, config.getOptions().size());
+    assertEquals(123, config.getOptions().get("newKey"));
   }
 }

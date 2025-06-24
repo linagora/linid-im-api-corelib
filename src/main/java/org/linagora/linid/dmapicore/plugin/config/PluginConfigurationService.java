@@ -28,6 +28,7 @@ package org.linagora.linid.dmapicore.plugin.config;
 
 import java.util.List;
 import java.util.Optional;
+import org.linagora.linid.dmapicore.plugin.config.dto.AuthorizationConfiguration;
 import org.linagora.linid.dmapicore.plugin.config.dto.EntityConfiguration;
 import org.linagora.linid.dmapicore.plugin.config.dto.ProviderConfiguration;
 import org.linagora.linid.dmapicore.plugin.config.dto.RouteConfiguration;
@@ -107,4 +108,13 @@ public interface PluginConfigurationService {
    * @return an {@link Optional} containing the entity description if found, otherwise empty
    */
   Optional<EntityDescription> getEntityDescription(String name);
+
+  /**
+   * Retrieves the global authorization configuration used for access control across entities or attributes.
+   *
+   * <p>This configuration may define global access policies or plugin-specific authorization logic.
+   *
+   * @return an {@link Optional} containing the {@link AuthorizationConfiguration} if defined, otherwise empty
+   */
+  Optional<AuthorizationConfiguration> getAuthorizationConfiguration();
 }

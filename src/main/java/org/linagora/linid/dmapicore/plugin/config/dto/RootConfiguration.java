@@ -33,48 +33,52 @@ import java.util.List;
  * Represents the root configuration for the plugin system.
  *
  * <p>This configuration aggregates the main components of the system including entities, providers,
- * routes, and tasks. Each list corresponds to a specific type of configuration used by the plugin
- * framework.
+ * routes, and tasks. Each list corresponds to a specific type of configuration used by the plugin framework.
  */
 public class RootConfiguration {
 
   /**
-   * List of entity configurations. Each {@link EntityConfiguration} defines the structure and
-   * behavior of an entity.
+   * List of entity configurations. Each {@link EntityConfiguration} defines the structure and behavior of an entity.
    */
   @JsonProperty("entities")
   private List<EntityConfiguration> entities;
 
   /**
-   * List of provider configurations. Each {@link ProviderConfiguration} defines the settings for a
-   * data provider.
+   * List of provider configurations. Each {@link ProviderConfiguration} defines the settings for a data provider.
    */
   @JsonProperty("providers")
   private List<ProviderConfiguration> providers;
 
   /**
-   * List of route configurations. Each {@link RouteConfiguration} defines routing information for
-   * entities or services.
+   * List of route configurations. Each {@link RouteConfiguration} defines routing information for entities or services.
    */
   @JsonProperty("routes")
   private List<RouteConfiguration> routes;
 
   /**
-   * List of task configurations. Each {@link TaskConfiguration} defines background or scheduled
-   * tasks within the system.
+   * List of task configurations. Each {@link TaskConfiguration} defines background or scheduled tasks within the system.
    */
   @JsonProperty("tasks")
   private List<TaskConfiguration> tasks;
 
   /**
-   * List of validation configurations. Each {@link ValidationConfiguration} defines the settings for a
-   * validator.
+   * List of validation configurations. Each {@link ValidationConfiguration} defines the settings for a validator.
    */
   @JsonProperty("validations")
   private List<ValidationConfiguration> validations;
 
-  /** Default constructor. */
-  public RootConfiguration() {}
+  /**
+   * Authorization configuration that defines the rules or constraints used to determine access control on the entity or
+   * attribute.
+   */
+  @JsonProperty("authorization")
+  private AuthorizationConfiguration authorization;
+
+  /**
+   * Default constructor.
+   */
+  public RootConfiguration() {
+  }
 
   /**
    * Returns the list of entity configurations.
@@ -166,4 +170,25 @@ public class RootConfiguration {
     this.validations = validations;
   }
 
+  /**
+   * Returns the authorization configuration associated with this component.
+   *
+   * <p>This configuration typically defines access control rules via plugin-specific settings.
+   *
+   * @return the {@link AuthorizationConfiguration} used for access control
+   */
+  public AuthorizationConfiguration getAuthorization() {
+    return authorization;
+  }
+
+  /**
+   * Sets the authorization configuration for this component.
+   *
+   * <p>This method allows injecting plugin-defined access control logic.
+   *
+   * @param authorization the {@link AuthorizationConfiguration} to set
+   */
+  public void setAuthorization(AuthorizationConfiguration authorization) {
+    this.authorization = authorization;
+  }
 }

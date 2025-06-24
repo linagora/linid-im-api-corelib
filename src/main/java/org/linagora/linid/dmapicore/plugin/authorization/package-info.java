@@ -25,34 +25,13 @@
  */
 
 /**
- * Module declaration for org.linagora.linid.
+ * Provides classes and interfaces related to the authorization plugin system of LinID Directory Manager.
  *
- * <p>This module exports packages related to Directory Manager API Core plugin system, including
- * configuration, providers, routing, tasks, validation, and entities.
+ * <p>This package contains implementations and abstractions to manage access control, authorization
+ * policies, and integration with provider-specific security mechanisms within the dynamic plugin framework.
  *
- * <p>It requires various Spring and Jackson modules as dependencies.
+ * <p>It supports defining authorization configurations, enforcing permissions on entities and attributes,
+ * and allows flexible extension for custom authorization logic.
  */
-module org.linagora.linid {
-  exports org.linagora.linid.dmapicore.exception;
-  exports org.linagora.linid.dmapicore.i18n;
-  exports org.linagora.linid.dmapicore.plugin.authorization;
-  exports org.linagora.linid.dmapicore.plugin.config;
-  exports org.linagora.linid.dmapicore.plugin.config.dto;
-  exports org.linagora.linid.dmapicore.plugin.provider;
-  exports org.linagora.linid.dmapicore.plugin.route;
-  exports org.linagora.linid.dmapicore.plugin.task;
-  exports org.linagora.linid.dmapicore.plugin.validation;
-  exports org.linagora.linid.dmapicore.plugin.entity;
 
-  requires spring.plugin.core;
-  requires com.fasterxml.jackson.annotation;
-  requires spring.data.commons;
-  requires java.net.http;
-  requires spring.web;
-  requires org.apache.tomcat.embed.core;
-  requires spring.core;
-  requires spring.context;
-  requires spring.beans;
-  requires com.fasterxml.jackson.databind;
-  requires com.fasterxml.jackson.dataformat.yaml;
-}
+package org.linagora.linid.dmapicore.plugin.authorization;
