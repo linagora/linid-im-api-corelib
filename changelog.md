@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2025-06-24
+
+### Added
+
+- add metadata for routes and entities
+
+### Fixed
+
+- add missing doc for access and access property declaration
+- add missing method to retrieve configuration for validation plugin
+
 ## [0.1.0] - 2025-06-23
 
 ### Added
@@ -21,4 +32,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ensure correct branch is pushed during release
 
 
+[0.2.0]: https://oauth2@ci.linagora.com/linagora/lrs/LinID/linid-dm-v2/dm-api-core.git/compare/v0.1.0...v0.2.0
 [0.1.0]: https://oauth2@ci.linagora.com/linagora/lrs/LinID/linid-dm-v2/dm-api-core.git/releases/tag/v0.1.0
