@@ -82,13 +82,14 @@ every step of the process.
 
 To extend the platform, you can create your own plugins by implementing the proper interfaces.
 
+* [🗂️ Gitlab architecture](docs/gitlab-project-architecture.md)
 * [📄 How to create a plugin - The basics](docs/plugins/how-to-create-a-plugin.md)
 * [🛡️ How to Create an Authorization Plugin](./docs/plugins/create-authorization-plugin.md)
 * [🔌 How to Create a Provider Plugin](./docs/plugins/create-provider-plugin.md)
 * [🛣️ How to Create a Route Plugin](./docs/plugins/create-route-plugin.md)
 * [✅ How to Create a Validation Plugin](./docs/plugins/create-validation-plugin.md)
 * [⚙️ How to Create a Task Plugin](./docs/plugins/create-task-plugin.md)
-* [📖 Plugin Configuration Format](./docs/configuration-format.md)
+* [📖 Plugin Configuration Format](./docs/plugins/plugin-configuration.md)
 
 ## 📂 Plugin Interfaces
 

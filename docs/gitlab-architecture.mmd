@@ -1,0 +1,63 @@
+graph TD
+
+%% Group 1: Base Platform
+    subgraph Base Platform
+        core[dm-api-core]
+        api[dm-api]
+        template[template-dm-api-plugin]
+    end
+
+%% Group 2: Base Plugins
+    subgraph api-plugins["api-plugins/"]
+        pluginA[plugin-a]
+        pluginB[plugin-b]
+    end
+
+%% Group 3: Clients
+    subgraph clients["clients/"]
+        subgraph anah["anah/"]
+            pluginC[plugin-c]
+            config[config.yaml]
+
+            subgraph i18n1["i18n/"]
+                en1[en.json]
+                fr1[fr.json]
+            end
+        end
+    end
+
+%% Group 4: Production Runtime
+    subgraph Production Runtime
+        dmapiJar[dm-api.jar]
+
+        subgraph plugins["plugins/"]
+            pluginJarA[plugin-a.jar]
+            pluginJarB[plugin-b.jar]
+            pluginJarC[plugin-c.jar]
+        end
+
+        subgraph config["config/"]
+            configFile[config.yaml]
+        end
+
+        subgraph i18n/
+            en[en.json]
+            fr[fr.json]
+        end
+    end
+
+%% Links - Library injections
+    core -- " inject as library " --> api
+    core -- " inject as library " --> template
+%% Links - Forks from template
+    template -- " fork as upstream " --> pluginA
+    template -- " fork as upstream " --> pluginB
+    template -- " fork as upstream " --> pluginC
+%% Links - Build output
+    api -- " build " --> dmapiJar
+    pluginA -- " build " --> pluginJarA
+    pluginB -- " build " --> pluginJarB
+    pluginC -- " build " --> pluginJarC
+    config -- " copy " --> configFile
+    en1 -- " copy " --> en
+    fr1 -- " copy " --> fr
