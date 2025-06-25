@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.linagora.linid</groupId>
   <artifactId>dm-api-core</artifactId>
   <version>0.3.0</version>
   <name>Directory Manager API Core</name>
   <description>The central runtime module that provides plugin management, dynamic configuration loading, and
-        integration logic for the Directory Manager platform.</description>
+        integration logic for the Directory Manager platform.
+    </description>
   <licenses>
     <license>
       <name>GNU Affero General Public License v3.0</name>
@@ -30,6 +30,16 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spring-boot.version>3.5.0</spring-boot.version>
   </properties>
+  <distributionManagement>
+    <snapshotRepository>
+      <id>nexus</id>
+      <url>https://nexus-repository.linagora.com/repository/maven-snapshots/</url>
+    </snapshotRepository>
+    <repository>
+      <id>nexus</id>
+      <url>https://nexus-repository.linagora.com/repository/maven-releases/</url>
+    </repository>
+  </distributionManagement>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -162,7 +172,9 @@
           <configLocation>checkstyle/google-java-checkstyle.xml</configLocation>
           <headerLocation>checkstyle/java.header</headerLocation>
           <propertyExpansion>checkstyle.header.file=checkstyle/java.header</propertyExpansion>
-          <propertyExpansion>org.checkstyle.google.suppressionfilter.config=checkstyle/checkstyle-suppressions.xml</propertyExpansion>
+          <propertyExpansion>
+                        org.checkstyle.google.suppressionfilter.config=checkstyle/checkstyle-suppressions.xml
+                    </propertyExpansion>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
           <consoleOutput>true</consoleOutput>
           <failOnViolation>true</failOnViolation>

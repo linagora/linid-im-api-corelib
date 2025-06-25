@@ -160,7 +160,11 @@ release:
     - git pull -r
   script:
     - mvn io.github.zorin95670:semantic-version:0.2.0:release
+    - mvn clean deploy -s gitlab-settings.xml
     - git push origin main && git push origin --tags
+  variables:
+    NEXUS_USERNAME: $NEXUS_USERNAME
+    NEXUS_PASSWORD: $NEXUS_PASSWORD
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       when: always
