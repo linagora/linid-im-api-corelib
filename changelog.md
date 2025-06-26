@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - setup publishing to linagora nexus
 
+### Fixed
+
+- remove central publishing plugin for Nexus-only deployment
+
 ## [0.3.0] - 2025-06-25
 
 ### Added
