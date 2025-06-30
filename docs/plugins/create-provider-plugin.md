@@ -20,6 +20,7 @@ Create a new Java class in your plugin project:
 package org.linagora.linid.ldap;
 
 import org.linagora.linid.dmapicore.plugin.entity.DynamicEntity;
+import org.linagora.linid.dmapicore.plugin.task.TaskExecutionContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.NonNull;
@@ -35,33 +36,50 @@ public class LdapProviderPlugin implements ProviderPlugin {
   }
 
   @Override
-  public DynamicEntity create(ProviderConfiguration configuration, DynamicEntity dynamicEntity) {
+  public DynamicEntity create(TaskExecutionContext context,
+                              ProviderConfiguration configuration,
+                              DynamicEntity dynamicEntity) {
     return new DynamicEntity();
   }
 
   @Override
-  public DynamicEntity update(ProviderConfiguration configuration, String id, DynamicEntity dynamicEntity) {
+  public DynamicEntity update(TaskExecutionContext context,
+                              ProviderConfiguration configuration,
+                              String id,
+                              DynamicEntity dynamicEntity) {
     return new DynamicEntity();
   }
 
   @Override
-  public DynamicEntity patch(ProviderConfiguration configuration, String id, DynamicEntity dynamicEntity) {
+  public DynamicEntity patch(TaskExecutionContext context,
+                             ProviderConfiguration configuration,
+                             String id,
+                             DynamicEntity dynamicEntity) {
     return new DynamicEntity();
   }
 
   @Override
-  public boolean delete(ProviderConfiguration configuration, String id) {
+  public boolean delete(TaskExecutionContext context,
+                        ProviderConfiguration configuration,
+                        String id,
+                        DynamicEntity dynamicEntity) {
     return true;
   }
 
   @Override
-  public DynamicEntity findById(ProviderConfiguration configuration, String id) {
+  public DynamicEntity findById(TaskExecutionContext context,
+                                ProviderConfiguration configuration,
+                                String id,
+                                DynamicEntity dynamicEntity) {
     return new DynamicEntity();
   }
 
   @Override
-  public Page<DynamicEntity> findAll(ProviderConfiguration configuration, MultiValueMap<String, String> filters,
-                                     Pageable pageable) {
+  public Page<DynamicEntity> findAll(TaskExecutionContext context,
+                                     ProviderConfiguration configuration,
+                                     MultiValueMap<String, String> filters,
+                                     Pageable pageable,
+                                     DynamicEntity dynamicEntity) {
     return Page.empty();
   }
 }

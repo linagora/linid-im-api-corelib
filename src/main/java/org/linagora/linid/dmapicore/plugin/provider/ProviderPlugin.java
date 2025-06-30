@@ -28,6 +28,7 @@ package org.linagora.linid.dmapicore.plugin.provider;
 
 import org.linagora.linid.dmapicore.plugin.config.dto.ProviderConfiguration;
 import org.linagora.linid.dmapicore.plugin.entity.DynamicEntity;
+import org.linagora.linid.dmapicore.plugin.task.TaskExecutionContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.plugin.core.Plugin;
@@ -47,60 +48,90 @@ public interface ProviderPlugin extends Plugin<String> {
   /**
    * Creates a new dynamic entity.
    *
+   * @param context the execution context containing runtime metadata and variables
    * @param configuration the provider-specific configuration context
    * @param dynamicEntity the entity to create
    * @return the created dynamic entity, possibly enriched with generated data (e.g., ID)
    */
-  DynamicEntity create(ProviderConfiguration configuration, DynamicEntity dynamicEntity);
+  DynamicEntity create(
+      TaskExecutionContext context,
+      ProviderConfiguration configuration,
+      DynamicEntity dynamicEntity);
 
   /**
    * Updates an existing dynamic entity identified by the given ID.
    *
+   * @param context the execution context containing runtime metadata and variables
    * @param configuration the provider-specific configuration context
    * @param id the ID of the entity to update
    * @param dynamicEntity the entity data for update
    * @return the updated dynamic entity
    */
-  DynamicEntity update(ProviderConfiguration configuration, String id, DynamicEntity dynamicEntity);
+  DynamicEntity update(
+      TaskExecutionContext context,
+      ProviderConfiguration configuration,
+      String id,
+      DynamicEntity dynamicEntity);
 
   /**
    * Applies a partial update (patch) to an existing dynamic entity identified by the given ID.
    *
+   * @param context the execution context containing runtime metadata and variables
    * @param configuration the provider-specific configuration context
    * @param id the ID of the entity to patch
    * @param dynamicEntity the partial data to patch
    * @return the patched dynamic entity
    */
-  DynamicEntity patch(ProviderConfiguration configuration, String id, DynamicEntity dynamicEntity);
+  DynamicEntity patch(
+      TaskExecutionContext context,
+      ProviderConfiguration configuration,
+      String id,
+      DynamicEntity dynamicEntity);
 
   /**
    * Deletes the dynamic entity identified by the given ID.
    *
+   * @param context the execution context containing runtime metadata and variables
    * @param configuration the provider-specific configuration context
    * @param id the ID of the entity to delete
+   * @param dynamicEntity the entity from which to retrieve the configuration
    * @return {@code true} if the deletion was successful, {@code false} otherwise
    */
-  boolean delete(ProviderConfiguration configuration, String id);
+  boolean delete(
+      TaskExecutionContext context,
+      ProviderConfiguration configuration,
+      String id,
+      DynamicEntity dynamicEntity);
 
   /**
    * Finds a dynamic entity by its ID.
    *
+   * @param context the execution context containing runtime metadata and variables
    * @param configuration the provider-specific configuration context
    * @param id the ID of the entity to find
+   * @param dynamicEntity the entity from which to retrieve the configuration
    * @return the found dynamic entity, or {@code null} if none found
    */
-  DynamicEntity findById(ProviderConfiguration configuration, String id);
+  DynamicEntity findById(
+      TaskExecutionContext context,
+      ProviderConfiguration configuration,
+      String id,
+      DynamicEntity dynamicEntity);
 
   /**
    * Finds all dynamic entities matching the given filters and paginated by the pageable parameter.
    *
+   * @param context the execution context containing runtime metadata and variables
    * @param configuration the provider-specific configuration context
    * @param filters a map of filters to apply
    * @param pageable pagination information
+   * @param dynamicEntity the entity from which to retrieve the configuration
    * @return a page of dynamic entities matching the filters
    */
   Page<DynamicEntity> findAll(
+      TaskExecutionContext context,
       ProviderConfiguration configuration,
       MultiValueMap<String, String> filters,
-      Pageable pageable);
+      Pageable pageable,
+      DynamicEntity dynamicEntity);
 }
