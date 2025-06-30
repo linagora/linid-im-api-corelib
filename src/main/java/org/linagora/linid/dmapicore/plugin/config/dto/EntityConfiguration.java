@@ -27,6 +27,7 @@
 package org.linagora.linid.dmapicore.plugin.config.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,35 +37,55 @@ import java.util.Optional;
  * Configuration class representing an entity in the plugin system.
  *
  * <p>An entity is defined by its name, the provider it belongs to, an optional route name, a list
- * of attribute configurations, a list of task configurations, and additional provider-specific
- * access configuration.
+ * of attribute configurations, a list of task configurations, and additional provider-specific access configuration.
  */
 public class EntityConfiguration {
-  /** The unique name of the entity. */
+  /**
+   * The unique name of the entity.
+   */
   private String name;
 
-  /** The name of the provider associated with this entity. */
+  /**
+   * The name of the provider associated with this entity.
+   */
   private String provider;
 
-  /** The route name associated with this entity. If not set, it defaults to the entity's name. */
+  /**
+   * The route name associated with this entity. If not set, it defaults to the entity's name.
+   */
   private String route;
 
-  /** The list of attribute configurations for this entity. */
+  /**
+   * The list of attribute configurations for this entity.
+   */
   @JsonProperty("attributes")
   private List<AttributeConfiguration> attributes;
 
-  /** The list of task configurations for this entity. */
+  /**
+   * The list of task configurations for this entity.
+   */
   @JsonProperty("tasks")
   private List<TaskConfiguration> tasks;
 
   /**
-   * Additional provider-specific configuration properties to access or handle this entity beyond
-   * predefined fields.
+   * List of disabled routes for this entity.
+   *
+   * <p>This list allows disabling specific CRUD operations for an entity. For example: ["findAll", "patch"] will prevent the
+   * provider from executing these methods. Expected values include: "create", "update", "patch", "delete", "findById",
+   * "findAll".
+   */
+  private List<String> disabledRoutes = new ArrayList<>();
+
+  /**
+   * Additional provider-specific configuration properties to access or handle this entity beyond predefined fields.
    */
   private Map<String, Object> access = new HashMap<>();
 
-  /** Default constructor. */
-  public EntityConfiguration() {}
+  /**
+   * Default constructor.
+   */
+  public EntityConfiguration() {
+  }
 
   /**
    * Returns the unique name of the entity.
@@ -172,5 +193,23 @@ public class EntityConfiguration {
    */
   public void setAccess(final Map<String, Object> access) {
     this.access = access;
+  }
+
+  /**
+   * Returns the list of disabled routes for this entity.
+   *
+   * @return a list of route names that are disabled
+   */
+  public List<String> getDisabledRoutes() {
+    return disabledRoutes;
+  }
+
+  /**
+   * Sets the list of routes to be disabled for this entity.
+   *
+   * @param disabledRoutes list of route names to disable
+   */
+  public void setDisabledRoutes(List<String> disabledRoutes) {
+    this.disabledRoutes = disabledRoutes;
   }
 }

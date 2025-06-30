@@ -55,6 +55,15 @@ class EntityConfigurationTest {
   }
 
   @Test
+  @DisplayName("Test disabledRoutes getter and setter")
+  void testDisabledRoutes() {
+    EntityConfiguration entity = new EntityConfiguration();
+    assertNotNull(entity.getDisabledRoutes());
+    entity.setDisabledRoutes(List.of("test"));
+    assertEquals(List.of("test"), entity.getDisabledRoutes());
+  }
+
+  @Test
   @DisplayName("Test route getter and setter with explicit route")
   void testRouteWithExplicitRoute() {
     EntityConfiguration entity = new EntityConfiguration();

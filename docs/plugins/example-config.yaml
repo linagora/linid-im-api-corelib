@@ -35,6 +35,7 @@ entities:
   - name: user
     route: users
     provider: LDAP1
+    disabledRoutes: [ "delete" ]
     access:
       baseDn: "ou=users,dc=example,dc=com"
       filter: "(objectClass=person)"

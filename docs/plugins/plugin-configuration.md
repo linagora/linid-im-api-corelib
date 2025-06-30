@@ -176,6 +176,15 @@ An **entity** defines a managed object with:
 * `tasks`: List of tasks to run at specific lifecycle phases.
 * `attributes`: List of entity attributes with type and validations.
 * `access`: (Optional) A map of additional custom options used by the provider to access or resolve the entity.
+* `disabledRoutes`: (Optional) A list of standard CRUD operations to disable for this entity.
+  Use this to prevent execution of specific routes by the provider.  
+  Accepted values are:
+    - `create`
+    - `update`
+    - `patch`
+    - `delete`
+    - `findById`
+    - `findAll`
 
 ### Example
 
@@ -184,6 +193,7 @@ entities:
   - name: user
     provider: LDAP1
     route: users
+    disabledRoutes: [ "findById", "findAll" ]
     access:
       baseDn: "ou=users,dc=example,dc=com"
       filter: "(objectClass=person)"
