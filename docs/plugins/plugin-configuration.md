@@ -233,6 +233,7 @@ Each attribute supports:
 
 * `name`: Attribute name.
 * `type`: Attribute type (e.g., `UUID`, `String`, etc.).
+* `nullIfEmpty`: A boolean flag indicating whether empty strings should be treated as null values.
 * `required`: Boolean indicating whether the attribute is mandatory.
 * `input`: String specifying the front-end input type to use (e.g., "text", "select", "checkbox").
 * `inputSettings`: Map of settings for the input type, such as options, placeholders, or validation constraints.

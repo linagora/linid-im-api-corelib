@@ -31,7 +31,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Configuration class representing an attribute with its name, type, validations, and additional arbitrary access properties.
+ * Configuration class representing an attribute with its name, type, validations, and additional arbitrary access
+ * properties.
  *
  * <p>The {@code access} map collects any extra properties not explicitly mapped to fields, allowing
  * flexible extension of attribute configuration.
@@ -39,8 +40,8 @@ import java.util.Map;
 public class AttributeConfiguration {
 
   /**
-   * Map holding additional configuration properties used by providers to access or handle this attribute, beyond the predefined
-   * fields.
+   * Map holding additional configuration properties used by providers to access or handle this attribute, beyond the
+   * predefined fields.
    */
   private Map<String, Object> access = new HashMap<>();
 
@@ -53,6 +54,12 @@ public class AttributeConfiguration {
    * The type of the attribute (e.g., "string", "integer").
    */
   private String type;
+
+  /**
+   * If set to {@code true}, empty strings will be treated as {@code null}. This can be useful to distinguish between
+   * empty and absent values during processing.
+   */
+  private boolean nullIfEmpty;
 
   /**
    * List of validation configurations associated with this attribute.
@@ -139,8 +146,8 @@ public class AttributeConfiguration {
   }
 
   /**
-   * Returns the map of additional configuration properties used by providers to access or process this attribute, beyond the
-   * predefined fields.
+   * Returns the map of additional configuration properties used by providers to access or process this attribute,
+   * beyond the predefined fields.
    *
    * <p>This map contains supplementary provider-specific settings deserialized from JSON and stored
    * in the {@code access} field.
@@ -155,8 +162,8 @@ public class AttributeConfiguration {
    * Sets the map of additional provider-specific configuration properties used to access or handle this attribute.
    *
    * <p>This map contains arbitrary key-value pairs defined under the {@code access}
-   * section in the configuration, and can be used by plugin providers to pass custom settings for the attribute (e.g., database
-   * column mappings, LDAP field names, etc.).
+   * section in the configuration, and can be used by plugin providers to pass custom settings for the attribute (e.g.,
+   * database column mappings, LDAP field names, etc.).
    *
    * @param access the map of additional access properties to associate with this attribute
    */
@@ -168,8 +175,8 @@ public class AttributeConfiguration {
    * Indicates whether the attribute is required.
    *
    * <p>
-   * This flag determines if a value must be provided for the attribute. It can be used by front-end clients or validation logic
-   * to enforce mandatory fields.
+   * This flag determines if a value must be provided for the attribute. It can be used by front-end clients or
+   * validation logic to enforce mandatory fields.
    *
    * @return {@code true} if the attribute is required; {@code false} otherwise
    */
@@ -220,5 +227,23 @@ public class AttributeConfiguration {
    */
   public void setInputSettings(Map<String, Object> inputSettings) {
     this.inputSettings = inputSettings;
+  }
+
+  /**
+   * Returns whether empty strings are treated as {@code null}.
+   *
+   * @return {@code true} if empty strings should be considered {@code null}, {@code false} otherwise
+   */
+  public boolean isNullIfEmpty() {
+    return nullIfEmpty;
+  }
+
+  /**
+   * Sets whether empty strings should be treated as {@code null}.
+   *
+   * @param nullIfEmpty {@code true} to treat empty strings as {@code null}, {@code false} otherwise
+   */
+  public void setNullIfEmpty(boolean nullIfEmpty) {
+    this.nullIfEmpty = nullIfEmpty;
   }
 }

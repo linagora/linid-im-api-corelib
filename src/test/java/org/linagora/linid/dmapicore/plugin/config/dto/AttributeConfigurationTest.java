@@ -27,6 +27,7 @@
 package org.linagora.linid.dmapicore.plugin.config.dto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -90,6 +91,16 @@ class AttributeConfigurationTest {
     attr.setInput("text");
 
     assertEquals("text", attr.getInput());
+  }
+
+  @Test
+  @DisplayName("Test nullIfEmpty getter and setter")
+  void testNullIfEmpty() {
+    AttributeConfiguration attr = new AttributeConfiguration();
+    assertFalse(attr.isNullIfEmpty());
+
+    attr.setNullIfEmpty(true);
+    assertTrue(attr.isNullIfEmpty());
   }
 
   @Test
