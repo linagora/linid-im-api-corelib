@@ -97,6 +97,59 @@ extensibility.
 
 ---
 
+## 🔄 Converting Entities for Custom Endpoint Responses and Usage in Route Plugins
+
+When implementing a new custom route that returns entities in the HTTP response, you need to convert your internal
+`DynamicEntity` objects into a format suitable for serialization, typically a `Map<String, Object>`.
+
+To achieve this, you can use the `DynamicEntityMapper` interface:
+
+```java
+public interface DynamicEntityMapper extends Function<DynamicEntity, Map<String, Object>> {
+}
+```
+
+This mapper converts a `DynamicEntity` into a `Map<String, Object>`, handling attribute mapping, renaming, type
+conversion, and other transformations based on the plugin configuration.
+
+### How to use `DynamicEntityMapper` in your Route Plugin
+
+1. **Inject the mapper** into your route plugin class:
+
+```java
+
+@Component
+public class LdapRoutePlugin extends AbstractRoutePlugin {
+
+  private final DynamicEntityMapper entityMapper;
+
+  @Autowired
+  public LdapRoutePlugin(DynamicEntityMapper entityMapper /*, other dependencies */) {
+    this.entityMapper = entityMapper;
+  }
+
+  // ...
+}
+```
+
+2. **Use the mapper when building the response** inside your `execute` method:
+
+```java
+
+@Override
+public ResponseEntity<?> execute(HttpServletRequest request) {
+  DynamicEntity entity = // retrieve or build your entity
+  Map<String, Object> mappedEntity = entityMapper.apply(entity);
+
+  return ResponseEntity.ok(mappedEntity);
+}
+```
+
+By leveraging the `DynamicEntityMapper`, you ensure that entity attribute mappings are consistent with your
+configuration, reducing manual mapping code and potential errors.
+
+---
+
 ## 🔍 Related Topics
 
 * [Getting Started with Plugin Creation](./how-to-create-a-plugin.md)
