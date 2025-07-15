@@ -24,3 +24,12 @@
  * LinID Identity Manager software.
  */
 
+/**
+ * Contains data transfer objects (DTOs) representing the plugin configuration model.
+ *
+ * <p>These classes are used to deserialize and validate the structure of plugin-related
+ * configurations defined by the client (e.g., entities, providers, routes, tasks, validations).
+ *
+ * <p>They serve as the foundation for building and initializing dynamic plugin components.
+ */
+package io.github.linagora.linid.im.corelib.plugin.config.dto;

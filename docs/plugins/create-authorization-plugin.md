@@ -21,12 +21,10 @@ Create a new Java class in your plugin project:
 package io.github.linagora.linid.im.myplugin;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.linagora.linid.im.corelib.plugin.authorization.AbstractAuthorizationPlugin;
-import org.linagora.linid.im.corelib.plugin.authorization.AuthorizationPlugin;
-import org.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
-import org.linagora.linid.im.corelib.plugin.config.dto.RootConfiguration;
-import org.linagora.linid.im.corelib.plugin.entity.DynamicEntity;
-import org.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
+import authorization.plugin.io.github.linagora.linid.im.corelib.AbstractAuthorizationPlugin;
+import dto.config.plugin.io.github.linagora.linid.im.corelib.RootConfiguration;
+import entity.plugin.io.github.linagora.linid.im.corelib.DynamicEntity;
+import task.plugin.io.github.linagora.linid.im.corelib.TaskExecutionContext;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
@@ -34,38 +32,38 @@ import org.springframework.util.MultiValueMap;
 @Component
 public class ExampleAuthorizationPlugin extends AbstractAuthorizationPlugin {
 
-  @Override
-  public boolean supports(@NonNull String type) {
-    return "example-auth".equalsIgnoreCase(type);
-  }
+    @Override
+    public boolean supports(@NonNull String type) {
+        return "example-auth".equalsIgnoreCase(type);
+    }
 
-  @Override
-  public void updateConfiguration(RootConfiguration configuration) {
-    // Optional: add any additional entity or validation config if needed
-  }
+    @Override
+    public void updateConfiguration(RootConfiguration configuration) {
+        // Optional: add any additional entity or validation config if needed
+    }
 
-  @Override
-  public void validateToken(HttpServletRequest request, TaskExecutionContext context) {
-    // Implement token extraction and validation logic
-  }
+    @Override
+    public void validateToken(HttpServletRequest request, TaskExecutionContext context) {
+        // Implement token extraction and validation logic
+    }
 
-  @Override
-  public void isAuthorized(HttpServletRequest request, DynamicEntity entity, String action,
-                           TaskExecutionContext context) {
-    // Implement per-entity authorization logic
-  }
+    @Override
+    public void isAuthorized(HttpServletRequest request, DynamicEntity entity, String action,
+                             TaskExecutionContext context) {
+        // Implement per-entity authorization logic
+    }
 
-  @Override
-  public void isAuthorized(HttpServletRequest request, DynamicEntity entity, String id, String action,
-                           TaskExecutionContext context) {
-    // Implement per-record authorization logic
-  }
+    @Override
+    public void isAuthorized(HttpServletRequest request, DynamicEntity entity, String id, String action,
+                             TaskExecutionContext context) {
+        // Implement per-record authorization logic
+    }
 
-  @Override
-  public void isAuthorized(HttpServletRequest request, DynamicEntity entity, MultiValueMap<String, String> filters,
-                           String action, TaskExecutionContext context) {
-    // Implement filtered dataset authorization logic
-  }
+    @Override
+    public void isAuthorized(HttpServletRequest request, DynamicEntity entity, MultiValueMap<String, String> filters,
+                             String action, TaskExecutionContext context) {
+        // Implement filtered dataset authorization logic
+    }
 }
 ```
 

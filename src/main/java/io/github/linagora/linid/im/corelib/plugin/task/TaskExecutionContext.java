@@ -24,3 +24,38 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.task;
+
+import java.util.HashMap;
+
+/**
+ * A specialized HashMap for task execution context data.
+ *
+ * <p>Provides a type-safe getter method to retrieve values by key with the expected type. If the
+ * value associated with the key is not of the requested type, {@code null} is returned.
+ */
+public class TaskExecutionContext extends HashMap<String, Object> {
+
+  /** Default constructor. */
+  public TaskExecutionContext() {}
+
+  /**
+   * Retrieves the value associated with the given key and casts it to the specified type. If the
+   * value is not an instance of the specified type, returns {@code null}.
+   *
+   * @param <T> the expected type of the value
+   * @param key the key whose associated value is to be returned
+   * @param type the Class object corresponding to the expected type
+   * @return the value cast to type T if present and of the correct type, otherwise {@code null}
+   */
+  @SuppressWarnings("unchecked")
+  public <T> T get(final String key, final Class<T> type) {
+    Object value = this.get(key);
+
+    if (type.isInstance(value)) {
+      return (T) value;
+    }
+
+    return null;
+  }
+}

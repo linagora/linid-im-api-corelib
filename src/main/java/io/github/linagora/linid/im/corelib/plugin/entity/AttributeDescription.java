@@ -24,3 +24,26 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.entity;
+
+import java.util.Map;
+
+/**
+ * Describes a single attribute of an entity, including its type, input configuration, and whether it is required or validated.
+ *
+ * @param name the name of the attribute (e.g., "email", "age")
+ * @param type the backend type of the attribute (e.g., "string", "integer")
+ * @param required whether the attribute is required
+ * @param hasValidations whether the attribute has validation rules
+ * @param input the UI input type to be used on the front-end (e.g., "text", "select")
+ * @param inputSettings settings for the input (e.g., options, placeholder)
+ */
+public record AttributeDescription(
+    String name,
+    String type,
+    boolean required,
+    boolean hasValidations,
+    String input,
+    Map<String, Object> inputSettings
+) {
+}

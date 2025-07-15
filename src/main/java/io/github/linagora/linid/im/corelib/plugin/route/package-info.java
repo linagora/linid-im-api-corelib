@@ -24,3 +24,12 @@
  * LinID Identity Manager software.
  */
 
+/**
+ * Defines routing-related components and services within the plugin system.
+ *
+ * <p>This package manages dynamic routing logic, including route plugins and routing services that
+ * direct requests based on client-defined configurations.
+ *
+ * <p>It enables flexible and configurable request routing in the Identity Manager Core framework.
+ */
+package io.github.linagora.linid.im.corelib.plugin.route;

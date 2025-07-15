@@ -2,12 +2,12 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.linagora.linid</groupId>
-  <artifactId>dm-api-core</artifactId>
+  <groupId>io.github.linagora.linid.im</groupId>
+  <artifactId>linid-im-api-corelib</artifactId>
   <version>0.6.0</version>
-  <name>Directory Manager API Core</name>
+  <name>Identity Manager API Core Lib</name>
   <description>The central runtime module that provides plugin management, dynamic configuration loading, and
-        integration logic for the Directory Manager platform.</description>
+        integration logic for the Identity Manager platform.</description>
   <licenses>
     <license>
       <name>GNU Affero General Public License v3.0</name>
@@ -18,9 +18,9 @@
   </licenses>
   <developers>
     <developer>
-      <id>853</id>
+      <id>Zorin95670</id>
       <name>Vincent MOITTIE</name>
-      <email>vmoittie@linagora.com</email>
+      <email>moittie.vincent@gmail.com</email>
     </developer>
   </developers>
   <distributionManagement>
@@ -211,10 +211,10 @@
         </dependencies>
         <configuration>
           <targetClasses>
-            <param>org.linagora.linid.dmapicore.*</param>
+            <param>io.github.linagora.linid.im.corelib.*</param>
           </targetClasses>
           <targetTests>
-            <param>org.linagora.linid.dmapicore.*</param>
+            <param>io.github.linagora.linid.im.corelib.*</param>
           </targetTests>
           <mutators>
             <mutator>STRONGER</mutator>

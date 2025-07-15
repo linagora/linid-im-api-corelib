@@ -24,3 +24,12 @@
  * LinID Identity Manager software.
  */
 
+/**
+ * Provides components for dynamic validation within the plugin system.
+ *
+ * <p>This package defines the validation engine and plugin interfaces that execute client-defined
+ * validation rules on dynamic entities and attributes.
+ *
+ * <p>It enables flexible and extensible validation logic based on configuration.
+ */
+package io.github.linagora.linid.im.corelib.plugin.validation;

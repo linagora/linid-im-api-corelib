@@ -24,3 +24,24 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.task;
+
+import io.github.linagora.linid.im.corelib.plugin.entity.DynamicEntity;
+
+/**
+ * Interface defining a validation engine responsible for executing task during specific processing
+ * phases.
+ */
+public interface TaskEngine {
+
+  /**
+   * Executes the task plugin logic on the specified dynamic entity within the provided execution
+   * context.
+   *
+   * @param dynamicEntity the dynamic entity the task operates on
+   * @param context the task execution context containing contextual data and state
+   * @param phase the phase of processing during which validation is performed (e.g.,
+   *     "beforeCreate", "beforeUpdate")
+   */
+  void execute(DynamicEntity dynamicEntity, TaskExecutionContext context, String phase);
+}

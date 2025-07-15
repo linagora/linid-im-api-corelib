@@ -13,55 +13,55 @@ package io.github.linagora.linid.im.ldap;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
-import org.linagora.linid.im.corelib.plugin.config.PluginConfigurationService;
-import org.linagora.linid.im.corelib.plugin.provider.ProviderFactory;
-import org.linagora.linid.im.corelib.plugin.route.AbstractRoutePlugin;
-import org.linagora.linid.im.corelib.plugin.task.TaskEngine;
-import org.linagora.linid.im.corelib.plugin.validation.ValidationEngine;
+import config.plugin.io.github.linagora.linid.im.corelib.PluginConfigurationService;
+import provider.plugin.io.github.linagora.linid.im.corelib.ProviderFactory;
+import route.plugin.io.github.linagora.linid.im.corelib.AbstractRoutePlugin;
+import task.plugin.io.github.linagora.linid.im.corelib.TaskEngine;
+import validation.plugin.io.github.linagora.linid.im.corelib.ValidationEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 
 public class LdapRoutePlugin extends AbstractRoutePlugin {
 
-  private final ProviderFactory providerFactory;
-  private final PluginConfigurationService configurationService;
-  private final ValidationEngine validationEngine;
-  private final TaskEngine taskEngine;
+    private final ProviderFactory providerFactory;
+    private final PluginConfigurationService configurationService;
+    private final ValidationEngine validationEngine;
+    private final TaskEngine taskEngine;
 
-  @Autowired
-  public LdapRoutePlugin(final ProviderFactory providerFactory,
-                         final PluginConfigurationService configurationService,
-                         final ValidationEngine validationEngine,
-                         final TaskEngine taskEngine) {
-    super();
-    this.providerFactory = providerFactory;
-    this.configurationService = configurationService;
-    this.validationEngine = validationEngine;
-    this.taskEngine = taskEngine;
-  }
+    @Autowired
+    public LdapRoutePlugin(final ProviderFactory providerFactory,
+                           final PluginConfigurationService configurationService,
+                           final ValidationEngine validationEngine,
+                           final TaskEngine taskEngine) {
+        super();
+        this.providerFactory = providerFactory;
+        this.configurationService = configurationService;
+        this.validationEngine = validationEngine;
+        this.taskEngine = taskEngine;
+    }
 
-  @Override
-  public boolean supports(@NonNull String type) {
-    return true;
-  }
+    @Override
+    public boolean supports(@NonNull String type) {
+        return true;
+    }
 
-  @Override
-  public List<RouteDescription> getRoutes(List<EntityConfiguration> entities) {
-    // Return all routes managed by you plugins.
-    return List.of();
-  }
+    @Override
+    public List<RouteDescription> getRoutes(List<EntityConfiguration> entities) {
+        // Return all routes managed by you plugins.
+        return List.of();
+    }
 
-  @Override
-  public boolean match(String url, String method) {
-    return "GET".equals(method) && url.endsWith("/api/export");
-  }
+    @Override
+    public boolean match(String url, String method) {
+        return "GET".equals(method) && url.endsWith("/api/export");
+    }
 
-  @Override
-  public ResponseEntity<?> execute(HttpServletRequest request) {
-    // Your custom export logic here
-    return ResponseEntity.ok().build();
-  }
+    @Override
+    public ResponseEntity<?> execute(HttpServletRequest request) {
+        // Your custom export logic here
+        return ResponseEntity.ok().build();
+    }
 }
 ```
 

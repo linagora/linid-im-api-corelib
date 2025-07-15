@@ -24,3 +24,43 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.task;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+@DisplayName("Test class: TaskExecutionContext")
+class TaskExecutionContextTest {
+
+  @Test
+  @DisplayName("Should return value if type matches")
+  void testGetWithMatchingType() {
+    TaskExecutionContext context = new TaskExecutionContext();
+    context.put("key1", "value1");
+
+    String result = context.get("key1", String.class);
+    assertEquals("value1", result);
+  }
+
+  @Test
+  @DisplayName("Should return null if value type does not match")
+  void testGetWithNonMatchingType() {
+    TaskExecutionContext context = new TaskExecutionContext();
+    context.put("key1", "value1");
+
+    Integer result = context.get("key1", Integer.class);
+    assertNull(result);
+  }
+
+  @Test
+  @DisplayName("Should return null if key does not exist")
+  void testGetWithMissingKey() {
+    TaskExecutionContext context = new TaskExecutionContext();
+
+    Object result = context.get("missingKey", Object.class);
+    assertNull(result);
+  }
+}

@@ -24,3 +24,50 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.authorization;
+
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
+
+/**
+ * Base class for implementing {@link AuthorizationPlugin} instances.
+ *
+ * <p>This abstract class provides a default implementation for handling the {@link AuthorizationConfiguration}
+ * lifecycle, including its storage and basic accessor methods. Subclasses are expected to implement the actual authorization
+ * logic (e.g., token validation, permission checks).
+ *
+ * <p>It serves as a convenience layer for plugin authors to avoid repeating boilerplate configuration code.
+ */
+public abstract class AbstractAuthorizationPlugin implements AuthorizationPlugin {
+
+  /**
+   * The authorization configuration instance used by this plugin.
+   */
+  private AuthorizationConfiguration configuration;
+
+  /**
+   * Default constructor.
+   */
+  public AbstractAuthorizationPlugin() {
+    super();
+  }
+
+  /**
+   * Returns the current {@link AuthorizationConfiguration} used by this plugin.
+   *
+   * @return the active configuration
+   */
+  @Override
+  public AuthorizationConfiguration getConfiguration() {
+    return configuration;
+  }
+
+  /**
+   * Sets the {@link AuthorizationConfiguration} for this plugin.
+   *
+   * @param configuration the configuration to apply
+   */
+  @Override
+  public void setConfiguration(final AuthorizationConfiguration configuration) {
+    this.configuration = configuration;
+  }
+}

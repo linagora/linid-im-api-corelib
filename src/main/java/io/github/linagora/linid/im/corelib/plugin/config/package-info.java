@@ -24,3 +24,13 @@
  * LinID Identity Manager software.
  */
 
+/**
+ * Provides services and utilities for managing plugin configurations.
+ *
+ * <p>This package handles the loading, validation, and access to configuration objects that define
+ * the behavior and structure of dynamic plugins.
+ *
+ * <p>It acts as the central entry point for interpreting and applying client-defined plugin
+ * settings within the Identity manager Core runtime.
+ */
+package io.github.linagora.linid.im.corelib.plugin.config;

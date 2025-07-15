@@ -24,3 +24,14 @@
  * LinID Identity Manager software.
  */
 
+/**
+ * Provides classes and interfaces related to the authorization plugin system of LinID Identity Manager.
+ *
+ * <p>This package contains implementations and abstractions to manage access control, authorization
+ * policies, and integration with provider-specific security mechanisms within the dynamic plugin framework.
+ *
+ * <p>It supports defining authorization configurations, enforcing permissions on entities and attributes,
+ * and allows flexible extension for custom authorization logic.
+ */
+
+package io.github.linagora.linid.im.corelib.plugin.authorization;

@@ -24,3 +24,13 @@
  * LinID Identity Manager software.
  */
 
+/**
+ * Contains provider-related components and services for the plugin framework.
+ *
+ * <p>This package defines provider plugins, factories, and abstractions that manage data sourcing
+ * and integration with external systems as configured by clients.
+ *
+ * <p>It enables dynamic and extensible data provision within the Identity Manager Core plugin
+ * system.
+ */
+package io.github.linagora.linid.im.corelib.plugin.provider;

@@ -20,8 +20,8 @@ Create a new Java class in your plugin project:
 ```java
 package io.github.linagora.linid.im.ldap;
 
-import org.linagora.linid.im.corelib.plugin.entity.DynamicEntity;
-import org.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
+import entity.plugin.io.github.linagora.linid.im.corelib.DynamicEntity;
+import task.plugin.io.github.linagora.linid.im.corelib.TaskExecutionContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.NonNull;
@@ -31,58 +31,58 @@ import org.springframework.util.MultiValueMap;
 @Component
 public class LdapProviderPlugin implements ProviderPlugin {
 
-  @Override
-  public boolean supports(@NonNull String type) {
-    return "ldap".equals(type);
-  }
+    @Override
+    public boolean supports(@NonNull String type) {
+        return "ldap".equals(type);
+    }
 
-  @Override
-  public DynamicEntity create(TaskExecutionContext context,
-                              ProviderConfiguration configuration,
-                              DynamicEntity dynamicEntity) {
-    return new DynamicEntity();
-  }
+    @Override
+    public DynamicEntity create(TaskExecutionContext context,
+                                ProviderConfiguration configuration,
+                                DynamicEntity dynamicEntity) {
+        return new DynamicEntity();
+    }
 
-  @Override
-  public DynamicEntity update(TaskExecutionContext context,
-                              ProviderConfiguration configuration,
-                              String id,
-                              DynamicEntity dynamicEntity) {
-    return new DynamicEntity();
-  }
-
-  @Override
-  public DynamicEntity patch(TaskExecutionContext context,
-                             ProviderConfiguration configuration,
-                             String id,
-                             DynamicEntity dynamicEntity) {
-    return new DynamicEntity();
-  }
-
-  @Override
-  public boolean delete(TaskExecutionContext context,
-                        ProviderConfiguration configuration,
-                        String id,
-                        DynamicEntity dynamicEntity) {
-    return true;
-  }
-
-  @Override
-  public DynamicEntity findById(TaskExecutionContext context,
+    @Override
+    public DynamicEntity update(TaskExecutionContext context,
                                 ProviderConfiguration configuration,
                                 String id,
                                 DynamicEntity dynamicEntity) {
-    return new DynamicEntity();
-  }
+        return new DynamicEntity();
+    }
 
-  @Override
-  public Page<DynamicEntity> findAll(TaskExecutionContext context,
-                                     ProviderConfiguration configuration,
-                                     MultiValueMap<String, String> filters,
-                                     Pageable pageable,
-                                     DynamicEntity dynamicEntity) {
-    return Page.empty();
-  }
+    @Override
+    public DynamicEntity patch(TaskExecutionContext context,
+                               ProviderConfiguration configuration,
+                               String id,
+                               DynamicEntity dynamicEntity) {
+        return new DynamicEntity();
+    }
+
+    @Override
+    public boolean delete(TaskExecutionContext context,
+                          ProviderConfiguration configuration,
+                          String id,
+                          DynamicEntity dynamicEntity) {
+        return true;
+    }
+
+    @Override
+    public DynamicEntity findById(TaskExecutionContext context,
+                                  ProviderConfiguration configuration,
+                                  String id,
+                                  DynamicEntity dynamicEntity) {
+        return new DynamicEntity();
+    }
+
+    @Override
+    public Page<DynamicEntity> findAll(TaskExecutionContext context,
+                                       ProviderConfiguration configuration,
+                                       MultiValueMap<String, String> filters,
+                                       Pageable pageable,
+                                       DynamicEntity dynamicEntity) {
+        return Page.empty();
+    }
 }
 ```
 

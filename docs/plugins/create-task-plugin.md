@@ -14,29 +14,29 @@ Below is a basic example of a task plugin that supports the type `ldap`:
 ```java
 package io.github.linagora.linid.im.ldap;
 
-import org.linagora.linid.im.corelib.plugin.entity.DynamicEntity;
-import org.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
-import org.linagora.linid.im.corelib.plugin.task.TaskPlugin;
+import entity.plugin.io.github.linagora.linid.im.corelib.DynamicEntity;
+import task.plugin.io.github.linagora.linid.im.corelib.TaskExecutionContext;
+import task.plugin.io.github.linagora.linid.im.corelib.TaskPlugin;
 import org.springframework.lang.NonNull;
 
 public class LdapTaskPlugin implements TaskPlugin {
 
-  @Override
-  public boolean supports(@NonNull String type) {
-    return "ldap".equals(type);
-  }
+    @Override
+    public boolean supports(@NonNull String type) {
+        return "ldap".equals(type);
+    }
 
-  @Override
-  public void execute(DynamicEntity entity, TaskExecutionContext context) {
-    // Access values from the context
-    String phase = context.get("DATA", String.class);
-    System.out.println("Executing LDAP task for data: " + data);
+    @Override
+    public void execute(DynamicEntity entity, TaskExecutionContext context) {
+        // Access values from the context
+        String phase = context.get("DATA", String.class);
+        System.out.println("Executing LDAP task for data: " + data);
 
-    // Optionally modify the entity
-    entity.getAttributes().put("ldapHandled", true);
-    // Or distribute new context
-    context.put("ldapInformation", "test");
-  }
+        // Optionally modify the entity
+        entity.getAttributes().put("ldapHandled", true);
+        // Or distribute new context
+        context.put("ldapInformation", "test");
+    }
 }
 ```
 

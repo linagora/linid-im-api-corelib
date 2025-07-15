@@ -24,3 +24,26 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.validation;
+
+import io.github.linagora.linid.im.corelib.i18n.I18nMessage;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.ValidationConfiguration;
+import java.util.Optional;
+import org.springframework.plugin.core.Plugin;
+
+/**
+ * Interface representing a validation plugin that performs validation logic based on a given {@link
+ * ValidationConfiguration} and input value.
+ */
+public interface ValidationPlugin extends Plugin<String> {
+
+  /**
+   * Validates the provided value against the given validation configuration.
+   *
+   * @param configuration the validation configuration containing validation rules and options
+   * @param value the value to be validated
+   * @return an {@link Optional} containing an {@link I18nMessage} describing a validation error if
+   *     validation fails, or an empty {@link Optional} if validation passes
+   */
+  Optional<I18nMessage> validate(ValidationConfiguration configuration, Object value);
+}

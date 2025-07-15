@@ -24,3 +24,10 @@
  * LinID Identity Manager software.
  */
 
+/**
+ * Provides internationalization (i18n) support for the Identity Manager Core application.
+ *
+ * <p>This package contains services and utilities for managing localized messages, allowing dynamic
+ * message resolution based on language or locale preferences.
+ */
+package io.github.linagora.linid.im.corelib.i18n;

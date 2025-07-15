@@ -24,3 +24,54 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.config.dto;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Map;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+@DisplayName("Test class: RouteConfiguration")
+class RouteConfigurationTest {
+
+  @Test
+  @DisplayName("Test setName and getName")
+  void testName() {
+    RouteConfiguration route = new RouteConfiguration();
+    route.setName("customRoute");
+    assertEquals(
+        "customRoute", route.getName(), "The route name should be correctly set and retrieved");
+  }
+
+  @Test
+  @DisplayName("Test addOption should add key-value pairs except for key 'name'")
+  void testAddOption() {
+    RouteConfiguration route = new RouteConfiguration();
+    route.addOption("timeout", 5000);
+    route.addOption("secure", true);
+    route.addOption("name", "shouldNotBeAdded");
+
+    Map<String, Object> options = route.getOptions();
+
+    assertEquals(2, options.size(), "Only two options should be stored");
+    assertEquals(5000, options.get("timeout"));
+    assertEquals(true, options.get("secure"));
+    assertFalse(options.containsKey("name"), "Key 'name' should be ignored");
+  }
+
+  @Test
+  @DisplayName("Test getOptions returns current options map")
+  void testGetOptions() {
+    RouteConfiguration route = new RouteConfiguration();
+    assertNotNull(route.getOptions(), "Options map should not be null by default");
+    assertTrue(route.getOptions().isEmpty(), "Options map should be empty initially");
+
+    route.addOption("retries", 3);
+    assertEquals(1, route.getOptions().size());
+    assertEquals(3, route.getOptions().get("retries"));
+  }
+}

@@ -24,3 +24,27 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.route;
+
+import java.util.List;
+import org.springframework.lang.NonNull;
+
+/**
+ * Represents a REST route exposed by the application.
+ *
+ * <p>
+ * Includes the HTTP method, the route path, and any path variables. Typically used for route introspection or documentation
+ * purposes.
+ *
+ * @param method the HTTP method (e.g., GET, POST, PUT, DELETE)
+ * @param path the full route path (e.g., "/entities/{entity}")
+ * @param entity the name of the entity this route is related to; may be {@code null} for generic routes
+ * @param variables the list of path variable names used in the route (e.g., ["entity"])
+ */
+public record RouteDescription(
+    String method,
+    String path,
+    String entity,
+    @NonNull List<String> variables
+) {
+}
