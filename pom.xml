@@ -38,7 +38,13 @@
     <java.version>21</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <spring-boot.version>3.5.0</spring-boot.version>
+    <spring-boot.version>3.5.3</spring-boot.version>
+    <sonar.projectKey>linagora_linid-im-api-corelib</sonar.projectKey>
+    <sonar.organization>linagora-sonarcube-255</sonar.organization>
+    <sonar.projectName>linid-im-api-corelib</sonar.projectName>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+    <sonar.java.checkstyle.reportPaths>target/checkstyle-result.xml</sonar.java.checkstyle.reportPaths>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -225,6 +231,11 @@
             <param>XML</param>
           </outputFormats>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>5.0.0.4389</version>
       </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
