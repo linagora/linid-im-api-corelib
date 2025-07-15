@@ -1,28 +1,60 @@
-# Getting Started: Creating a Plugin for Directory Manager API
+# Getting Started: Creating a Plugin for Identity Manager API
 
-This guide explains how to create a plugin for the **Directory Manager API** platform, using the provided template and
+This guide explains how to create a plugin for the **Identity Manager API** platform, using the provided template and
 following conventions for packaging, translation, and integration.
 
 ---
 
-## 🚀 1. Clone the Plugin Template Repository
+## 🧩 1. Plugin Development Workflow
 
-To begin, you can use the official plugin template as a starting point:
+You can create two types of plugins for `linid-im-api`:
 
-```bash
-git clone https://ci.linagora.com/linagora/lrs/LinID/linid-dm-v2/template-dm-api-plugin.git my-plugin
-cd my-plugin
-```
+---
 
-Then, configure your Git remotes:
+### ✅ Creating an Official Plugin (Maintained in `linid-im-api-community-plugins`)
 
-```bash
-git remote rename origin upstream
+To contribute an official plugin:
 
-git remote add origin <your-git-repository-url>
-```
+1. Clone the `linid-im-api-community-plugins` repository.
+2. Create a new folder at the root of the project, using `template-plugin` as a reference:
 
-Replace `<your-git-repository-url>` with the URL of your own Git repository.
+    * Copy the entire `template-plugin` directory.
+    * Rename it with the appropriate plugin name.
+3. Customize the code to implement the desired functionality.
+4. Submit a **merge request** to propose the new plugin.
+
+> These plugins are considered official and publicly maintained by the LINID team or trusted contributors.
+
+---
+
+### 🔁 Creating a Custom Plugin (In Your Own Repository)
+
+To develop a private or public plugin outside the official repository:
+
+Start by creating a new repository (public or private) to host your plugin code.
+
+#### 📦 On GitHub
+
+1. Create a new repository using `linid-im-api-plugin-template` as the template.
+2. Customize the plugin to implement the required functionality.
+3. The plugin will be automatically loaded by `linid-im-api` through configuration or dynamic discovery.
+
+#### ☁️ On Another Git Hosting Platform (e.g., GitLab, Bitbucket)
+
+1. Create a new repository and add `linid-im-api-plugin-template` as an **upstream remote**:
+
+   ```bash
+   git remote add upstream https://github.com/linagora/linid-im-api-plugin-template.git
+   git fetch upstream
+   git merge upstream/main
+   ```
+
+2. Customize the plugin to implement the required functionality.
+
+3. The plugin will be automatically loaded by `linid-im-api` through configuration or dynamic discovery.
+
+> Clients are free to choose whether their plugin code is public or private, depending on their internal policies and requirements. Both options are fully supported.
+
 
 ---
 
@@ -43,10 +75,10 @@ my-plugin/
 
 ### 📄 `pom.xml`
 
-The template already includes a default `pom.xml` preconfigured for a **standard Directory Manager plugin**.
+The template already includes a default `pom.xml` preconfigured for a **standard Identity Manager plugin**.
 It declares:
 
-* Required dependencies, including `dm-api-core`
+* Required dependencies, including `linid-im-api-corelib`
 * Correct packaging type (`jar`)
 * Standard plugin metadata (`groupId`, `artifactId`, etc.)
 
@@ -103,7 +135,7 @@ After building the plugin with:
 mvn clean install
 ```
 
-You can place the generated `.jar` file into the `plugins/` folder of the `dm-api` runtime.
+You can place the generated `.jar` file into the `plugins/` folder of the `linid-im-api` runtime.
 
 The plugin will be discovered and loaded automatically at application startup.
 

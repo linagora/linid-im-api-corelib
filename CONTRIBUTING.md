@@ -94,7 +94,7 @@ npm install -g @mermaid-js/mermaid-cli
 Example command to generate a PNG from a Mermaid file:
 
 ```bash
-mmdc -i docs/X.mmd -o docs/X.png
+mmdc -i docs/X.mmd -o docs/X.svg
 ```
 
 💡 _Any modification to a Mermaid diagram **must include a manual regeneration** of its corresponding PNG image._

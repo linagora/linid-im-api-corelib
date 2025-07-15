@@ -1,6 +1,6 @@
-# Creating a Validation Plugin
+# Creating a Validation Plugin for Identity Manager API
 
-This guide explains how to create a **Validation Plugin** for the Directory Manager API platform. A validation plugin is
+This guide explains how to create a **Validation Plugin** for the Identity Manager API platform. A validation plugin is
 responsible for enforcing specific data validation rules defined in entity configurations.
 
 ---
@@ -8,12 +8,12 @@ responsible for enforcing specific data validation rules defined in entity confi
 ## 📦 Sample Plugin: NotNull Validator
 
 ```java
-package org.linagora.linid;
+package io.github.linagora.linid.im.notnull;
 
-import org.linagora.linid.dmapicore.exception.ApiException;
-import org.linagora.linid.dmapicore.i18n.I18nMessage;
-import org.linagora.linid.dmapicore.model.ValidationConfiguration;
-import org.linagora.linid.dmapicore.plugin.validation.ValidationPlugin;
+import io.github.linagora.linid.im.corelib.exception.ApiException;
+import io.github.linagora.linid.im.corelib.i18n.I18nMessage;
+import io.github.linagora.linid.im.corelib.model.ValidationConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.validation.ValidationPlugin;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;

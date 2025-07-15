@@ -1,6 +1,6 @@
-# Creating an Authorization Plugin for Directory Manager API
+# Creating an Authorization Plugin for Identity Manager API
 
-This guide walks you through the steps to create an **Authorization Plugin** using the `dm-api-core` library.
+This guide walks you through the steps to create an **Authorization Plugin** using the `linid-im-api-corelib` library.
 An authorization plugin is responsible for validating tokens and evaluating whether a request is allowed to access or
 modify certain resources based on the configured access control logic.
 
@@ -18,15 +18,15 @@ framework and implement basic token validation and permission checks.
 Create a new Java class in your plugin project:
 
 ```java
-package org.linagora.linid.auth;
+package io.github.linagora.linid.im.myplugin;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.linagora.linid.dmapicore.plugin.authorization.AbstractAuthorizationPlugin;
-import org.linagora.linid.dmapicore.plugin.authorization.AuthorizationPlugin;
-import org.linagora.linid.dmapicore.plugin.config.dto.AuthorizationConfiguration;
-import org.linagora.linid.dmapicore.plugin.config.dto.RootConfiguration;
-import org.linagora.linid.dmapicore.plugin.entity.DynamicEntity;
-import org.linagora.linid.dmapicore.plugin.task.TaskExecutionContext;
+import org.linagora.linid.im.corelib.plugin.authorization.AbstractAuthorizationPlugin;
+import org.linagora.linid.im.corelib.plugin.authorization.AuthorizationPlugin;
+import org.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
+import org.linagora.linid.im.corelib.plugin.config.dto.RootConfiguration;
+import org.linagora.linid.im.corelib.plugin.entity.DynamicEntity;
+import org.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
@@ -105,8 +105,8 @@ Ensure your `pom.xml` includes the necessary dependency:
 ```xml
 
 <dependency>
-    <groupId>org.linagora.linid</groupId>
-    <artifactId>dm-api-core</artifactId>
+    <groupId>io.github.linagora.linid.im</groupId>
+    <artifactId>linid-im-api-corelib</artifactId>
 </dependency>
 ```
 
@@ -188,7 +188,7 @@ Build your plugin:
 mvn clean install
 ```
 
-Copy the resulting `.jar` into the `plugins/` directory of your `dm-api` deployment.
+Copy the resulting `.jar` into the `plugins/` directory of your `linid-im-api` deployment.
 It will be loaded and discovered automatically at runtime.
 
 ---

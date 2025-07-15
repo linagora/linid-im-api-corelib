@@ -1,6 +1,6 @@
-# Creating a Task Plugin
+# Creating a Task Plugin for Identity Manager API
 
-This guide shows how to implement a **Task Plugin** for the Directory Manager API using `dm-api-core`.
+This guide shows how to implement a **Task Plugin** for the Identity Manager API using `linid-im-api-corelib`.
 
 Task plugins allow you to define logic that will be executed **before or after** specific entity lifecycle phases (e.g.,
 create, update, delete).
@@ -12,11 +12,11 @@ create, update, delete).
 Below is a basic example of a task plugin that supports the type `ldap`:
 
 ```java
-package org.linagora.linid.ldap;
+package io.github.linagora.linid.im.ldap;
 
-import org.linagora.linid.dmapicore.plugin.entity.DynamicEntity;
-import org.linagora.linid.dmapicore.plugin.task.TaskExecutionContext;
-import org.linagora.linid.dmapicore.plugin.task.TaskPlugin;
+import org.linagora.linid.im.corelib.plugin.entity.DynamicEntity;
+import org.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
+import org.linagora.linid.im.corelib.plugin.task.TaskPlugin;
 import org.springframework.lang.NonNull;
 
 public class LdapTaskPlugin implements TaskPlugin {
@@ -80,7 +80,7 @@ For example, the `LdapTaskPlugin` expects:
 Once your task plugin is implemented:
 
 1. Build it using Maven: `mvn clean install`
-2. Place the `.jar` in the `plugins/` folder of the `dm-api` runtime
+2. Place the `.jar` in the `plugins/` folder of the `linid-im-im-api` runtime
 3. It will be auto-discovered and invoked during the lifecycle phases.
 
 ---
