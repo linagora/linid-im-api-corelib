@@ -24,3 +24,63 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.validation;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import io.github.linagora.linid.im.corelib.i18n.I18nMessage;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.ValidationConfiguration;
+import java.util.Optional;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.lang.NonNull;
+
+@DisplayName("Test class: ValidationPlugin")
+class ValidationPluginTest {
+
+  @Test
+  @DisplayName("Test validate returns empty optional for success")
+  void testValidateSuccess() {
+    ValidationPlugin plugin =
+        new ValidationPlugin() {
+          @Override
+          public boolean supports(@NonNull String s) {
+            return false;
+          }
+
+          @Override
+          public Optional<I18nMessage> validate(
+              ValidationConfiguration configuration, Object value) {
+            return Optional.empty(); // simulate success
+          }
+        };
+
+    ValidationConfiguration config = new ValidationConfiguration();
+    Optional<I18nMessage> result = plugin.validate(config, "someValue");
+    assertTrue(result.isEmpty());
+  }
+
+  @Test
+  @DisplayName("Test validate returns non-empty optional for failure")
+  void testValidateFailure() {
+    ValidationPlugin plugin =
+        new ValidationPlugin() {
+          @Override
+          public boolean supports(@NonNull String s) {
+            return false;
+          }
+
+          @Override
+          public Optional<I18nMessage> validate(
+              ValidationConfiguration configuration, Object value) {
+            return Optional.of(I18nMessage.of("error.code"));
+          }
+        };
+
+    ValidationConfiguration config = new ValidationConfiguration();
+    Optional<I18nMessage> result = plugin.validate(config, "badValue");
+    assertTrue(result.isPresent());
+    assertEquals("error.code", result.get().key());
+  }
+}

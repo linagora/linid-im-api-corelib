@@ -24,3 +24,60 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.route;
+
+import io.github.linagora.linid.im.corelib.plugin.config.dto.EntityConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.RouteConfiguration;
+import jakarta.servlet.http.HttpServletRequest;
+import java.util.List;
+import org.springframework.http.ResponseEntity;
+import org.springframework.plugin.core.Plugin;
+
+/**
+ * Interface defining a plugin for routing HTTP requests.
+ *
+ * <p>Implementations decide if they match a given URL and HTTP method, and execute the
+ * corresponding logic for the matched request.
+ */
+public interface RoutePlugin extends Plugin<String> {
+
+  /**
+   * Returns the current configuration of the route.
+   *
+   * @return the route configuration
+   */
+  RouteConfiguration getConfiguration();
+
+  /**
+   * Sets the configuration of the route.
+   *
+   * @param configuration the route configuration to set
+   */
+  void setConfiguration(RouteConfiguration configuration);
+
+  /**
+   * Returns the list of route descriptions defined in the application, potentially derived from the provided list of entity
+   * configurations.
+   *
+   * @param entities the list of entity configurations used to generate routes
+   * @return list of all route descriptions (HTTP method, path, variables)
+   */
+  List<RouteDescription> getRoutes(List<EntityConfiguration> entities);
+
+  /**
+   * Determines if this plugin matches the given URL and HTTP method.
+   *
+   * @param url the URL of the incoming request
+   * @param method the HTTP method (GET, POST, etc.) of the incoming request
+   * @return {@code true} if the plugin matches the request, {@code false} otherwise
+   */
+  boolean match(String url, String method);
+
+  /**
+   * Executes the logic associated with the given HTTP request.
+   *
+   * @param request the HTTP servlet request to be processed
+   * @return a {@link ResponseEntity} representing the response of the execution
+   */
+  ResponseEntity<?> execute(HttpServletRequest request);
+}

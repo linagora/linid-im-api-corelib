@@ -24,3 +24,10 @@
  * LinID Identity Manager software.
  */
 
+/**
+ * Provides centralized exception handling across the Identity Manager Core application.
+ *
+ * <p>This package defines custom exception types and mechanisms to standardize error management,
+ * reporting, and propagation throughout the system.
+ */
+package io.github.linagora.linid.im.corelib.exception;

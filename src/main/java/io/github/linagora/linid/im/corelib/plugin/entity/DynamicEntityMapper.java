@@ -24,3 +24,20 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.entity;
+
+import java.util.Map;
+import java.util.function.Function;
+
+
+/**
+ * Functional interface for mapping a {@link DynamicEntity} to a {@link Map} representation.
+ *
+ * <p>Implementations of this interface convert the internal {@code DynamicEntity} object into a
+ * {@code Map<String, Object>} that can be used for serialization in API responses or other processing.
+ *
+ * <p>The mapping typically respects the entity's configuration, handling attribute transformations, renaming, and type
+ * conversions as needed.
+ */
+public interface DynamicEntityMapper extends Function<DynamicEntity, Map<String, Object>> {
+}

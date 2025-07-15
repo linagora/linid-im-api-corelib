@@ -24,3 +24,48 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.i18n;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Service interface for internationalization (i18n) operations.
+ *
+ * <p>Provides methods to retrieve supported languages, translations, and to translate messages
+ * using {@link I18nMessage} objects.
+ */
+public interface I18nService {
+  /**
+   * Returns the list of supported language codes.
+   *
+   * @return a list of language codes (e.g., "en", "fr", "de")
+   */
+  List<String> getLanguages();
+
+  /**
+   * Returns a map of translation keys and their corresponding translated strings for the specified
+   * language.
+   *
+   * @param language the language code (e.g., "en", "fr")
+   * @return a map where keys are message keys and values are translated strings
+   */
+  Map<String, String> getTranslations(String language);
+
+  /**
+   * Translates the given internationalized message using the default or current language context.
+   *
+   * @param message the {@link I18nMessage} to translate
+   * @return the translated string
+   */
+  String translate(I18nMessage message);
+
+  /**
+   * Translates the given internationalized message for the specified language.
+   *
+   * @param language the language code to translate to
+   * @param message the {@link I18nMessage} to translate
+   * @return the translated string in the specified language
+   */
+  String translate(String language, I18nMessage message);
+}

@@ -24,3 +24,13 @@
  * LinID Identity Manager software.
  */
 
+/**
+ * Defines the dynamic entity model and related services used by the plugin system.
+ *
+ * <p>This package provides abstractions and runtime representations of entities configured by the
+ * client, enabling flexible data modeling within plugins.
+ *
+ * <p>It includes mechanisms to access, manipulate, and interact with dynamic entities based on the
+ * provided configuration.
+ */
+package io.github.linagora.linid.im.corelib.plugin.entity;

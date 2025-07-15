@@ -24,3 +24,20 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.entity;
+
+import java.util.List;
+import org.springframework.lang.NonNull;
+
+/**
+ * Represents the description of an entity declared in the application.
+ *
+ * <p>
+ * This metadata includes the entity's name and its associated attributes. It is typically used for introspection, documentation,
+ * or UI metadata generation.
+ *
+ * @param name the name of the entity (e.g., "user", "group")
+ * @param attributes the list of attributes defined for this entity
+ */
+public record EntityDescription(String name, @NonNull List<AttributeDescription> attributes) {
+}

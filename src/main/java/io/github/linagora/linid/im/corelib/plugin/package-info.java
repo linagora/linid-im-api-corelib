@@ -24,3 +24,17 @@
  * LinID Identity Manager software.
  */
 
+/**
+ * Package {@code io.github.linagora.linid.dmapicore.plugin} contains the core plugin interfaces
+ * and classes for the Identity Manager Core plugin system.
+ *
+ * <p>
+ * This package provides abstractions and contracts for implementing various plugins such as:
+ * <ul>
+ *   <li>Provider plugins managing data sources and entity lifecycle operations.</li>
+ *   <li>Route plugins handling HTTP request routing and execution.</li>
+ *   <li>Task plugins responsible for executing custom logic in specific phases.</li>
+ *   <li>Validation plugins for validating entities according to configuration.</li>
+ * </ul>
+ */
+package io.github.linagora.linid.im.corelib.plugin;

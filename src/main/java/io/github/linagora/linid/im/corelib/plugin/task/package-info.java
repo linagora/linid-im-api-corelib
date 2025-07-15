@@ -24,3 +24,12 @@
  * LinID Identity Manager software.
  */
 
+/**
+ * Contains task-related components and services within the plugin framework.
+ *
+ * <p>This package defines the task plugins, execution context, and task executor responsible for
+ * managing and running client-defined tasks dynamically.
+ *
+ * <p>It supports scheduling, execution, and lifecycle management of plugin tasks.
+ */
+package io.github.linagora.linid.im.corelib.plugin.task;

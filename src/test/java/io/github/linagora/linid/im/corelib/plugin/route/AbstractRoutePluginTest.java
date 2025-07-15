@@ -24,3 +24,56 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.route;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import io.github.linagora.linid.im.corelib.plugin.config.dto.EntityConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.RouteConfiguration;
+import jakarta.servlet.http.HttpServletRequest;
+import java.util.List;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
+
+@DisplayName("Test class: AbstractRoutePlugin")
+class AbstractRoutePluginTest {
+  @Test
+  @DisplayName("Test setConfiguration and getConfiguration")
+  void testSetAndGetConfiguration() {
+    TestRoutePlugin plugin = new TestRoutePlugin();
+    RouteConfiguration config = new RouteConfiguration();
+    config.setName("testRoute");
+
+    plugin.setConfiguration(config);
+
+    RouteConfiguration retrievedConfig = plugin.getConfiguration();
+
+    assertNotNull(retrievedConfig);
+    assertEquals("testRoute", retrievedConfig.getName());
+  }
+
+  private static class TestRoutePlugin extends AbstractRoutePlugin {
+    @Override
+    public boolean supports(@NonNull String s) {
+      return false;
+    }
+
+    @Override
+    public List<RouteDescription> getRoutes(List<EntityConfiguration> entities) {
+      return List.of();
+    }
+
+    @Override
+    public boolean match(String url, String method) {
+      return false;
+    }
+
+    @Override
+    public ResponseEntity<?> execute(HttpServletRequest request) {
+      return null;
+    }
+  }
+}

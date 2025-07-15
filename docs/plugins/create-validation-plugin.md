@@ -21,24 +21,24 @@ import java.util.Optional;
 @Component
 public class NotNullValidationPlugin implements ValidationPlugin {
 
-  @Override
-  public boolean supports(String type) {
-    return "not-null".equals(type);
-  }
-
-  @Override
-  public Optional<I18nMessage> validate(ValidationConfiguration configuration, Object value) {
-    boolean checkEmpty = this.getOption(configuration, "check-empty", boolean.class).orElse(false);
-    if (value == null) {
-      return Optional.of(I18nMessage.of("error.plugin.notnull.invalid"));
+    @Override
+    public boolean supports(String type) {
+        return "not-null".equals(type);
     }
 
-    if (checkEmpty && value.toString().isEmpty()) {
-      return Optional.of(I18nMessage.of("error.plugin.notnull.empty"));
-    }
+    @Override
+    public Optional<I18nMessage> validate(ValidationConfiguration configuration, Object value) {
+        boolean checkEmpty = this.getOption(configuration, "check-empty", boolean.class).orElse(false);
+        if (value == null) {
+            return Optional.of(I18nMessage.of("error.plugin.notnull.invalid"));
+        }
 
-    return Optional.empty();
-  }
+        if (checkEmpty && value.toString().isEmpty()) {
+            return Optional.of(I18nMessage.of("error.plugin.notnull.empty"));
+        }
+
+        return Optional.empty();
+    }
 }
 ```
 

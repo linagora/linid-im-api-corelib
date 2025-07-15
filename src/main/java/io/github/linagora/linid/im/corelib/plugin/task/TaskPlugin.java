@@ -24,3 +24,27 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.task;
+
+import io.github.linagora.linid.im.corelib.plugin.config.dto.TaskConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.entity.DynamicEntity;
+import org.springframework.plugin.core.Plugin;
+
+/**
+ * Interface representing a task plugin which extends a generic plugin contract.
+ *
+ * <p>This plugin performs operations on a {@link DynamicEntity} within a given {@link
+ * TaskExecutionContext}.
+ */
+public interface TaskPlugin extends Plugin<String> {
+
+  /**
+   * Executes the task plugin logic on the specified dynamic entity within the provided execution
+   * context.
+   *
+   * @param configuration the task configuration containing task options
+   * @param entity the dynamic entity the task operates on
+   * @param context the task execution context containing contextual data and state
+   */
+  void execute(TaskConfiguration configuration, DynamicEntity entity, TaskExecutionContext context);
+}

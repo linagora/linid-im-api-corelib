@@ -24,3 +24,26 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.authorization;
+
+/**
+ * Factory interface for retrieving an {@link AuthorizationPlugin} instance.
+ *
+ * <p>This abstraction allows different authorization plugins to be injected dynamically
+ * depending on configuration or context.
+ *
+ * <p>By default, this factory should return a plugin that denies all operations
+ * (e.g., {@code DenyAllAuthorizationPlugin}) to enforce secure defaults when no plugin is explicitly configured.
+ */
+public interface AuthorizationFactory {
+
+  /**
+   * Returns the selected {@link AuthorizationPlugin} to be used by the system.
+   *
+   * <p>If no plugin is explicitly configured or matched, the factory should return
+   * a safe default such as a {@code DenyAllAuthorizationPlugin}, which blocks all operations.
+   *
+   * @return the resolved authorization plugin
+   */
+  AuthorizationPlugin getAuthorizationPlugin();
+}

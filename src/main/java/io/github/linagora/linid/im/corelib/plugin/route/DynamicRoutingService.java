@@ -24,3 +24,23 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.route;
+
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.ResponseEntity;
+
+/**
+ * Service interface responsible for dynamically routing HTTP requests.
+ *
+ * <p>Implementations of this interface should handle the routing logic based on the incoming {@link
+ * HttpServletRequest} and return an appropriate {@link ResponseEntity} as response.
+ */
+public interface DynamicRoutingService {
+  /**
+   * Routes the given HTTP request and returns the corresponding response.
+   *
+   * @param request the incoming HTTP servlet request to route
+   * @return a {@link ResponseEntity} representing the HTTP response after routing
+   */
+  ResponseEntity<?> route(HttpServletRequest request);
+}

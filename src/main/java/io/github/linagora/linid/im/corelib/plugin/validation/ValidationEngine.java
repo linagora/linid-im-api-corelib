@@ -24,3 +24,22 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.validation;
+
+import io.github.linagora.linid.im.corelib.plugin.entity.DynamicEntity;
+
+/**
+ * Interface defining a validation engine responsible for validating {@link DynamicEntity} instances
+ * during specific processing phases.
+ */
+public interface ValidationEngine {
+
+  /**
+   * Validates the given dynamic entity according to rules applicable for the specified phase.
+   *
+   * @param dynamicEntity the dynamic entity to validate
+   * @param phase the phase of processing during which validation is performed (e.g.,
+   *     "beforeCreate", "beforeUpdate")
+   */
+  void validate(DynamicEntity dynamicEntity, String phase);
+}

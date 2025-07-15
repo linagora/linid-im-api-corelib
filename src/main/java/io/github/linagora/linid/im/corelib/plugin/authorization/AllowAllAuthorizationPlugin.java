@@ -24,3 +24,59 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.authorization;
+
+import io.github.linagora.linid.im.corelib.plugin.config.dto.RootConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.entity.DynamicEntity;
+import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
+
+/**
+ * An {@link AuthorizationPlugin} implementation that allows all operations unconditionally.
+ *
+ * <p>To activate this plugin, set its type as <code>"allow-all"</code> in the plugin configuration.
+ */
+@Component
+public class AllowAllAuthorizationPlugin extends AbstractAuthorizationPlugin {
+
+  /**
+   * Default constructor.
+   */
+  public AllowAllAuthorizationPlugin() {
+  }
+
+  @Override
+  public void updateConfiguration(RootConfiguration configuration) {
+
+  }
+
+  @Override
+  public void validateToken(HttpServletRequest request, TaskExecutionContext context) {
+
+  }
+
+  @Override
+  public void isAuthorized(HttpServletRequest request, DynamicEntity entity, String action, TaskExecutionContext context) {
+
+  }
+
+  @Override
+  public void isAuthorized(HttpServletRequest request, DynamicEntity entity, String id, String action,
+                           TaskExecutionContext context) {
+
+  }
+
+  @Override
+  public void isAuthorized(HttpServletRequest request, DynamicEntity entity, MultiValueMap<String, String> filters, String action,
+                           TaskExecutionContext context) {
+
+  }
+
+  @Override
+  public boolean supports(@NonNull String type) {
+    return "allow-all".equals(type);
+  }
+}

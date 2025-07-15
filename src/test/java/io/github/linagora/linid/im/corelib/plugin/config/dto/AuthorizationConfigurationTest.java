@@ -24,3 +24,50 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.config.dto;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+@DisplayName("Test class: AuthorizationConfiguration")
+public class AuthorizationConfigurationTest {
+  @Test
+  void testTypeGetterSetter() {
+    AuthorizationConfiguration config = new AuthorizationConfiguration();
+    assertNull(config.getType());
+
+    config.setType("ldap");
+    assertEquals("ldap", config.getType());
+  }
+
+  @Test
+  void testAddOptionAddsKeyValueExceptType() {
+    AuthorizationConfiguration config = new AuthorizationConfiguration();
+
+    config.addOption("foo", "bar");
+    config.addOption("number", 42);
+    config.addOption("type", "shouldBeIgnored");
+
+    assertEquals(2, config.getOptions().size());
+    assertEquals("bar", config.getOptions().get("foo"));
+    assertEquals(42, config.getOptions().get("number"));
+    assertFalse(config.getOptions().containsKey("type"));
+  }
+
+  @Test
+  void testOptionsMapIsMutable() {
+    AuthorizationConfiguration config = new AuthorizationConfiguration();
+    config.addOption("key", "value");
+
+    assertTrue(config.getOptions().containsKey("key"));
+
+    config.getOptions().put("newKey", 123);
+    assertEquals(2, config.getOptions().size());
+    assertEquals(123, config.getOptions().get("newKey"));
+  }
+}

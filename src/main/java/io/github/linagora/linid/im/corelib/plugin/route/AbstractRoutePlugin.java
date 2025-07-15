@@ -24,3 +24,32 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.route;
+
+import io.github.linagora.linid.im.corelib.plugin.config.dto.RouteConfiguration;
+
+/**
+ * Abstract base class implementing the {@link RoutePlugin} interface.
+ *
+ * <p>This class provides a basic implementation for managing the route configuration. Concrete
+ * route plugins can extend this class to inherit the configuration handling.
+ */
+public abstract class AbstractRoutePlugin implements RoutePlugin {
+  /** The route configuration instance used by this plugin. */
+  private RouteConfiguration configuration;
+
+  /** Default constructor. */
+  public AbstractRoutePlugin() {
+    super();
+  }
+
+  @Override
+  public RouteConfiguration getConfiguration() {
+    return configuration;
+  }
+
+  @Override
+  public void setConfiguration(final RouteConfiguration configuration) {
+    this.configuration = configuration;
+  }
+}

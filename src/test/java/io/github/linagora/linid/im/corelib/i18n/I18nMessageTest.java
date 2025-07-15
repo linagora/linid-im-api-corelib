@@ -24,3 +24,50 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.i18n;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.HashMap;
+import java.util.Map;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+@DisplayName("Test class: I18nMessage")
+class I18nMessageTest {
+
+  @Test
+  @DisplayName("Create I18nMessage with key only")
+  void testOf_withKeyOnly() {
+    String key = "message.key";
+    I18nMessage msg = I18nMessage.of(key);
+
+    assertEquals(key, msg.key());
+    assertNotNull(msg.context());
+    assertTrue(msg.context().isEmpty());
+  }
+
+  @Test
+  @DisplayName("Create I18nMessage with key and context")
+  void testOf_withKeyAndContext() {
+    String key = "message.key";
+    Map<String, Object> context = new HashMap<>();
+    context.put("param1", "value1");
+    context.put("param2", 123);
+
+    I18nMessage msg = I18nMessage.of(key, context);
+
+    assertEquals(key, msg.key());
+    assertNotNull(msg.context());
+    assertEquals(2, msg.context().size());
+    assertEquals("value1", msg.context().get("param1"));
+    assertEquals(123, msg.context().get("param2"));
+
+    // Verify that the context map inside I18nMessage is a defensive copy
+    context.put("param3", "value3");
+    assertFalse(msg.context().containsKey("param3"));
+  }
+}

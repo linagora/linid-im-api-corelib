@@ -24,3 +24,34 @@
  * LinID Identity Manager software.
  */
 
+package io.github.linagora.linid.im.corelib.plugin.provider;
+
+import java.util.Optional;
+
+/**
+ * Factory interface for retrieving a {@link ProviderPlugin} instance by its configured name.
+ *
+ * <p>This abstraction allows dynamic resolution of provider plugins based on their logical
+ * identifier (usually defined in configuration as {@code name}). It supports scenarios where
+ * multiple configurations of the same provider type (e.g., multiple LDAP providers) are needed.
+ *
+ * <p>Example use case:
+ *
+ * <pre>{@code
+ * Optional<ProviderPlugin> plugin = providerFactory.getProviderByName("ldap1");
+ * plugin.ifPresent(p -> p.performOperation(...));
+ * }</pre>
+ */
+public interface ProviderFactory {
+  /**
+   * Retrieves a {@link ProviderPlugin} based on the given provider name.
+   *
+   * <p>This allows selecting a specific configured instance of a provider, such as "ldap1" or
+   * "ldap2", depending on the name used in the configuration.
+   *
+   * @param name the logical name of the provider to retrieve
+   * @return an {@link Optional} containing the matching {@code ProviderPlugin}, or an empty {@code
+   *     Optional} if no match is found
+   */
+  Optional<ProviderPlugin> getProviderByName(String name);
+}
