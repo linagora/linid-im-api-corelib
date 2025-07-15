@@ -1,33 +1,43 @@
-flowchart TD
-    subgraph Client [External Client REST API]
-        C[HTTP Request]
+graph TD
+    subgraph Identity Manager Platform
+        linid-im-api-corelib[linid-im-api-corelib<br/>Plugin Runtime Engine]
+
+        subgraph Plugins
+            auth_plugins[Authorization Plugins<br/>RBack, Jwt, LDAP]
+            provider_plugins[Provider Plugins<br/>LDAP, REST, DB]
+            route_plugins[Route Plugins<br/>Custom Processing Flows]
+            task_plugins[Task Plugins<br/>Phased Executions]
+            validation_plugins[Validation Plugins<br/>Business Rules]
+        end
+
+        subgraph File system
+            loader[Plugin binaries]
+            config[Dynamic Config<br/>JSON/YAML]
+        end
+
+        subgraph External Systems
+            identity[Identity Systems<br/>LDAP, SSO]
+            databases[Databases]
+            apis[External APIs]
+        end
+
+        subgraph API Rest
+            crud[Default CRUD http routes]
+            custom_routes[Custom http routes]
+        end
     end
 
-    subgraph API [Application: dm-api]
-        A[dm-api]
-        A -->|Dynamically loads| Loader[Plugin Loader]
-        A -->|Uses| Core[dm-api-core]
-    end
-
-    subgraph CoreLib [Library: dm-api-core]
-        Core --> Config[Dynamic Configuration]
-        Core --> EntityService[DynamicEntityService]
-        Core --> RoutingService[DynamicRoutingService]
-        Core --> Validation[ValidationEngine]
-        Core --> Tasks[TaskEngine]
-        Core --> Provider[ProviderFactory]
-        Core --> Authorization[AuthorizationFactory]
-    end
-
-    subgraph Plugins [Dynamic Plugins]
-        PL1[LdapProviderPlugin]
-        PL2[ApiProviderPlugin]
-        PL3[CustomRoutePlugin]
-        PL4[CustomTaskPlugin]
-        PL5[ValidationPluginXYZ]
-    end
-
-    C --> A
-    Loader -->|Scans plugin directory| Plugins
-    Plugins -->|Injected into| Core
-    A -->|Exposes API| C
+%% Flows
+    config --> linid-im-api-corelib
+    loader --> linid-im-api-corelib
+    linid-im-api-corelib --> auth_plugins
+    linid-im-api-corelib --> provider_plugins
+    linid-im-api-corelib --> route_plugins
+    linid-im-api-corelib --> task_plugins
+    linid-im-api-corelib --> validation_plugins
+    provider_plugins --> identity
+    provider_plugins --> databases
+    provider_plugins --> apis
+    auth_plugins --> identity
+    route_plugins --> crud
+    route_plugins --> custom_routes

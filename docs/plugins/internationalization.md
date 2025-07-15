@@ -1,13 +1,14 @@
-# Using Translations in Directory Manager Plugins
+# Using Translations in Identity Manager Plugins
 
-This guide explains how to use internationalized messages (i18n) in your plugin code for the **Directory Manager API**.
+This guide explains how to use internationalized messages (i18n) in your plugin code for the **Identity Manager API**.
 Translation support ensures consistent and customizable error and UI messages across different languages.
 
 ---
 
 ## 🧩 I18nMessage Utility Class
 
-All plugins should use the `I18nMessage` class provided by `dm-api-core` to define and return translated messages.
+All plugins should use the `I18nMessage` class provided by `linid-im-api-corelib` to define and return translated 
+messages.
 
 ### Basic Usage
 
@@ -91,7 +92,7 @@ Inside a validation plugin, you receive additional context such as:
 
 ## 🧰 Default Application Message Keys
 
-The Directory Manager API provides a set of **default i18n message keys** that are used across all plugins and core
+The Identity Manager API provides a set of **default i18n message keys** that are used across all plugins and core
 components. These messages cover common error scenarios and can be overridden in your plugin if needed.
 
 | Key                                   | Context Parameters   | Description                                              |

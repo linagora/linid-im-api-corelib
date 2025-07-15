@@ -1,6 +1,7 @@
-# Creating a Provider Plugin for Directory Manager API
+# Creating a Provider Plugin for Identity Manager API
 
-This guide walks you through the steps to create a **Provider Plugin** using the `dm-api-core` library. A provider
+This guide walks you through the steps to create a **Provider Plugin** using the `linid-im-api-corelib` library. A 
+provider
 plugin is responsible for implementing the persistence and retrieval logic for a specific data source (e.g., LDAP, SQL,
 API, etc.).
 
@@ -17,10 +18,10 @@ We will create a simple provider plugin named `LdapProviderPlugin` that demonstr
 Create a new Java class in your plugin project:
 
 ```java
-package org.linagora.linid.ldap;
+package io.github.linagora.linid.im.ldap;
 
-import org.linagora.linid.dmapicore.plugin.entity.DynamicEntity;
-import org.linagora.linid.dmapicore.plugin.task.TaskExecutionContext;
+import org.linagora.linid.im.corelib.plugin.entity.DynamicEntity;
+import org.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.NonNull;
@@ -121,8 +122,8 @@ Make sure your `pom.xml` includes the required dependency:
 ```xml
 
 <dependency>
-    <groupId>org.linagora.linid</groupId>
-    <artifactId>dm-api-core</artifactId>
+    <groupId>io.github.linagora.linid.im</groupId>
+    <artifactId>linid-im-api-corelib</artifactId>
 </dependency>
 ```
 
@@ -151,8 +152,8 @@ Build your plugin:
 mvn clean install
 ```
 
-Place the generated `.jar` file in the `plugins/` folder of your `dm-api` application. It will be automatically loaded
-at runtime.
+Place the generated `.jar` file in the `plugins/` folder of your `linid-im-api` application. It will be automatically 
+loaded at runtime.
 
 ---
 

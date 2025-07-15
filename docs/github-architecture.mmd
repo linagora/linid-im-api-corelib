@@ -2,20 +2,20 @@ graph TD
 
 %% Group 1: Base Platform
     subgraph Base Platform
-        core[dm-api-core]
-        api[dm-api]
-        template[template-dm-api-plugin]
+        core[linid-im-api-corelib]
+        api[linid-im-api]
+        template[linid-im-api-plugin-template]
     end
 
 %% Group 2: Base Plugins
-    subgraph api-plugins["api-plugins/"]
+    subgraph api-plugins["linid-im-api-community-plugins"]
         pluginA[plugin-a]
         pluginB[plugin-b]
     end
 
 %% Group 3: Clients
     subgraph clients["clients/"]
-        subgraph anah["anah/"]
+        subgraph anah["client-X/"]
             pluginC[plugin-c]
             config[config.yaml]
 
@@ -28,7 +28,7 @@ graph TD
 
 %% Group 4: Production Runtime
     subgraph Production Runtime
-        dmapiJar[dm-api.jar]
+        dmapiJar[linid-im-api.jar]
 
         subgraph plugins["plugins/"]
             pluginJarA[plugin-a.jar]
@@ -50,9 +50,9 @@ graph TD
     core -- " inject as library " --> api
     core -- " inject as library " --> template
 %% Links - Forks from template
-    template -- " fork as upstream " --> pluginA
-    template -- " fork as upstream " --> pluginB
-    template -- " fork as upstream " --> pluginC
+    template -- " fork as upstream<br/>Public cloud" --> pluginA
+    template -- " fork as upstream<br/>Public cloud" --> pluginB
+    template -- " fork as upstream<br/>Private cloud" --> pluginC
 %% Links - Build output
     api -- " build " --> dmapiJar
     pluginA -- " build " --> pluginJarA

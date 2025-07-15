@@ -1,6 +1,6 @@
-# Creating a Route Plugin
+# Creating a Route Plugin for Identity Manager API
 
-Route plugins allow you to extend the REST API of the Directory Manager by providing custom HTTP endpoints. This is
+Route plugins allow you to extend the REST API of the Identity Manager by providing custom HTTP endpoints. This is
 especially useful when you want to expose specialized routes (e.g., export, batch processing) beyond the default CRUD
 operations.
 
@@ -9,15 +9,15 @@ operations.
 ## ✨ Example Implementation
 
 ```java
-package org.linagora.linid.ldap;
+package io.github.linagora.linid.im.ldap;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
-import org.linagora.linid.dmapicore.plugin.config.PluginConfigurationService;
-import org.linagora.linid.dmapicore.plugin.provider.ProviderFactory;
-import org.linagora.linid.dmapicore.plugin.route.AbstractRoutePlugin;
-import org.linagora.linid.dmapicore.plugin.task.TaskEngine;
-import org.linagora.linid.dmapicore.plugin.validation.ValidationEngine;
+import org.linagora.linid.im.corelib.plugin.config.PluginConfigurationService;
+import org.linagora.linid.im.corelib.plugin.provider.ProviderFactory;
+import org.linagora.linid.im.corelib.plugin.route.AbstractRoutePlugin;
+import org.linagora.linid.im.corelib.plugin.task.TaskEngine;
+import org.linagora.linid.im.corelib.plugin.validation.ValidationEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;

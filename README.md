@@ -1,7 +1,7 @@
-# Directory Manager API Core (`dm-api-core`)
+# Identity Manager API lib Core (`linid-im-api-corelib`)
 
-**`dm-api-core`** is the central runtime module that provides plugin management, dynamic configuration handling, and
-execution logic for the **Directory Manager** platform.
+**`linid-im-api-corelib`** is the central runtime module that provides plugin management, dynamic configuration handling, and
+execution logic for the **Identity Manager** platform.
 
 It acts as the **foundation layer** for dynamically loading, wiring, and executing external plugins, including:
 
@@ -21,14 +21,14 @@ It acts as the **foundation layer** for dynamically loading, wiring, and executi
 
 ## 📦 Usage
 
-This module is typically used by the runtime application [`dm-api`](../dm-api/README.md), which exposes a REST API and
+This module is typically used by the runtime application [`linid-im-api`](https://github.com/linagora/linid-im-api/blob/main/README.md), which exposes a REST API and
 loads plugins from a designated folder at startup.
 
-You can also integrate `dm-api-core` directly into another Java application if needed.
+You can also integrate `linid-im-api-corelib` directly into another Java application if needed.
 
 ## 🧱 Architecture Overview
 
-![Architecture Diagram](docs/architecture.png)
+![Architecture Diagram](docs/architecture.svg)
 
 Great — here's an updated **Lifecycle** section you can add to your `README.md`, clearly explaining the internal request
 lifecycle and how phases are executed. It's written in a clear, developer-friendly tone in English and fits naturally
@@ -36,7 +36,7 @@ after the existing sections.
 
 ## 🔄 Request Lifecycle
 
-The request lifecycle in **Directory Manager** is designed to be **flexible** and **extensible** via plugins. Here’s how
+The request lifecycle in **Identity Manager** is designed to be **flexible** and **extensible** via plugins. Here’s how
 a request is processed internally:
 
 ### 1. 🔁 Route Dispatching
@@ -76,13 +76,13 @@ every step of the process.
 
 ### 🧪 Lifecycle Example: `Create` Entity
 
-![Entity Lifecycle Diagram](docs/lifecycle-example.png)
+![Entity Lifecycle Diagram](docs/lifecycle-example.svg)
 
 ## 📚 Developer Documentation
 
 To extend the platform, you can create your own plugins by implementing the proper interfaces.
 
-* [🗂️ Gitlab architecture](docs/gitlab-project-architecture.md)
+* [🗂️ Gitlab architecture](docs/github-project-architecture.md)
 * [📄 How to create a plugin - The basics](docs/plugins/how-to-create-a-plugin.md)
 * [🛡️ How to Create an Authorization Plugin](./docs/plugins/create-authorization-plugin.md)
 * [🔌 How to Create a Provider Plugin](./docs/plugins/create-provider-plugin.md)
@@ -93,7 +93,8 @@ To extend the platform, you can create your own plugins by implementing the prop
 
 ## 📂 Plugin Interfaces
 
-All plugins should implement one of the provided interfaces in the `org.linagora.linid.dmapicore.plugin` namespace:
+All plugins should implement one of the provided interfaces in the `io.github.linagora.linid.im.corelib.plugin` 
+namespace:
 
 * `AuthorizationPlugin`
 * `ProviderPlugin`
