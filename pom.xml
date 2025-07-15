@@ -23,16 +23,11 @@
       <email>moittie.vincent@gmail.com</email>
     </developer>
   </developers>
-  <distributionManagement>
-    <repository>
-      <id>nexus</id>
-      <url>https://nexus-repository.linagora.com/repository/maven-releases/</url>
-    </repository>
-    <snapshotRepository>
-      <id>nexus</id>
-      <url>https://nexus-repository.linagora.com/repository/maven-snapshots/</url>
-    </snapshotRepository>
-  </distributionManagement>
+  <scm>
+    <connection>scm:git:git://github.com/linagora/linid-im-api-corelib.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:linagora/linid-im-api-corelib.git</developerConnection>
+    <url>https://github.com/linagora/linid-im-api-corelib</url>
+  </scm>
   <properties>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <java.version>21</java.version>
@@ -261,6 +256,29 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>3.2.7</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.6.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <publishingServerId>central</publishingServerId>
+          <waitUntil>published</waitUntil>
+          <autoPublish>true</autoPublish>
+        </configuration>
       </plugin>
     </plugins>
   </build>
