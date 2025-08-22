@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] - 2025-08-22
+
+### Added
+
+- migrate to gitlab ci to github actions
+- renaming Directory manager to Identity Manager
+
+### Fixed
+
+- bot push release
+- separate workflow and fix them
+- add missing url in pom.xml
+
 ## [0.6.0] - 2025-07-07
 
 ### Added
@@ -63,9 +76,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ensure correct branch is pushed during release
 
 
-[0.6.0]: https://oauth2@ci.linagora.com/linagora/lrs/LinID/linid-dm-v2/dm-api-core.git/compare/v0.5.0...v0.6.0
-[0.5.0]: https://oauth2@ci.linagora.com/linagora/lrs/LinID/linid-dm-v2/dm-api-core.git/compare/v0.4.0...v0.5.0
-[0.4.0]: https://oauth2@ci.linagora.com/linagora/lrs/LinID/linid-dm-v2/dm-api-core.git/compare/v0.3.0...v0.4.0
-[0.3.0]: https://oauth2@ci.linagora.com/linagora/lrs/LinID/linid-dm-v2/dm-api-core.git/compare/v0.2.0...v0.3.0
-[0.2.0]: https://oauth2@ci.linagora.com/linagora/lrs/LinID/linid-dm-v2/dm-api-core.git/compare/v0.1.0...v0.2.0
-[0.1.0]: https://oauth2@ci.linagora.com/linagora/lrs/LinID/linid-dm-v2/dm-api-core.git/releases/tag/v0.1.0
+[0.7.0]: https://github.com/linagora/linid-im-api-corelib/compare/v0.6.0...v0.7.0
+[0.6.0]: https://github.com/linagora/linid-im-api-corelib/compare/v0.5.0...v0.6.0
+[0.5.0]: https://github.com/linagora/linid-im-api-corelib/compare/v0.4.0...v0.5.0
+[0.4.0]: https://github.com/linagora/linid-im-api-corelib/compare/v0.3.0...v0.4.0
+[0.3.0]: https://github.com/linagora/linid-im-api-corelib/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/linagora/linid-im-api-corelib/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/linagora/linid-im-api-corelib/releases/tag/v0.1.0

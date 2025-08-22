@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.linagora.linid.im</groupId>
   <artifactId>linid-im-api-corelib</artifactId>
-  <version>0.6.0</version>
+  <version>0.7.0</version>
   <name>Identity Manager API Core Lib</name>
   <description>The central runtime module that provides plugin management, dynamic configuration loading, and
         integration logic for the Identity Manager platform.</description>
@@ -30,17 +30,17 @@
     <url>https://github.com/linagora/linid-im-api-corelib</url>
   </scm>
   <properties>
-    <maven.compiler.target>${java.version}</maven.compiler.target>
-    <java.version>21</java.version>
-    <maven.compiler.source>${java.version}</maven.compiler.source>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <spring-boot.version>3.5.3</spring-boot.version>
-    <sonar.projectKey>linagora_linid-im-api-corelib</sonar.projectKey>
-    <sonar.organization>linagora-sonarcube-255</sonar.organization>
-    <sonar.projectName>linid-im-api-corelib</sonar.projectName>
-    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
     <sonar.java.checkstyle.reportPaths>target/checkstyle-result.xml</sonar.java.checkstyle.reportPaths>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <sonar.projectKey>linagora_linid-im-api-corelib</sonar.projectKey>
+    <sonar.projectName>linid-im-api-corelib</sonar.projectName>
+    <java.version>21</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <sonar.organization>linagora-sonarcube-255</sonar.organization>
+    <spring-boot.version>3.5.3</spring-boot.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -259,7 +259,6 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-gpg-plugin</artifactId>
         <version>3.2.7</version>
         <executions>
