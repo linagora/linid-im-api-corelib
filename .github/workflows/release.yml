@@ -84,7 +84,7 @@ jobs:
           fetch-depth: 0
 
       - name: Fetch tags
-        run: git fetch --tags
+        run: git fetch origin main --tags && git reset --hard origin/main
 
       - name: Get latest tag
         id: get_tag
