@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.linagora.linid.im</groupId>
   <artifactId>linid-im-api-corelib</artifactId>
-  <version>0.7.0</version>
+  <version>0.7.1</version>
   <name>Identity Manager API Core Lib</name>
   <description>The central runtime module that provides plugin management, dynamic configuration loading, and
         integration logic for the Identity Manager platform.</description>
