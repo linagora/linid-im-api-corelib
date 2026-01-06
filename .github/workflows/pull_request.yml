@@ -41,6 +41,14 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
       - name: Check commit message with semantic-version plugin
         run: mvn -ntp io.github.zorin95670:semantic-version:0.4.0:check-commit -DnoMerge=true
 
@@ -55,6 +63,13 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           architecture: x64
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: Execute checkstyle
         run: mvn -ntp checkstyle:check
 
@@ -71,6 +86,13 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           architecture: x64
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: Install Pandoc
         run: sudo apt-get update && sudo apt-get install -y pandoc
       - name: Execute unit tests
@@ -99,6 +121,13 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           architecture: x64
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: Execute check dependencies
         run: mvn -ntp versions:display-dependency-updates -DprocessDependencyManagement=false > dependency-updates.txt
       - name: Post comment
