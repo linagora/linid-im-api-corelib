@@ -42,4 +42,13 @@ public interface ValidationEngine {
    *     "beforeCreate", "beforeUpdate")
    */
   void validate(DynamicEntity dynamicEntity, String phase);
+
+  /**
+   * Validates a single attribute value against validations configured for that attribute.
+   *
+   * @param entity entity carrying configuration
+   * @param attributeName attribute name to validate
+   * @param value value to validate
+   */
+  void validateAttribute(DynamicEntity entity, String attributeName, Object value);
 }
