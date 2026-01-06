@@ -87,11 +87,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           path: pitest.html
-      - name: Execute sonar scan
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -ntp sonar:sonar -Dsonar.token=$SONAR_TOKEN -Dsonar.branch.name=${{ github.head_ref }}
 
   check-dependencies:
     name: Check dependencies

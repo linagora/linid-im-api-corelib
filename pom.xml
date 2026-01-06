@@ -30,16 +30,10 @@
     <url>https://github.com/linagora/linid-im-api-corelib</url>
   </scm>
   <properties>
-    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-    <sonar.java.checkstyle.reportPaths>target/checkstyle-result.xml</sonar.java.checkstyle.reportPaths>
     <maven.compiler.target>${java.version}</maven.compiler.target>
-    <sonar.projectKey>linagora_linid-im-api-corelib</sonar.projectKey>
-    <sonar.projectName>linid-im-api-corelib</sonar.projectName>
     <java.version>21</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
-    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <sonar.organization>linagora-sonarcube-255</sonar.organization>
     <spring-boot.version>3.5.3</spring-boot.version>
   </properties>
   <dependencyManagement>
@@ -227,11 +221,6 @@
             <param>XML</param>
           </outputFormats>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.sonarsource.scanner.maven</groupId>
-        <artifactId>sonar-maven-plugin</artifactId>
-        <version>5.0.0.4389</version>
       </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
