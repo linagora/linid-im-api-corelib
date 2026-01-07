@@ -42,6 +42,15 @@ import org.springframework.util.MultiValueMap;
 public interface DynamicEntityService {
 
   /**
+   * Validates a single attribute value for a given entity, using configured validators.
+   *
+   * @param entityName logical entity identifier used by the API (e.g. the REST {@code {entity}} path variable)
+   * @param attributeName attribute to validate
+   * @param value value to validate (may be {@code null})
+   */
+  void validateAttribute(String entityName, String attributeName, Object value);
+
+  /**
    * Creates a new dynamic entity for the specified route.
    *
    * @param request the HTTP request context
