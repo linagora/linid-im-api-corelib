@@ -23,6 +23,16 @@
       <name>Vincent MOITTIE</name>
       <email>moittie.vincent@gmail.com</email>
     </developer>
+    <developer>
+      <id>christophechevalier</id>
+      <name>Christophe CHEVALIER</name>
+      <email>cchevalier@linagora.com</email>
+    </developer>
+    <developer>
+      <id>jcabannes</id>
+      <name>Jordy Cabannes</name>
+      <email>jcabannes@linagora.com</email>
+    </developer>
   </developers>
   <scm>
     <connection>scm:git:git://github.com/linagora/linid-im-api-corelib.git</connection>
