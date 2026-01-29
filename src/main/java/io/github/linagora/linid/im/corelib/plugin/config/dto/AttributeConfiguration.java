@@ -29,6 +29,7 @@ package io.github.linagora.linid.im.corelib.plugin.config.dto;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Configuration class representing an attribute with its name, type, validations, and additional arbitrary access
@@ -130,10 +131,10 @@ public class AttributeConfiguration {
   /**
    * Returns the list of validation configurations for this attribute.
    *
-   * @return the list of {@link ValidationConfiguration} instances, or null if none
+   * @return the list of {@link ValidationConfiguration} instances, never null
    */
   public List<ValidationConfiguration> getValidations() {
-    return validations;
+    return Optional.ofNullable(validations).orElseGet(List::of);
   }
 
   /**
