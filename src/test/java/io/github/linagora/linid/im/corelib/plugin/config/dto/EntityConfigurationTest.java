@@ -98,6 +98,15 @@ class EntityConfigurationTest {
   }
 
   @Test
+  @DisplayName("Test getAttributes returns empty list when null")
+  void testAttributesReturnsEmptyListWhenNull() {
+    EntityConfiguration entity = new EntityConfiguration();
+    List<AttributeConfiguration> attrs = entity.getAttributes();
+    assertNotNull(attrs);
+    assertTrue(attrs.isEmpty());
+  }
+
+  @Test
   @DisplayName("Test tasks getter and setter")
   void testTasks() {
     EntityConfiguration entity = new EntityConfiguration();
@@ -111,6 +120,15 @@ class EntityConfigurationTest {
     assertEquals(2, tasks.size());
     assertTrue(tasks.contains(task1));
     assertTrue(tasks.contains(task2));
+  }
+
+  @Test
+  @DisplayName("Test getTasks returns empty list when null")
+  void testTasksReturnsEmptyListWhenNull() {
+    EntityConfiguration entity = new EntityConfiguration();
+    List<TaskConfiguration> tasks = entity.getTasks();
+    assertNotNull(tasks);
+    assertTrue(tasks.isEmpty());
   }
 
   @Test

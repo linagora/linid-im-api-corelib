@@ -144,10 +144,10 @@ public class EntityConfiguration {
   /**
    * Returns the list of attribute configurations.
    *
-   * @return the attribute configurations list
+   * @return the attribute configurations list, never null
    */
   public List<AttributeConfiguration> getAttributes() {
-    return attributes;
+    return Optional.ofNullable(attributes).orElseGet(List::of);
   }
 
   /**
@@ -162,10 +162,10 @@ public class EntityConfiguration {
   /**
    * Returns the list of task configurations.
    *
-   * @return the task configurations list
+   * @return the task configurations list, never null
    */
   public List<TaskConfiguration> getTasks() {
-    return tasks;
+    return Optional.ofNullable(tasks).orElseGet(List::of);
   }
 
   /**

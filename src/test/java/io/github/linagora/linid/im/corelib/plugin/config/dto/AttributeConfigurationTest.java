@@ -66,6 +66,15 @@ class AttributeConfigurationTest {
   }
 
   @Test
+  @DisplayName("Test getValidations returns empty list when null")
+  void testValidationsReturnsEmptyListWhenNull() {
+    AttributeConfiguration attr = new AttributeConfiguration();
+    List<ValidationConfiguration> validations = attr.getValidations();
+    assertNotNull(validations);
+    assertTrue(validations.isEmpty());
+  }
+
+  @Test
   @DisplayName("Test getAccess returns modifiable map")
   void testGetAccessModifiable() {
     AttributeConfiguration attr = new AttributeConfiguration();

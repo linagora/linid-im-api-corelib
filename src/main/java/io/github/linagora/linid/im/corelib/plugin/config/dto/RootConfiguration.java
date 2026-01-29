@@ -28,6 +28,7 @@ package io.github.linagora.linid.im.corelib.plugin.config.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Represents the root configuration for the plugin system.
@@ -83,10 +84,10 @@ public class RootConfiguration {
   /**
    * Returns the list of entity configurations.
    *
-   * @return the entities list
+   * @return the entities list, never null
    */
   public List<EntityConfiguration> getEntities() {
-    return entities;
+    return Optional.ofNullable(entities).orElseGet(List::of);
   }
 
   /**
@@ -101,10 +102,10 @@ public class RootConfiguration {
   /**
    * Returns the list of provider configurations.
    *
-   * @return the providers list
+   * @return the providers list, never null
    */
   public List<ProviderConfiguration> getProviders() {
-    return providers;
+    return Optional.ofNullable(providers).orElseGet(List::of);
   }
 
   /**
@@ -119,10 +120,10 @@ public class RootConfiguration {
   /**
    * Returns the list of route configurations.
    *
-   * @return the routes list
+   * @return the routes list, never null
    */
   public List<RouteConfiguration> getRoutes() {
-    return routes;
+    return Optional.ofNullable(routes).orElseGet(List::of);
   }
 
   /**
@@ -137,10 +138,10 @@ public class RootConfiguration {
   /**
    * Returns the list of task configurations.
    *
-   * @return the tasks list
+   * @return the tasks list, never null
    */
   public List<TaskConfiguration> getTasks() {
-    return tasks;
+    return Optional.ofNullable(tasks).orElseGet(List::of);
   }
 
   /**
@@ -155,10 +156,10 @@ public class RootConfiguration {
   /**
    * Returns the list of validation configurations.
    *
-   * @return the validations list
+   * @return the validations list, never null
    */
   public List<ValidationConfiguration> getValidations() {
-    return validations;
+    return Optional.ofNullable(validations).orElseGet(List::of);
   }
 
   /**

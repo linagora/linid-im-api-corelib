@@ -26,7 +26,9 @@
 
 package io.github.linagora.linid.im.corelib.plugin.config.dto;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +48,28 @@ class RootConfigurationTest {
   }
 
   @Test
+  @DisplayName("Test getEntities returns empty list when null")
+  void testEntitiesReturnsEmptyListWhenNull() {
+    RootConfiguration config = new RootConfiguration();
+    assertNotNull(config.getEntities());
+    assertTrue(config.getEntities().isEmpty());
+  }
+
+  @Test
   @DisplayName("Test getters and setters for providers")
   void testProviders() {
     RootConfiguration config = new RootConfiguration();
     List<ProviderConfiguration> providers = new ArrayList<>();
     config.setProviders(providers);
     assertSame(providers, config.getProviders());
+  }
+
+  @Test
+  @DisplayName("Test getProviders returns empty list when null")
+  void testProvidersReturnsEmptyListWhenNull() {
+    RootConfiguration config = new RootConfiguration();
+    assertNotNull(config.getProviders());
+    assertTrue(config.getProviders().isEmpty());
   }
 
   @Test
@@ -73,6 +91,14 @@ class RootConfigurationTest {
   }
 
   @Test
+  @DisplayName("Test getRoutes returns empty list when null")
+  void testRoutesReturnsEmptyListWhenNull() {
+    RootConfiguration config = new RootConfiguration();
+    assertNotNull(config.getRoutes());
+    assertTrue(config.getRoutes().isEmpty());
+  }
+
+  @Test
   @DisplayName("Test getters and setters for tasks")
   void testTasks() {
     RootConfiguration config = new RootConfiguration();
@@ -82,11 +108,27 @@ class RootConfigurationTest {
   }
 
   @Test
+  @DisplayName("Test getTasks returns empty list when null")
+  void testTasksReturnsEmptyListWhenNull() {
+    RootConfiguration config = new RootConfiguration();
+    assertNotNull(config.getTasks());
+    assertTrue(config.getTasks().isEmpty());
+  }
+
+  @Test
   @DisplayName("Test getters and setters for validations")
   void testValidations() {
     RootConfiguration config = new RootConfiguration();
     List<ValidationConfiguration> validations = new ArrayList<>();
     config.setValidations(validations);
     assertSame(validations, config.getValidations());
+  }
+
+  @Test
+  @DisplayName("Test getValidations returns empty list when null")
+  void testValidationsReturnsEmptyListWhenNull() {
+    RootConfiguration config = new RootConfiguration();
+    assertNotNull(config.getValidations());
+    assertTrue(config.getValidations().isEmpty());
   }
 }
