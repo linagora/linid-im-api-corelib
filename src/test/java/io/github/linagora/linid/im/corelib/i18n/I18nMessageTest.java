@@ -31,6 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
@@ -69,5 +71,33 @@ class I18nMessageTest {
     // Verify that the context map inside I18nMessage is a defensive copy
     context.put("param3", "value3");
     assertFalse(msg.context().containsKey("param3"));
+  }
+
+  @Test
+  @DisplayName("Serialize I18nMessage to JSON with Jackson")
+  void testJacksonSerialization_withKeyOnly() throws JsonProcessingException {
+    ObjectMapper mapper = new ObjectMapper();
+    I18nMessage msg = I18nMessage.of("error.validation.required");
+
+    String json = mapper.writeValueAsString(msg);
+
+    assertTrue(json.contains("\"key\""));
+    assertTrue(json.contains("\"error.validation.required\""));
+    assertTrue(json.contains("\"context\""));
+  }
+
+  @Test
+  @DisplayName("Serialize I18nMessage with context to JSON with Jackson")
+  void testJacksonSerialization_withContext() throws JsonProcessingException {
+    ObjectMapper mapper = new ObjectMapper();
+    I18nMessage msg = I18nMessage.of("error.entity.attributes", Map.of("entity", "user"));
+
+    String json = mapper.writeValueAsString(msg);
+
+    assertTrue(json.contains("\"key\""));
+    assertTrue(json.contains("\"error.entity.attributes\""));
+    assertTrue(json.contains("\"context\""));
+    assertTrue(json.contains("\"entity\""));
+    assertTrue(json.contains("\"user\""));
   }
 }

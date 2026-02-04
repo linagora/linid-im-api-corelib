@@ -26,6 +26,7 @@
 
 package io.github.linagora.linid.im.corelib.i18n;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,6 +86,7 @@ public final class I18nMessage {
    *
    * @return the message key
    */
+  @JsonProperty("key")
   public String key() {
     return key;
   }
@@ -95,6 +97,7 @@ public final class I18nMessage {
    *
    * @return the context map (never null)
    */
+  @JsonProperty("context")
   public Map<String, Object> context() {
     return context;
   }
