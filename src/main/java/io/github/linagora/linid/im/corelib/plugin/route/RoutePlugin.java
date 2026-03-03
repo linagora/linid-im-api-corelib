@@ -34,50 +34,43 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.plugin.core.Plugin;
 
 /**
- * Interface defining a plugin for routing HTTP requests.
+ * Interface defining a stateless plugin for routing HTTP requests.
  *
  * <p>Implementations decide if they match a given URL and HTTP method, and execute the
  * corresponding logic for the matched request.
+ *
+ * <p>All methods receive the {@link RouteConfiguration} as a parameter to ensure thread-safety and
+ * allow multiple route configurations to share the same plugin instance.
  */
 public interface RoutePlugin extends Plugin<String> {
 
   /**
-   * Returns the current configuration of the route.
+   * Returns the list of route descriptions defined in the application, potentially derived from the
+   * provided route configuration and list of entity configurations.
    *
-   * @return the route configuration
-   */
-  RouteConfiguration getConfiguration();
-
-  /**
-   * Sets the configuration of the route.
-   *
-   * @param configuration the route configuration to set
-   */
-  void setConfiguration(RouteConfiguration configuration);
-
-  /**
-   * Returns the list of route descriptions defined in the application, potentially derived from the provided list of entity
-   * configurations.
-   *
+   * @param configuration the route configuration for this plugin
    * @param entities the list of entity configurations used to generate routes
    * @return list of all route descriptions (HTTP method, path, variables)
    */
-  List<RouteDescription> getRoutes(List<EntityConfiguration> entities);
+  List<RouteDescription> getRoutes(
+      RouteConfiguration configuration, List<EntityConfiguration> entities);
 
   /**
    * Determines if this plugin matches the given URL and HTTP method.
    *
+   * @param configuration the route configuration for this plugin
    * @param url the URL of the incoming request
    * @param method the HTTP method (GET, POST, etc.) of the incoming request
    * @return {@code true} if the plugin matches the request, {@code false} otherwise
    */
-  boolean match(String url, String method);
+  boolean match(RouteConfiguration configuration, String url, String method);
 
   /**
    * Executes the logic associated with the given HTTP request.
    *
+   * @param configuration the route configuration for this plugin
    * @param request the HTTP servlet request to be processed
    * @return a {@link ResponseEntity} representing the response of the execution
    */
-  ResponseEntity<?> execute(HttpServletRequest request);
+  ResponseEntity<?> execute(RouteConfiguration configuration, HttpServletRequest request);
 }

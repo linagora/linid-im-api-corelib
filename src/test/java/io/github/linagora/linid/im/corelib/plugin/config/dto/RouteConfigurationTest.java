@@ -39,28 +39,28 @@ import org.junit.jupiter.api.Test;
 class RouteConfigurationTest {
 
   @Test
-  @DisplayName("Test setName and getName")
-  void testName() {
+  @DisplayName("Test setType and getType")
+  void testType() {
     RouteConfiguration route = new RouteConfiguration();
-    route.setName("customRoute");
+    route.setType("dynamic-list");
     assertEquals(
-        "customRoute", route.getName(), "The route name should be correctly set and retrieved");
+        "dynamic-list", route.getType(), "The route type should be correctly set and retrieved");
   }
 
   @Test
-  @DisplayName("Test addOption should add key-value pairs except for key 'name'")
+  @DisplayName("Test addOption should add key-value pairs except for key 'type'")
   void testAddOption() {
     RouteConfiguration route = new RouteConfiguration();
     route.addOption("timeout", 5000);
     route.addOption("secure", true);
-    route.addOption("name", "shouldNotBeAdded");
+    route.addOption("type", "shouldNotBeAdded");
 
     Map<String, Object> options = route.getOptions();
 
     assertEquals(2, options.size(), "Only two options should be stored");
     assertEquals(5000, options.get("timeout"));
     assertEquals(true, options.get("secure"));
-    assertFalse(options.containsKey("name"), "Key 'name' should be ignored");
+    assertFalse(options.containsKey("type"), "Key 'type' should be ignored");
   }
 
   @Test

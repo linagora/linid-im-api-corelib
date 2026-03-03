@@ -11,18 +11,21 @@ operations.
 ```java
 package io.github.linagora.linid.im.ldap;
 
+import io.github.linagora.linid.im.corelib.plugin.config.PluginConfigurationService;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.EntityConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.RouteConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.provider.ProviderFactory;
+import io.github.linagora.linid.im.corelib.plugin.route.RouteDescription;
+import io.github.linagora.linid.im.corelib.plugin.route.RoutePlugin;
+import io.github.linagora.linid.im.corelib.plugin.task.TaskEngine;
+import io.github.linagora.linid.im.corelib.plugin.validation.ValidationEngine;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
-import config.plugin.io.github.linagora.linid.im.corelib.PluginConfigurationService;
-import provider.plugin.io.github.linagora.linid.im.corelib.ProviderFactory;
-import route.plugin.io.github.linagora.linid.im.corelib.AbstractRoutePlugin;
-import task.plugin.io.github.linagora.linid.im.corelib.TaskEngine;
-import validation.plugin.io.github.linagora.linid.im.corelib.ValidationEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 
-public class LdapRoutePlugin extends AbstractRoutePlugin {
+public class LdapRoutePlugin implements RoutePlugin {
 
     private final ProviderFactory providerFactory;
     private final PluginConfigurationService configurationService;
@@ -34,7 +37,6 @@ public class LdapRoutePlugin extends AbstractRoutePlugin {
                            final PluginConfigurationService configurationService,
                            final ValidationEngine validationEngine,
                            final TaskEngine taskEngine) {
-        super();
         this.providerFactory = providerFactory;
         this.configurationService = configurationService;
         this.validationEngine = validationEngine;
@@ -43,22 +45,24 @@ public class LdapRoutePlugin extends AbstractRoutePlugin {
 
     @Override
     public boolean supports(@NonNull String type) {
-        return true;
+        return "ldap-export".equals(type);
     }
 
     @Override
-    public List<RouteDescription> getRoutes(List<EntityConfiguration> entities) {
-        // Return all routes managed by you plugins.
+    public List<RouteDescription> getRoutes(RouteConfiguration configuration,
+                                            List<EntityConfiguration> entities) {
+        // Return all routes managed by your plugin.
         return List.of();
     }
 
     @Override
-    public boolean match(String url, String method) {
+    public boolean match(RouteConfiguration configuration, String url, String method) {
         return "GET".equals(method) && url.endsWith("/api/export");
     }
 
     @Override
-    public ResponseEntity<?> execute(HttpServletRequest request) {
+    public ResponseEntity<?> execute(RouteConfiguration configuration,
+                                     HttpServletRequest request) {
         // Your custom export logic here
         return ResponseEntity.ok().build();
     }
@@ -69,16 +73,18 @@ public class LdapRoutePlugin extends AbstractRoutePlugin {
 
 ## 🔧 How It Works
 
-* `getRoutes(List<EntityConfiguration> entities)`: Returns the list of route descriptions dynamically generated based on
-  the provided entity configurations.
-* `match(String url, String method)`: defines which routes this plugin handles.
-* `execute(HttpServletRequest request)`: performs the logic for the matched route.
+- `getRoutes(RouteConfiguration configuration, List<EntityConfiguration> entities)`: Returns the list of route
+  descriptions dynamically generated based on the provided route configuration and entity configurations.
+- `match(RouteConfiguration configuration, String url, String method)`: defines which routes this plugin handles.
+- `execute(RouteConfiguration configuration, HttpServletRequest request)`: performs the logic for the matched route.
+
+> The `RouteConfiguration` is passed as a parameter to each method, making plugins stateless and thread-safe.
 
 Route plugins can:
 
-* Call `ProviderPlugin`s via the `ProviderFactory`
-* Leverage validation through the `ValidationEngine`
-* Execute custom `TaskPlugin`s for extensible logic through the `TaskEngine`
+- Call `ProviderPlugin`s via the `ProviderFactory`
+- Leverage validation through the `ValidationEngine`
+- Execute custom `TaskPlugin`s for extensible logic through the `TaskEngine`
 
 > ⚠️ **Note:** Avoid injecting plugins directly unless they are guaranteed to be present in the final `.jar`. Prefer
 > using factories or service locators.
@@ -119,7 +125,7 @@ conversion, and other transformations based on the plugin configuration.
 ```java
 
 @Component
-public class LdapRoutePlugin extends AbstractRoutePlugin {
+public class LdapRoutePlugin implements RoutePlugin {
 
   private final DynamicEntityMapper entityMapper;
 
@@ -137,7 +143,7 @@ public class LdapRoutePlugin extends AbstractRoutePlugin {
 ```java
 
 @Override
-public ResponseEntity<?> execute(HttpServletRequest request) {
+public ResponseEntity<?> execute(RouteConfiguration configuration, HttpServletRequest request) {
   DynamicEntity entity = // retrieve or build your entity
   Map<String, Object> mappedEntity = entityMapper.apply(entity);
 
@@ -152,4 +158,4 @@ configuration, reducing manual mapping code and potential errors.
 
 ## 🔍 Related Topics
 
-* [Getting Started with Plugin Creation](./how-to-create-a-plugin.md)
+- [Getting Started with Plugin Creation](./how-to-create-a-plugin.md)

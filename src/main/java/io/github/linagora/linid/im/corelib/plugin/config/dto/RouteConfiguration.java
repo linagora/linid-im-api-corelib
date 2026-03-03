@@ -31,15 +31,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents the configuration of a route, identified by a {@code name} and supporting additional
+ * Represents the configuration of a route, identified by a {@code type} and supporting additional
  * arbitrary options.
+ *
+ * <p>The {@code type} field acts as a discriminator to associate this route configuration with the
+ * appropriate {@code RoutePlugin} implementation.
  *
  * <p>The {@code options} map allows storing route-specific configuration parameters that are not
  * explicitly defined as class fields. This enables flexible extension of route behavior depending
  * on the plugin or system context.
  *
  * <p>The {@link #addOption(String, Object)} method is used to populate this map during JSON
- * deserialization, ignoring reserved keywords such as {@code "name"}.
+ * deserialization, ignoring reserved keywords such as {@code "type"}.
  */
 public class RouteConfiguration implements PluginConfiguration {
 
@@ -50,10 +53,10 @@ public class RouteConfiguration implements PluginConfiguration {
   private final Map<String, Object> options = new HashMap<>();
 
   /**
-   * The unique identifier for the route. This name is typically used to associate the route with a
-   * specific plugin or logic.
+   * The plugin type discriminator for the route. Used to match this configuration with the
+   * appropriate {@code RoutePlugin} implementation.
    */
-  private String name;
+  private String type;
 
   /** Default constructor. */
   public RouteConfiguration() {}
@@ -61,27 +64,27 @@ public class RouteConfiguration implements PluginConfiguration {
   @Override
   @JsonAnySetter
   public void addOption(final String key, final Object value) {
-    if (!"name".equals(key)) {
+    if (!"type".equals(key)) {
       this.options.put(key, value);
     }
   }
 
   /**
-   * Returns the name of the route.
+   * Returns the plugin type discriminator for the route.
    *
-   * @return the route's name
+   * @return the route's type
    */
-  public String getName() {
-    return name;
+  public String getType() {
+    return type;
   }
 
   /**
-   * Sets the name of the route.
+   * Sets the plugin type discriminator for the route.
    *
-   * @param name the route name to set
+   * @param type the route type to set
    */
-  public void setName(final String name) {
-    this.name = name;
+  public void setType(final String type) {
+    this.type = type;
   }
 
   /**
