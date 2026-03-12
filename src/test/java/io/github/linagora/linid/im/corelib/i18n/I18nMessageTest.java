@@ -31,12 +31,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.ObjectMapper;
 
 @DisplayName("Test class: I18nMessage")
 class I18nMessageTest {
@@ -75,7 +74,7 @@ class I18nMessageTest {
 
   @Test
   @DisplayName("Serialize I18nMessage to JSON with Jackson")
-  void testJacksonSerialization_withKeyOnly() throws JsonProcessingException {
+  void testJacksonSerialization_withKeyOnly() {
     ObjectMapper mapper = new ObjectMapper();
     I18nMessage msg = I18nMessage.of("error.validation.required");
 
@@ -88,7 +87,7 @@ class I18nMessageTest {
 
   @Test
   @DisplayName("Serialize I18nMessage with context to JSON with Jackson")
-  void testJacksonSerialization_withContext() throws JsonProcessingException {
+  void testJacksonSerialization_withContext() {
     ObjectMapper mapper = new ObjectMapper();
     I18nMessage msg = I18nMessage.of("error.entity.attributes", Map.of("entity", "user"));
 
