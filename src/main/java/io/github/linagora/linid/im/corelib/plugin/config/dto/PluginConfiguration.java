@@ -26,10 +26,11 @@
 
 package io.github.linagora.linid.im.corelib.plugin.config.dto;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Map;
 import java.util.Optional;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * Represents a configuration holder for a plugin.
@@ -116,7 +117,7 @@ public interface PluginConfiguration {
     try {
       T converted = mapper.convertValue(value, typeRef);
       return Optional.ofNullable(converted);
-    } catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException | JacksonException e) {
       return Optional.empty();
     }
   }

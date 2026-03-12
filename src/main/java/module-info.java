@@ -53,6 +53,6 @@ module io.github.linagora.linid.im {
   requires spring.core;
   requires spring.context;
   requires spring.beans;
-  requires com.fasterxml.jackson.databind;
-  requires com.fasterxml.jackson.dataformat.yaml;
+  requires tools.jackson.core;
+  requires tools.jackson.databind;
 }
