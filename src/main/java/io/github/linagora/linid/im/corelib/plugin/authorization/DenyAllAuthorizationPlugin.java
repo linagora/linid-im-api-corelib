@@ -28,23 +28,20 @@ package io.github.linagora.linid.im.corelib.plugin.authorization;
 
 import io.github.linagora.linid.im.corelib.exception.ApiException;
 import io.github.linagora.linid.im.corelib.i18n.I18nMessage;
-import io.github.linagora.linid.im.corelib.plugin.config.dto.RootConfiguration;
-import io.github.linagora.linid.im.corelib.plugin.entity.DynamicEntity;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
 import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
-import org.springframework.util.MultiValueMap;
 
 /**
- * Authorization plugin that denies all incoming requests, regardless of the action, entity, or context.
+ * Authorization plugin that denies all token validations unconditionally.
  *
- * <p>This plugin can be used as a default fallback when no specific authorization logic is configured,
- * or when the goal is to explicitly forbid access to certain routes or entities.
+ * <p>This plugin is used as a default fallback when no specific authorization logic is configured,
+ * or when the goal is to explicitly forbid access to certain routes.
  *
- * <p>All authorization checks and token validations systematically throw a {@link ApiException}
- * with a 404 NotFound status.
+ * <p>Token validation systematically throws a {@link ApiException} with a 401 Unauthorized status.
  */
 public class DenyAllAuthorizationPlugin extends AbstractAuthorizationPlugin {
 
@@ -54,41 +51,11 @@ public class DenyAllAuthorizationPlugin extends AbstractAuthorizationPlugin {
   public DenyAllAuthorizationPlugin() {
   }
   
-  @Override
-  public void updateConfiguration(RootConfiguration configuration) {
-
-  }
 
   @Override
-  public void validateToken(HttpServletRequest request, TaskExecutionContext context) {
-    throw new ApiException(HttpStatus.NOT_FOUND.value(), I18nMessage.of("error.router.unknown.route", Map.of("route",
-        request.getRequestURI())));
-  }
-
-  @Override
-  public void isAuthorized(HttpServletRequest request, DynamicEntity entity, String action, TaskExecutionContext context) {
-    throw new ApiException(HttpStatus.NOT_FOUND.value(), I18nMessage.of("error.router.unknown.route", Map.of("route",
-        request.getRequestURI())));
-  }
-
-  @Override
-  public void isAuthorized(HttpServletRequest request,
-                           DynamicEntity entity,
-                           String id,
-                           String action,
-                           TaskExecutionContext context) {
-    throw new ApiException(HttpStatus.NOT_FOUND.value(), I18nMessage.of("error.router.unknown.route", Map.of("route",
-        request.getRequestURI())));
-  }
-
-  @Override
-  public void isAuthorized(HttpServletRequest request,
-                           DynamicEntity entity,
-                           MultiValueMap<String, String> filters,
-                           String action,
-                           TaskExecutionContext context) {
-    throw new ApiException(HttpStatus.NOT_FOUND.value(), I18nMessage.of("error.router.unknown.route", Map.of("route",
-        request.getRequestURI())));
+  public void validateToken(AuthorizationConfiguration configuration, HttpServletRequest request,
+                            TaskExecutionContext context) {
+    throw new ApiException(HttpStatus.UNAUTHORIZED.value(), I18nMessage.of("error.authentication.unauthorized"));
   }
 
   @Override

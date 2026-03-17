@@ -28,56 +28,23 @@ package io.github.linagora.linid.im.corelib.plugin.authorization;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import io.github.linagora.linid.im.corelib.plugin.config.dto.RootConfiguration;
-import io.github.linagora.linid.im.corelib.plugin.entity.DynamicEntity;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
 import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.util.LinkedMultiValueMap;
 
 @DisplayName("Test class:  AllowAllAuthorizationPlugin")
 class AllowAllAuthorizationPluginTest {
-  @Test
-  void updateConfigurationShouldNotThrow() {
-    assertDoesNotThrow(() -> new AllowAllAuthorizationPlugin().updateConfiguration(Mockito.mock(RootConfiguration.class)));
-  }
 
   @Test
   void validateTokenShouldNotThrow() {
+    var configuration = new AuthorizationConfiguration();
     var request = Mockito.mock(HttpServletRequest.class);
     var context = new TaskExecutionContext();
 
-    assertDoesNotThrow(() -> new AllowAllAuthorizationPlugin().validateToken(request, context));
-  }
-
-  @Test
-  void isAuthorizedEntityActionShouldNotThrow() {
-    var request = Mockito.mock(HttpServletRequest.class);
-    var context = new TaskExecutionContext();
-    var entity = new DynamicEntity();
-
-    assertDoesNotThrow(() -> new AllowAllAuthorizationPlugin().isAuthorized(request, entity, "read", context));
-  }
-
-  @Test
-  void isAuthorizedEntityIdActionShouldNotThrow() {
-    var request = Mockito.mock(HttpServletRequest.class);
-    var context = new TaskExecutionContext();
-    var entity = new DynamicEntity();
-
-    assertDoesNotThrow(() -> new AllowAllAuthorizationPlugin().isAuthorized(request, entity, "123", "read", context));
-  }
-
-  @Test
-  void isAuthorizedEntityFiltersActionShouldNotThrow() {
-    var request = Mockito.mock(HttpServletRequest.class);
-    var context = new TaskExecutionContext();
-    var entity = new DynamicEntity();
-    var filters = new LinkedMultiValueMap<String, String>();
-
-    assertDoesNotThrow(() -> new AllowAllAuthorizationPlugin().isAuthorized(request, entity, filters, "read", context));
+    assertDoesNotThrow(() -> new AllowAllAuthorizationPlugin().validateToken(configuration, request, context));
   }
 
   @Test
