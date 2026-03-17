@@ -43,7 +43,7 @@ import org.springframework.lang.NonNull;
  *
  * <p>Token validation systematically throws a {@link ApiException} with a 401 Unauthorized status.
  */
-public class DenyAllAuthorizationPlugin extends AbstractAuthorizationPlugin {
+public class DenyAllAuthorizationPlugin implements AuthorizationPlugin {
 
   /**
    * Default constructor.

@@ -20,7 +20,7 @@ Create a new Java class in your plugin project:
 ```java
 package io.github.linagora.linid.im.myplugin;
 
-import io.github.linagora.linid.im.corelib.plugin.authorization.AbstractAuthorizationPlugin;
+import io.github.linagora.linid.im.corelib.plugin.authorization.AuthorizationPlugin;
 import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
 import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,7 +28,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExampleAuthorizationPlugin extends AbstractAuthorizationPlugin {
+public class ExampleAuthorizationPlugin implements AuthorizationPlugin {
 
     @Override
     public boolean supports(@NonNull String type) {
