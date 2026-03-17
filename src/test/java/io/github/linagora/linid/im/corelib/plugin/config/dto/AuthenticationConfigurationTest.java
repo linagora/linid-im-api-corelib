@@ -24,42 +24,50 @@
  * LinID Identity Manager software.
  */
 
-package io.github.linagora.linid.im.corelib.plugin.authorization;
+package io.github.linagora.linid.im.corelib.plugin.config.dto;
 
-import io.github.linagora.linid.im.corelib.exception.ApiException;
-import io.github.linagora.linid.im.corelib.i18n.I18nMessage;
-import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
-import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
-import jakarta.servlet.http.HttpServletRequest;
-import java.util.Map;
-import org.springframework.http.HttpStatus;
-import org.springframework.lang.NonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/**
- * Authorization plugin that denies all token validations unconditionally.
- *
- * <p>This plugin is used as a default fallback when no specific authorization logic is configured,
- * or when the goal is to explicitly forbid access to certain routes.
- *
- * <p>Token validation systematically throws a {@link ApiException} with a 401 Unauthorized status.
- */
-public class DenyAllAuthorizationPlugin implements AuthorizationPlugin {
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-  /**
-   * Default constructor.
-   */
-  public DenyAllAuthorizationPlugin() {
-  }
-  
+@DisplayName("Test class: AuthenticationConfiguration")
+public class AuthenticationConfigurationTest {
+  @Test
+  void testTypeGetterSetter() {
+    AuthenticationConfiguration config = new AuthenticationConfiguration();
+    assertNull(config.getType());
 
-  @Override
-  public void validateToken(AuthorizationConfiguration configuration, HttpServletRequest request,
-                            TaskExecutionContext context) {
-    throw new ApiException(HttpStatus.UNAUTHORIZED.value(), I18nMessage.of("error.authentication.unauthorized"));
+    config.setType("ldap");
+    assertEquals("ldap", config.getType());
   }
 
-  @Override
-  public boolean supports(@NonNull String type) {
-    return "deny-all".equals(type);
+  @Test
+  void testAddOptionAddsKeyValueExceptType() {
+    AuthenticationConfiguration config = new AuthenticationConfiguration();
+
+    config.addOption("foo", "bar");
+    config.addOption("number", 42);
+    config.addOption("type", "shouldBeIgnored");
+
+    assertEquals(2, config.getOptions().size());
+    assertEquals("bar", config.getOptions().get("foo"));
+    assertEquals(42, config.getOptions().get("number"));
+    assertFalse(config.getOptions().containsKey("type"));
+  }
+
+  @Test
+  void testOptionsMapIsMutable() {
+    AuthenticationConfiguration config = new AuthenticationConfiguration();
+    config.addOption("key", "value");
+
+    assertTrue(config.getOptions().containsKey("key"));
+
+    config.getOptions().put("newKey", 123);
+    assertEquals(2, config.getOptions().size());
+    assertEquals(123, config.getOptions().get("newKey"));
   }
 }

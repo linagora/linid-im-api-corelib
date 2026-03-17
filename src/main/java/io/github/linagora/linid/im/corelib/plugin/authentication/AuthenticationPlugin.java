@@ -24,31 +24,31 @@
  * LinID Identity Manager software.
  */
 
-package io.github.linagora.linid.im.corelib.plugin.authorization;
+package io.github.linagora.linid.im.corelib.plugin.authentication;
 
-import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthenticationConfiguration;
 import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.plugin.core.Plugin;
 
 /**
- * Defines the contract for an authorization plugin within the plugin-based configuration system.
+ * Defines the contract for an authentication plugin within the plugin-based configuration system.
  *
- * <p>Authorization plugins are solely responsible for token validation. They evaluate the incoming
+ * <p>Authentication plugins are solely responsible for token validation. They evaluate the incoming
  * HTTP request to ensure the token is present, valid, and not expired.
  *
  * <p>Authorization and permission checks are handled separately in the pipeline.
  */
-public interface AuthorizationPlugin extends Plugin<String> {
+public interface AuthenticationPlugin extends Plugin<String> {
 
   /**
    * Validates the authentication token present in the incoming HTTP request.
    *
    * <p>Should throw an exception if the token is missing, invalid, or expired.
    *
-   * @param configuration the active {@link AuthorizationConfiguration} for this plugin
+   * @param configuration the active {@link AuthenticationConfiguration} for this plugin
    * @param request the HTTP request containing the token
    * @param context the current execution context
    */
-  void validateToken(AuthorizationConfiguration configuration, HttpServletRequest request, TaskExecutionContext context);
+  void validateToken(AuthenticationConfiguration configuration, HttpServletRequest request, TaskExecutionContext context);
 }

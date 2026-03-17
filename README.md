@@ -5,7 +5,7 @@ execution logic for the **Identity Manager** platform.
 
 It acts as the **foundation layer** for dynamically loading, wiring, and executing external plugins, including:
 
-* **Authorization** (e.g., RBack, Jwt, LDAP)
+* **Authentication** (e.g., Jwt, LDAP)
 * **Providers** (e.g., LDAP, REST, databases)
 * **Routes** (custom processing flows)
 * **Tasks** (phased executions on entities)
@@ -58,7 +58,7 @@ lifecycle**:
 -> Load entity configuration
 -> Load associated ProviderPlugin
 -> Execute Tasks (phase: beforeTokenValidationAction)
--> Validate token with AuthorizationPlugin
+-> Validate token with AuthenticationPlugin
 -> Execute Tasks (phase: afterTokenValidationCreate)
 -> Execute Tasks (phase: beforePermissionValidationCreate)
 -> Validation authorization (handled by the pipeline)
@@ -84,7 +84,7 @@ To extend the platform, you can create your own plugins by implementing the prop
 
 * [🗂️ Gitlab architecture](docs/github-project-architecture.md)
 * [📄 How to create a plugin - The basics](docs/plugins/how-to-create-a-plugin.md)
-* [🛡️ How to Create an Authorization Plugin](./docs/plugins/create-authorization-plugin.md)
+* [🛡️ How to Create an Authentication Plugin](./docs/plugins/create-authentication-plugin.md)
 * [🔌 How to Create a Provider Plugin](./docs/plugins/create-provider-plugin.md)
 * [🛣️ How to Create a Route Plugin](./docs/plugins/create-route-plugin.md)
 * [✅ How to Create a Validation Plugin](./docs/plugins/create-validation-plugin.md)
@@ -96,7 +96,7 @@ To extend the platform, you can create your own plugins by implementing the prop
 All plugins should implement one of the provided interfaces in the `io.github.linagora.linid.im.corelib.plugin` 
 namespace:
 
-* `AuthorizationPlugin`
+* `AuthenticationPlugin`
 * `ProviderPlugin`
 * `RoutePlugin`
 * `TaskPlugin`

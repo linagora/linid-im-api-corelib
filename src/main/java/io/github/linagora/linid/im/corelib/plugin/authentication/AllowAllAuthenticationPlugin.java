@@ -24,30 +24,30 @@
  * LinID Identity Manager software.
  */
 
-package io.github.linagora.linid.im.corelib.plugin.authorization;
+package io.github.linagora.linid.im.corelib.plugin.authentication;
 
-import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthenticationConfiguration;
 import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 /**
- * An {@link AuthorizationPlugin} implementation that allows all token validations unconditionally.
+ * An {@link AuthenticationPlugin} implementation that allows all token validations unconditionally.
  *
  * <p>To activate this plugin, set its type as <code>"allow-all"</code> in the plugin configuration.
  */
 @Component
-public class AllowAllAuthorizationPlugin implements AuthorizationPlugin {
+public class AllowAllAuthenticationPlugin implements AuthenticationPlugin {
 
   /**
    * Default constructor.
    */
-  public AllowAllAuthorizationPlugin() {
+  public AllowAllAuthenticationPlugin() {
   }
 
   @Override
-  public void validateToken(AuthorizationConfiguration configuration, HttpServletRequest request,
+  public void validateToken(AuthenticationConfiguration configuration, HttpServletRequest request,
                             TaskExecutionContext context) {
 
   }

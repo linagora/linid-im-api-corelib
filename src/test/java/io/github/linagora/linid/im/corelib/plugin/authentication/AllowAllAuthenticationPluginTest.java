@@ -24,50 +24,36 @@
  * LinID Identity Manager software.
  */
 
-package io.github.linagora.linid.im.corelib.plugin.config.dto;
+package io.github.linagora.linid.im.corelib.plugin.authentication;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthenticationConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
+import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-@DisplayName("Test class: AuthorizationConfiguration")
-public class AuthorizationConfigurationTest {
+@DisplayName("Test class: AllowAllAuthenticationPlugin")
+class AllowAllAuthenticationPluginTest {
+
   @Test
-  void testTypeGetterSetter() {
-    AuthorizationConfiguration config = new AuthorizationConfiguration();
-    assertNull(config.getType());
+  void validateTokenShouldNotThrow() {
+    var configuration = new AuthenticationConfiguration();
+    var request = Mockito.mock(HttpServletRequest.class);
+    var context = new TaskExecutionContext();
 
-    config.setType("ldap");
-    assertEquals("ldap", config.getType());
+    assertDoesNotThrow(() -> new AllowAllAuthenticationPlugin().validateToken(configuration, request, context));
   }
 
   @Test
-  void testAddOptionAddsKeyValueExceptType() {
-    AuthorizationConfiguration config = new AuthorizationConfiguration();
-
-    config.addOption("foo", "bar");
-    config.addOption("number", 42);
-    config.addOption("type", "shouldBeIgnored");
-
-    assertEquals(2, config.getOptions().size());
-    assertEquals("bar", config.getOptions().get("foo"));
-    assertEquals(42, config.getOptions().get("number"));
-    assertFalse(config.getOptions().containsKey("type"));
+  void supportsShouldReturnTrueForAllowAll() {
+    assert (new AllowAllAuthenticationPlugin().supports("allow-all"));
   }
 
   @Test
-  void testOptionsMapIsMutable() {
-    AuthorizationConfiguration config = new AuthorizationConfiguration();
-    config.addOption("key", "value");
-
-    assertTrue(config.getOptions().containsKey("key"));
-
-    config.getOptions().put("newKey", 123);
-    assertEquals(2, config.getOptions().size());
-    assertEquals(123, config.getOptions().get("newKey"));
+  void supportsShouldReturnFalseForOther() {
+    assert (!new AllowAllAuthenticationPlugin().supports("deny-all"));
   }
 }

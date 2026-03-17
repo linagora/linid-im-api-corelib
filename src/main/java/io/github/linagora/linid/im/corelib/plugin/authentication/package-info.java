@@ -25,13 +25,13 @@
  */
 
 /**
- * Provides classes and interfaces related to the authorization plugin system of LinID Identity Manager.
+ * Provides classes and interfaces related to the authentication plugin system of LinID Identity Manager.
  *
- * <p>This package contains implementations and abstractions to manage access control, authorization
- * policies, and integration with provider-specific security mechanisms within the dynamic plugin framework.
+ * <p>This package contains implementations and abstractions to manage token validation
+ * and integration with provider-specific security mechanisms within the dynamic plugin framework.
  *
- * <p>It supports defining authorization configurations, enforcing permissions on entities and attributes,
- * and allows flexible extension for custom authorization logic.
+ * <p>It supports defining authentication configurations and allows flexible extension for custom
+ * token validation logic via {@link io.github.linagora.linid.im.corelib.plugin.authentication.AuthenticationPlugin}.
  */
 
-package io.github.linagora.linid.im.corelib.plugin.authorization;
+package io.github.linagora.linid.im.corelib.plugin.authentication;

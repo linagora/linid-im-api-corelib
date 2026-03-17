@@ -24,46 +24,35 @@
  * LinID Identity Manager software.
  */
 
-package io.github.linagora.linid.im.corelib.plugin.authorization;
+package io.github.linagora.linid.im.corelib.plugin.authentication;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthenticationConfiguration;
 
-import io.github.linagora.linid.im.corelib.exception.ApiException;
-import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
-import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
-import jakarta.servlet.http.HttpServletRequest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.http.HttpStatus;
+/**
+ * Factory interface for retrieving an {@link AuthenticationPlugin} instance and its active configuration.
+ *
+ * <p>This abstraction allows different authentication plugins to be injected dynamically
+ * depending on configuration or context.
+ *
+ * <p>By default, this factory should return a plugin that denies all operations
+ * (e.g., {@code DenyAllAuthenticationPlugin}) to enforce secure defaults when no plugin is explicitly configured.
+ */
+public interface AuthenticationFactory {
 
-@DisplayName("Test class:  DenyAllAuthorizationPlugin")
-class DenyAllAuthorizationPluginTest {
+  /**
+   * Returns the selected {@link AuthenticationPlugin} to be used by the system.
+   *
+   * <p>If no plugin is explicitly configured or matched, the factory should return
+   * a safe default such as a {@code DenyAllAuthenticationPlugin}, which blocks all operations.
+   *
+   * @return the resolved authentication plugin
+   */
+  AuthenticationPlugin getAuthenticationPlugin();
 
-  @Test
-  void validateTokenShouldThrowApiException() {
-    var plugin = new DenyAllAuthorizationPlugin();
-    var configuration = new AuthorizationConfiguration();
-    var request = Mockito.mock(HttpServletRequest.class);
-    var context = new TaskExecutionContext();
-
-    ApiException exception =
-        assertThrows(
-            ApiException.class, () -> plugin.validateToken(configuration, request, context));
-    assertEquals(exception.getStatusCode(), HttpStatus.UNAUTHORIZED.value());
-    assertEquals(exception.getError().key(), "error.authentication.unauthorized");
-  }
-
-  @Test
-  void supportsShouldReturnTrueForDenyAll() {
-    var plugin = new DenyAllAuthorizationPlugin();
-    assert plugin.supports("deny-all");
-  }
-
-  @Test
-  void supportsShouldReturnFalseForOther() {
-    var plugin = new DenyAllAuthorizationPlugin();
-    assert !plugin.supports("allow-all");
-  }
+  /**
+   * Returns the active {@link AuthenticationConfiguration} to be passed to the plugin during token validation.
+   *
+   * @return the active authentication configuration
+   */
+  AuthenticationConfiguration getAuthenticationConfiguration();
 }

@@ -69,11 +69,10 @@ public class RootConfiguration {
   private List<ValidationConfiguration> validations;
 
   /**
-   * Authorization configuration that defines the rules or constraints used to determine access control on the entity or
-   * attribute.
+   * Authentication configuration that defines the authentication strategy for the plugin system.
    */
-  @JsonProperty("authorization")
-  private AuthorizationConfiguration authorization;
+  @JsonProperty("authentication")
+  private AuthenticationConfiguration authentication;
 
   /**
    * Default constructor.
@@ -172,24 +171,24 @@ public class RootConfiguration {
   }
 
   /**
-   * Returns the authorization configuration associated with this component.
+   * Returns the authentication configuration associated with this component.
    *
-   * <p>This configuration typically defines access control rules via plugin-specific settings.
+   * <p>This configuration typically defines the authentication strategy via plugin-specific settings.
    *
-   * @return the {@link AuthorizationConfiguration} used for access control
+   * @return the {@link AuthenticationConfiguration} used for authentication
    */
-  public AuthorizationConfiguration getAuthorization() {
-    return authorization;
+  public AuthenticationConfiguration getAuthentication() {
+    return authentication;
   }
 
   /**
-   * Sets the authorization configuration for this component.
+   * Sets the authentication configuration for this component.
    *
-   * <p>This method allows injecting plugin-defined access control logic.
+   * <p>This method allows injecting plugin-defined authentication logic.
    *
-   * @param authorization the {@link AuthorizationConfiguration} to set
+   * @param authentication the {@link AuthenticationConfiguration} to set
    */
-  public void setAuthorization(AuthorizationConfiguration authorization) {
-    this.authorization = authorization;
+  public void setAuthentication(AuthenticationConfiguration authentication) {
+    this.authentication = authentication;
   }
 }
