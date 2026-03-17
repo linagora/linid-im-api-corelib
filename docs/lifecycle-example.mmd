@@ -3,14 +3,14 @@ sequenceDiagram
     participant GenericController
     participant DynamicEntityService
     participant TaskEngine
-    participant AuthorizationPlugin
+    participant AuthenticationPlugin
     participant ValidationEngine
     participant ProviderPlugin
     Client ->> GenericController: POST /api/<entity>
     GenericController ->> DynamicEntityService: handleCreate()
     DynamicEntityService ->> DynamicEntityService: Load entity config + plugin
     DynamicEntityService ->> TaskEngine: beforeTokenValidationCreate
-    DynamicEntityService ->> AuthorizationPlugin: validateToken(...)
+    DynamicEntityService ->> AuthenticationPlugin: validateToken(...)
     DynamicEntityService ->> TaskEngine: AfterTokenValidationCreate
     DynamicEntityService ->> TaskEngine: beforePermissionValidationCreate
     DynamicEntityService ->> TaskEngine: afterPermissionValidationCreate

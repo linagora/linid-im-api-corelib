@@ -24,36 +24,46 @@
  * LinID Identity Manager software.
  */
 
-package io.github.linagora.linid.im.corelib.plugin.authorization;
+package io.github.linagora.linid.im.corelib.plugin.authentication;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
+import io.github.linagora.linid.im.corelib.exception.ApiException;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthenticationConfiguration;
 import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.http.HttpStatus;
 
-@DisplayName("Test class:  AllowAllAuthorizationPlugin")
-class AllowAllAuthorizationPluginTest {
+@DisplayName("Test class: DenyAllAuthenticationPlugin")
+class DenyAllAuthenticationPluginTest {
 
   @Test
-  void validateTokenShouldNotThrow() {
-    var configuration = new AuthorizationConfiguration();
+  void validateTokenShouldThrowApiException() {
+    var plugin = new DenyAllAuthenticationPlugin();
+    var configuration = new AuthenticationConfiguration();
     var request = Mockito.mock(HttpServletRequest.class);
     var context = new TaskExecutionContext();
 
-    assertDoesNotThrow(() -> new AllowAllAuthorizationPlugin().validateToken(configuration, request, context));
+    ApiException exception =
+        assertThrows(
+            ApiException.class, () -> plugin.validateToken(configuration, request, context));
+    assertEquals(exception.getStatusCode(), HttpStatus.UNAUTHORIZED.value());
+    assertEquals(exception.getError().key(), "error.authentication.unauthorized");
   }
 
   @Test
-  void supportsShouldReturnTrueForAllowAll() {
-    assert (new AllowAllAuthorizationPlugin().supports("allow-all"));
+  void supportsShouldReturnTrueForDenyAll() {
+    var plugin = new DenyAllAuthenticationPlugin();
+    assert plugin.supports("deny-all");
   }
 
   @Test
   void supportsShouldReturnFalseForOther() {
-    assert (!new AllowAllAuthorizationPlugin().supports("deny-all"));
+    var plugin = new DenyAllAuthenticationPlugin();
+    assert !plugin.supports("allow-all");
   }
 }

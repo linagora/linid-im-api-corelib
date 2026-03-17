@@ -1,14 +1,14 @@
-# Creating an Authorization Plugin for Identity Manager API
+# Creating an Authentication Plugin for Identity Manager API
 
-This guide walks you through the steps to create an **Authorization Plugin** using the `linid-im-api-corelib` library.
-An authorization plugin is solely responsible for **token validation**: verifying that the incoming HTTP request carries
+This guide walks you through the steps to create an **Authentication Plugin** using the `linid-im-api-corelib` library.
+An authentication plugin is solely responsible for **token validation**: verifying that the incoming HTTP request carries
 a valid, non-expired token. Authorization and permission checks are handled separately in the pipeline.
 
 ---
 
 ## ✨ Goal
 
-We will create a simple authorization plugin named `ExampleAuthorizationPlugin` that demonstrates how to extend the core
+We will create a simple authentication plugin named `ExampleAuthenticationPlugin` that demonstrates how to extend the core
 framework and implement basic token validation.
 
 ---
@@ -20,15 +20,15 @@ Create a new Java class in your plugin project:
 ```java
 package io.github.linagora.linid.im.myplugin;
 
-import io.github.linagora.linid.im.corelib.plugin.authorization.AuthorizationPlugin;
-import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.authentication.AuthenticationPlugin;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthenticationConfiguration;
 import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExampleAuthorizationPlugin implements AuthorizationPlugin {
+public class ExampleAuthenticationPlugin implements AuthenticationPlugin {
 
     @Override
     public boolean supports(@NonNull String type) {
@@ -36,7 +36,7 @@ public class ExampleAuthorizationPlugin implements AuthorizationPlugin {
     }
 
     @Override
-    public void validateToken(AuthorizationConfiguration configuration, HttpServletRequest request,
+    public void validateToken(AuthenticationConfiguration configuration, HttpServletRequest request,
                               TaskExecutionContext context) {
         // Implement token extraction and validation logic using the provided configuration
     }
@@ -54,15 +54,15 @@ Marks the plugin class as a Spring-managed bean so it can be auto-discovered by 
 ### 🔁 `supports(String type)`
 
 Defines the plugin identifier (in this case, `example-auth`) that is used in the dynamic configuration to select the
-appropriate authorization strategy.
+appropriate authentication strategy.
 
 ### 🔐 Plugin Responsibility: Token Validation
 
 The plugin has a single responsibility:
 
-* **Token validation** via `validateToken(AuthorizationConfiguration configuration, HttpServletRequest request, TaskExecutionContext context)`
+* **Token validation** via `validateToken(AuthenticationConfiguration configuration, HttpServletRequest request, TaskExecutionContext context)`
 
-The `AuthorizationConfiguration` parameter provides the active plugin configuration (e.g. issuer URL, audience, public
+The `AuthenticationConfiguration` parameter provides the active plugin configuration (e.g. issuer URL, audience, public
 key) so that token validation can be fully parameterized without storing state on the plugin instance.
 
 The method should throw an exception (typically an `ApiException` with HTTP 401 Unauthorized) if the token is missing,
@@ -112,7 +112,7 @@ This is useful when:
 * You want to parse a token **once** and make its contents available downstream (e.g., by storing it in a `ThreadLocal`,
   `TaskExecutionContext`, or request attribute).
 * You need to log or audit authorization decisions, user identity, or request metadata.
-* You want to pre-process requests before `AuthorizationPlugin.validateToken(...)` is invoked.
+* You want to pre-process requests before `AuthenticationPlugin.validateToken(...)` is invoked.
 
 Example:
 

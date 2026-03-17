@@ -73,12 +73,12 @@ class RootConfigurationTest {
   }
 
   @Test
-  @DisplayName("Test getters and setters for authorization")
-  void testAuthorization() {
+  @DisplayName("Test getters and setters for authentication")
+  void testAuthentication() {
     RootConfiguration config = new RootConfiguration();
-    var authorization = new AuthorizationConfiguration();
-    config.setAuthorization(authorization);
-    assertSame(authorization, config.getAuthorization());
+    var authentication = new AuthenticationConfiguration();
+    config.setAuthentication(authentication);
+    assertSame(authentication, config.getAuthentication());
   }
 
   @Test

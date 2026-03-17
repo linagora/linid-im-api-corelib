@@ -35,7 +35,7 @@
 module io.github.linagora.linid.im {
   exports io.github.linagora.linid.im.corelib.exception;
   exports io.github.linagora.linid.im.corelib.i18n;
-  exports io.github.linagora.linid.im.corelib.plugin.authorization;
+  exports io.github.linagora.linid.im.corelib.plugin.authentication;
   exports io.github.linagora.linid.im.corelib.plugin.config;
   exports io.github.linagora.linid.im.corelib.plugin.config.dto;
   exports io.github.linagora.linid.im.corelib.plugin.provider;

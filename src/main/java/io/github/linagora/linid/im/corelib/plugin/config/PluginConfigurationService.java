@@ -26,7 +26,7 @@
 
 package io.github.linagora.linid.im.corelib.plugin.config;
 
-import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthenticationConfiguration;
 import io.github.linagora.linid.im.corelib.plugin.config.dto.EntityConfiguration;
 import io.github.linagora.linid.im.corelib.plugin.config.dto.ProviderConfiguration;
 import io.github.linagora.linid.im.corelib.plugin.config.dto.RouteConfiguration;
@@ -110,11 +110,11 @@ public interface PluginConfigurationService {
   Optional<EntityDescription> getEntityDescription(String name);
 
   /**
-   * Retrieves the global authorization configuration used for access control across entities or attributes.
+   * Retrieves the global authentication configuration used for token validation across entities or attributes.
    *
-   * <p>This configuration may define global access policies or plugin-specific authorization logic.
+   * <p>This configuration may define global authentication policies or plugin-specific authentication logic.
    *
-   * @return an {@link Optional} containing the {@link AuthorizationConfiguration} if defined, otherwise empty
+   * @return an {@link Optional} containing the {@link AuthenticationConfiguration} if defined, otherwise empty
    */
-  Optional<AuthorizationConfiguration> getAuthorizationConfiguration();
+  Optional<AuthenticationConfiguration> getAuthenticationConfiguration();
 }
