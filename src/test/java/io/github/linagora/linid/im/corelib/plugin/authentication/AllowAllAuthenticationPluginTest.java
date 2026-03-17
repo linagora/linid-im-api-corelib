@@ -24,36 +24,36 @@
  * LinID Identity Manager software.
  */
 
-package io.github.linagora.linid.im.corelib.plugin.authorization;
+package io.github.linagora.linid.im.corelib.plugin.authentication;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthenticationConfiguration;
 import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-@DisplayName("Test class:  AllowAllAuthorizationPlugin")
-class AllowAllAuthorizationPluginTest {
+@DisplayName("Test class: AllowAllAuthenticationPlugin")
+class AllowAllAuthenticationPluginTest {
 
   @Test
   void validateTokenShouldNotThrow() {
-    var configuration = new AuthorizationConfiguration();
+    var configuration = new AuthenticationConfiguration();
     var request = Mockito.mock(HttpServletRequest.class);
     var context = new TaskExecutionContext();
 
-    assertDoesNotThrow(() -> new AllowAllAuthorizationPlugin().validateToken(configuration, request, context));
+    assertDoesNotThrow(() -> new AllowAllAuthenticationPlugin().validateToken(configuration, request, context));
   }
 
   @Test
   void supportsShouldReturnTrueForAllowAll() {
-    assert (new AllowAllAuthorizationPlugin().supports("allow-all"));
+    assert (new AllowAllAuthenticationPlugin().supports("allow-all"));
   }
 
   @Test
   void supportsShouldReturnFalseForOther() {
-    assert (!new AllowAllAuthorizationPlugin().supports("deny-all"));
+    assert (!new AllowAllAuthenticationPlugin().supports("deny-all"));
   }
 }

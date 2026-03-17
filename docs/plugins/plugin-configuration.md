@@ -10,7 +10,7 @@ processing logic with no need for code changes.
 
 The configuration contains four main sections:
 
-- `authorization`: Defines how access control is enforced.
+- `authentication`: Defines the global authentication strategy for incoming requests.
 - `providers`: External data sources or services.
 - `routes`: API or processing endpoints.
 - `tasks`: Reusable processing steps or background jobs.
@@ -26,7 +26,7 @@ tasks:
   - ...
 validations:
   - ...
-authorization:
+authentication:
   ...
 entities:
   - ...
@@ -36,14 +36,13 @@ entities:
 
 ---
 
-## 🔐 Authorization
+## 🔐 Authentication
 
-An **authorization** plugin defines how access control is applied across the API. It handles token validation and access
-checks for each action on entities or routes.
+An **authentication** plugin defines the global token validation strategy for incoming requests. It is used to enforce access control across all entities and routes.
 
 ### 🧩 Structure
 
-Each authorization configuration includes:
+Each authentication configuration includes:
 
 * `type`: The plugin type (e.g., `jwt`, `custom`, etc.).
 
@@ -57,7 +56,7 @@ Each authorization configuration includes:
 ### 🧪 Example
 
 ```yaml
-authorization:
+authentication:
   type: jwt
   issuer: https://auth.example.com
   audience: linid-api
@@ -67,19 +66,16 @@ authorization:
 Or to allow everything (no access control):
 
 ```yaml
-authorization:
+authentication:
   type: allow-all
 ```
 
 Or to explicitly deny everything:
 
 ```yaml
-authorization:
+authentication:
   type: deny-all
 ```
-
-> 📌 You can also define fine-grained authorization rules per entity or route (e.g., specify which roles can `read`,
-`update`, `delete`, etc.).
 
 ---
 

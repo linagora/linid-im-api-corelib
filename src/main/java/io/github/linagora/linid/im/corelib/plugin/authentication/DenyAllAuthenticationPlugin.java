@@ -24,35 +24,42 @@
  * LinID Identity Manager software.
  */
 
-package io.github.linagora.linid.im.corelib.plugin.authorization;
+package io.github.linagora.linid.im.corelib.plugin.authentication;
 
-import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
+import io.github.linagora.linid.im.corelib.exception.ApiException;
+import io.github.linagora.linid.im.corelib.i18n.I18nMessage;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthenticationConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
+import jakarta.servlet.http.HttpServletRequest;
+import java.util.Map;
+import org.springframework.http.HttpStatus;
+import org.springframework.lang.NonNull;
 
 /**
- * Factory interface for retrieving an {@link AuthorizationPlugin} instance and its active configuration.
+ * Authentication plugin that denies all token validations unconditionally.
  *
- * <p>This abstraction allows different authorization plugins to be injected dynamically
- * depending on configuration or context.
+ * <p>This plugin is used as a default fallback when no specific authentication logic is configured,
+ * or when the goal is to explicitly forbid access to certain routes.
  *
- * <p>By default, this factory should return a plugin that denies all operations
- * (e.g., {@code DenyAllAuthorizationPlugin}) to enforce secure defaults when no plugin is explicitly configured.
+ * <p>Token validation systematically throws a {@link ApiException} with a 404 NotFound status.
  */
-public interface AuthorizationFactory {
+public class DenyAllAuthenticationPlugin implements AuthenticationPlugin {
 
   /**
-   * Returns the selected {@link AuthorizationPlugin} to be used by the system.
-   *
-   * <p>If no plugin is explicitly configured or matched, the factory should return
-   * a safe default such as a {@code DenyAllAuthorizationPlugin}, which blocks all operations.
-   *
-   * @return the resolved authorization plugin
+   * Default constructor.
    */
-  AuthorizationPlugin getAuthorizationPlugin();
+  public DenyAllAuthenticationPlugin() {
+  }
 
-  /**
-   * Returns the active {@link AuthorizationConfiguration} to be passed to the plugin during token validation.
-   *
-   * @return the active authorization configuration
-   */
-  AuthorizationConfiguration getAuthorizationConfiguration();
+  @Override
+  public void validateToken(AuthenticationConfiguration configuration, HttpServletRequest request,
+                            TaskExecutionContext context) {
+    throw new ApiException(HttpStatus.NOT_FOUND.value(), I18nMessage.of("error.router.unknown.route", Map.of("route",
+        request.getRequestURI())));
+  }
+
+  @Override
+  public boolean supports(@NonNull String type) {
+    return "deny-all".equals(type);
+  }
 }

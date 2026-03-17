@@ -24,43 +24,41 @@
  * LinID Identity Manager software.
  */
 
-package io.github.linagora.linid.im.corelib.plugin.authorization;
+package io.github.linagora.linid.im.corelib.plugin.authentication;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import io.github.linagora.linid.im.corelib.exception.ApiException;
-import io.github.linagora.linid.im.corelib.i18n.I18nMessage;
-import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthenticationConfiguration;
 import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import jakarta.servlet.http.HttpServletRequest;
-import java.util.Map;
-import org.springframework.http.HttpStatus;
-import org.springframework.lang.NonNull;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-/**
- * Authorization plugin that denies all token validations unconditionally.
- *
- * <p>This plugin is used as a default fallback when no specific authorization logic is configured,
- * or when the goal is to explicitly forbid access to certain routes.
- *
- * <p>Token validation systematically throws a {@link ApiException} with a 404 NotFound status.
- */
-public class DenyAllAuthorizationPlugin implements AuthorizationPlugin {
+@DisplayName("Test class: DenyAllAuthenticationPlugin")
+class DenyAllAuthenticationPluginTest {
 
-  /**
-   * Default constructor.
-   */
-  public DenyAllAuthorizationPlugin() {
-  }
-  
+  @Test
+  void validateTokenShouldThrowApiException() {
+    var plugin = new DenyAllAuthenticationPlugin();
+    var configuration = new AuthenticationConfiguration();
+    var request = Mockito.mock(HttpServletRequest.class);
+    Mockito.when(request.getRequestURI()).thenReturn("/some/route");
+    var context = new TaskExecutionContext();
 
-  @Override
-  public void validateToken(AuthorizationConfiguration configuration, HttpServletRequest request,
-                            TaskExecutionContext context) {
-    throw new ApiException(HttpStatus.NOT_FOUND.value(), I18nMessage.of("error.router.unknown.route", Map.of("route",
-        request.getRequestURI())));
+    assertThrows(ApiException.class, () -> plugin.validateToken(configuration, request, context));
   }
 
-  @Override
-  public boolean supports(@NonNull String type) {
-    return "deny-all".equals(type);
+  @Test
+  void supportsShouldReturnTrueForDenyAll() {
+    var plugin = new DenyAllAuthenticationPlugin();
+    assert plugin.supports("deny-all");
+  }
+
+  @Test
+  void supportsShouldReturnFalseForOther() {
+    var plugin = new DenyAllAuthenticationPlugin();
+    assert !plugin.supports("allow-all");
   }
 }

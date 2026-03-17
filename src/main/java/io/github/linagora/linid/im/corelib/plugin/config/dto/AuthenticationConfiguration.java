@@ -31,7 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents the configuration of an authorization provider plugin.
+ * Represents the configuration of an authentication provider plugin.
  *
  * <p>This class supports dynamic and extensible configuration by allowing any additional
  * provider-specific options to be added via JSON/YAML deserialization. The configuration includes a required {@code type} field
@@ -40,7 +40,7 @@ import java.util.Map;
  * <p>The dynamic properties are collected into the {@code options} map using Jackson's
  * {@link JsonAnySetter} annotation.
  */
-public class AuthorizationConfiguration implements PluginConfiguration {
+public class AuthenticationConfiguration implements PluginConfiguration {
 
   /**
    * A map of arbitrary provider-specific configuration options.
@@ -51,7 +51,7 @@ public class AuthorizationConfiguration implements PluginConfiguration {
    */
   private final Map<String, Object> options = new HashMap<>();
   /**
-   * The type of the authorization provider plugin.
+   * The type of the authentication provider plugin.
    *
    * <p>This value is used to resolve the appropriate plugin implementation (e.g., "ldap", "api").
    */
@@ -60,7 +60,7 @@ public class AuthorizationConfiguration implements PluginConfiguration {
   /**
    * Default constructor.
    */
-  public AuthorizationConfiguration() {
+  public AuthenticationConfiguration() {
   }
 
   /**

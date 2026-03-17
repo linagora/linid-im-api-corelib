@@ -34,11 +34,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("Test class: AuthorizationConfiguration")
-public class AuthorizationConfigurationTest {
+@DisplayName("Test class: AuthenticationConfiguration")
+public class AuthenticationConfigurationTest {
   @Test
   void testTypeGetterSetter() {
-    AuthorizationConfiguration config = new AuthorizationConfiguration();
+    AuthenticationConfiguration config = new AuthenticationConfiguration();
     assertNull(config.getType());
 
     config.setType("ldap");
@@ -47,7 +47,7 @@ public class AuthorizationConfigurationTest {
 
   @Test
   void testAddOptionAddsKeyValueExceptType() {
-    AuthorizationConfiguration config = new AuthorizationConfiguration();
+    AuthenticationConfiguration config = new AuthenticationConfiguration();
 
     config.addOption("foo", "bar");
     config.addOption("number", 42);
@@ -61,7 +61,7 @@ public class AuthorizationConfigurationTest {
 
   @Test
   void testOptionsMapIsMutable() {
-    AuthorizationConfiguration config = new AuthorizationConfiguration();
+    AuthenticationConfiguration config = new AuthenticationConfiguration();
     config.addOption("key", "value");
 
     assertTrue(config.getOptions().containsKey("key"));
