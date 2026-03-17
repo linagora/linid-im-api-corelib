@@ -1,15 +1,15 @@
 # Creating an Authorization Plugin for Identity Manager API
 
 This guide walks you through the steps to create an **Authorization Plugin** using the `linid-im-api-corelib` library.
-An authorization plugin is responsible for validating tokens and evaluating whether a request is allowed to access or
-modify certain resources based on the configured access control logic.
+An authorization plugin is solely responsible for **token validation**: verifying that the incoming HTTP request carries
+a valid, non-expired token. Authorization and permission checks are handled separately in the pipeline.
 
 ---
 
 ## ✨ Goal
 
 We will create a simple authorization plugin named `ExampleAuthorizationPlugin` that demonstrates how to extend the core
-framework and implement basic token validation and permission checks.
+framework and implement basic token validation.
 
 ---
 
@@ -20,14 +20,12 @@ Create a new Java class in your plugin project:
 ```java
 package io.github.linagora.linid.im.myplugin;
 
+import io.github.linagora.linid.im.corelib.plugin.authorization.AbstractAuthorizationPlugin;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import jakarta.servlet.http.HttpServletRequest;
-import authorization.plugin.io.github.linagora.linid.im.corelib.AbstractAuthorizationPlugin;
-import dto.config.plugin.io.github.linagora.linid.im.corelib.RootConfiguration;
-import entity.plugin.io.github.linagora.linid.im.corelib.DynamicEntity;
-import task.plugin.io.github.linagora.linid.im.corelib.TaskExecutionContext;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-import org.springframework.util.MultiValueMap;
 
 @Component
 public class ExampleAuthorizationPlugin extends AbstractAuthorizationPlugin {
@@ -38,31 +36,9 @@ public class ExampleAuthorizationPlugin extends AbstractAuthorizationPlugin {
     }
 
     @Override
-    public void updateConfiguration(RootConfiguration configuration) {
-        // Optional: add any additional entity or validation config if needed
-    }
-
-    @Override
-    public void validateToken(HttpServletRequest request, TaskExecutionContext context) {
-        // Implement token extraction and validation logic
-    }
-
-    @Override
-    public void isAuthorized(HttpServletRequest request, DynamicEntity entity, String action,
-                             TaskExecutionContext context) {
-        // Implement per-entity authorization logic
-    }
-
-    @Override
-    public void isAuthorized(HttpServletRequest request, DynamicEntity entity, String id, String action,
-                             TaskExecutionContext context) {
-        // Implement per-record authorization logic
-    }
-
-    @Override
-    public void isAuthorized(HttpServletRequest request, DynamicEntity entity, MultiValueMap<String, String> filters,
-                             String action, TaskExecutionContext context) {
-        // Implement filtered dataset authorization logic
+    public void validateToken(AuthorizationConfiguration configuration, HttpServletRequest request,
+                              TaskExecutionContext context) {
+        // Implement token extraction and validation logic using the provided configuration
     }
 }
 ```
@@ -80,19 +56,17 @@ Marks the plugin class as a Spring-managed bean so it can be auto-discovered by 
 Defines the plugin identifier (in this case, `example-auth`) that is used in the dynamic configuration to select the
 appropriate authorization strategy.
 
-### 🔐 Authorization Responsibilities
+### 🔐 Plugin Responsibility: Token Validation
 
-The plugin must implement the following responsibilities:
+The plugin has a single responsibility:
 
-* **Token validation**: via `validateToken(...)`
-* **Authorization checks**: using one of the `isAuthorized(...)` overloads depending on the scope
+* **Token validation** via `validateToken(AuthorizationConfiguration configuration, HttpServletRequest request, TaskExecutionContext context)`
 
-    * Entire entity
-    * Specific record (by ID)
-    * Filtered collection (with filters)
+The `AuthorizationConfiguration` parameter provides the active plugin configuration (e.g. issuer URL, audience, public
+key) so that token validation can be fully parameterized without storing state on the plugin instance.
 
-Each method should throw an exception (typically a `ForbiddenException` or `UnauthorizedException`) if the request is
-not allowed.
+The method should throw an exception (typically an `ApiException` with HTTP 401 Unauthorized) if the token is missing,
+invalid, or expired. Authorization and permission checks are handled elsewhere in the pipeline.
 
 ---
 

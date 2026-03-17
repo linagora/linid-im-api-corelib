@@ -26,69 +26,28 @@
 
 package io.github.linagora.linid.im.corelib.plugin.authorization;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import io.github.linagora.linid.im.corelib.exception.ApiException;
-import io.github.linagora.linid.im.corelib.plugin.config.dto.RootConfiguration;
-import io.github.linagora.linid.im.corelib.plugin.entity.DynamicEntity;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
 import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 
-@DisplayName("Test class:  AllowAllAuthorizationPlugin")
+@DisplayName("Test class:  DenyAllAuthorizationPlugin")
 class DenyAllAuthorizationPluginTest {
-  @Test
-  void updateConfigurationShouldNotThrow() {
-    assertDoesNotThrow(() -> new DenyAllAuthorizationPlugin().updateConfiguration(Mockito.mock(RootConfiguration.class)));
-  }
 
   @Test
   void validateTokenShouldThrowApiException() {
     var plugin = new DenyAllAuthorizationPlugin();
+    var configuration = new AuthorizationConfiguration();
     var request = Mockito.mock(HttpServletRequest.class);
     Mockito.when(request.getRequestURI()).thenReturn("/some/route");
     var context = new TaskExecutionContext();
 
-    assertThrows(ApiException.class, () -> plugin.validateToken(request, context));
-  }
-
-  @Test
-  void isAuthorizedEntityActionShouldThrowApiException() {
-    var plugin = new DenyAllAuthorizationPlugin();
-    var request = Mockito.mock(HttpServletRequest.class);
-    Mockito.when(request.getRequestURI()).thenReturn("/some/route");
-    var context = new TaskExecutionContext();
-    var entity = new DynamicEntity();
-
-    assertThrows(ApiException.class, () -> plugin.isAuthorized(request, entity, "read", context));
-  }
-
-  @Test
-  void isAuthorizedEntityIdActionShouldThrowApiException() {
-    var plugin = new DenyAllAuthorizationPlugin();
-    var request = Mockito.mock(HttpServletRequest.class);
-    Mockito.when(request.getRequestURI()).thenReturn("/some/route");
-    var context = new TaskExecutionContext();
-    var entity = new DynamicEntity();
-
-    assertThrows(ApiException.class, () -> plugin.isAuthorized(request, entity, "123", "read", context));
-  }
-
-  @Test
-  void isAuthorizedEntityFiltersActionShouldThrowApiException() {
-    var plugin = new DenyAllAuthorizationPlugin();
-    var request = Mockito.mock(HttpServletRequest.class);
-    Mockito.when(request.getRequestURI()).thenReturn("/some/route");
-    var context = new TaskExecutionContext();
-    var entity = new DynamicEntity();
-    MultiValueMap<String, String> filters = new LinkedMultiValueMap<>();
-
-    assertThrows(ApiException.class, () -> plugin.isAuthorized(request, entity, filters, "read", context));
+    assertThrows(ApiException.class, () -> plugin.validateToken(configuration, request, context));
   }
 
   @Test
