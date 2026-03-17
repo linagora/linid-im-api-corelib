@@ -61,7 +61,7 @@ lifecycle**:
 -> Validate token with AuthorizationPlugin
 -> Execute Tasks (phase: afterTokenValidationCreate)
 -> Execute Tasks (phase: beforePermissionValidationCreate)
--> Validation authorization with AuthorizationPlugin
+-> Validation authorization (handled by the pipeline)
 -> Execute Tasks (phase: afterPermissionValidationCreate)
 -> Execute Tasks (phase: beforeValidationAction)
 -> Run validations using ValidationEngine
