@@ -38,7 +38,7 @@ import org.springframework.stereotype.Component;
  * <p>To activate this plugin, set its type as <code>"allow-all"</code> in the plugin configuration.
  */
 @Component
-public class AllowAllAuthorizationPlugin extends AbstractAuthorizationPlugin {
+public class AllowAllAuthorizationPlugin implements AuthorizationPlugin {
 
   /**
    * Default constructor.
