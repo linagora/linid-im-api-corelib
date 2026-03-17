@@ -26,16 +26,14 @@
 
 package io.github.linagora.linid.im.corelib.plugin.authorization;
 
-import io.github.linagora.linid.im.corelib.plugin.config.dto.RootConfiguration;
-import io.github.linagora.linid.im.corelib.plugin.entity.DynamicEntity;
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
 import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-import org.springframework.util.MultiValueMap;
 
 /**
- * An {@link AuthorizationPlugin} implementation that allows all operations unconditionally.
+ * An {@link AuthorizationPlugin} implementation that allows all token validations unconditionally.
  *
  * <p>To activate this plugin, set its type as <code>"allow-all"</code> in the plugin configuration.
  */
@@ -49,29 +47,8 @@ public class AllowAllAuthorizationPlugin extends AbstractAuthorizationPlugin {
   }
 
   @Override
-  public void updateConfiguration(RootConfiguration configuration) {
-
-  }
-
-  @Override
-  public void validateToken(HttpServletRequest request, TaskExecutionContext context) {
-
-  }
-
-  @Override
-  public void isAuthorized(HttpServletRequest request, DynamicEntity entity, String action, TaskExecutionContext context) {
-
-  }
-
-  @Override
-  public void isAuthorized(HttpServletRequest request, DynamicEntity entity, String id, String action,
-                           TaskExecutionContext context) {
-
-  }
-
-  @Override
-  public void isAuthorized(HttpServletRequest request, DynamicEntity entity, MultiValueMap<String, String> filters, String action,
-                           TaskExecutionContext context) {
+  public void validateToken(AuthorizationConfiguration configuration, HttpServletRequest request,
+                            TaskExecutionContext context) {
 
   }
 

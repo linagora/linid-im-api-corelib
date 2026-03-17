@@ -26,8 +26,10 @@
 
 package io.github.linagora.linid.im.corelib.plugin.authorization;
 
+import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
+
 /**
- * Factory interface for retrieving an {@link AuthorizationPlugin} instance.
+ * Factory interface for retrieving an {@link AuthorizationPlugin} instance and its active configuration.
  *
  * <p>This abstraction allows different authorization plugins to be injected dynamically
  * depending on configuration or context.
@@ -46,4 +48,11 @@ public interface AuthorizationFactory {
    * @return the resolved authorization plugin
    */
   AuthorizationPlugin getAuthorizationPlugin();
+
+  /**
+   * Returns the active {@link AuthorizationConfiguration} to be passed to the plugin during token validation.
+   *
+   * @return the active authorization configuration
+   */
+  AuthorizationConfiguration getAuthorizationConfiguration();
 }

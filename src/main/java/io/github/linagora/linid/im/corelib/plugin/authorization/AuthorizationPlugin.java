@@ -27,89 +27,28 @@
 package io.github.linagora.linid.im.corelib.plugin.authorization;
 
 import io.github.linagora.linid.im.corelib.plugin.config.dto.AuthorizationConfiguration;
-import io.github.linagora.linid.im.corelib.plugin.config.dto.RootConfiguration;
-import io.github.linagora.linid.im.corelib.plugin.entity.DynamicEntity;
 import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.plugin.core.Plugin;
-import org.springframework.util.MultiValueMap;
 
 /**
  * Defines the contract for an authorization plugin within the plugin-based configuration system.
  *
- * <p>Authorization plugins control access to entities and operations by evaluating the request context,
- * user credentials, and configured access rules. They also contribute to the global configuration by declaring
- * authorization-specific entities or validations.
+ * <p>Authorization plugins are solely responsible for token validation. They evaluate the incoming
+ * HTTP request to ensure the token is present, valid, and not expired.
  *
- * <p>Each implementation can define its own strategy for token validation, per-entity authorization,
- * and policy enforcement based on filters or record identifiers.
+ * <p>Authorization and permission checks are handled separately in the pipeline.
  */
 public interface AuthorizationPlugin extends Plugin<String> {
-
-  /**
-   * Returns the current authorization configuration applied to this plugin.
-   *
-   * @return the {@link AuthorizationConfiguration} used by this plugin
-   */
-  AuthorizationConfiguration getConfiguration();
-
-  /**
-   * Applies the provided authorization configuration to this plugin.
-   *
-   * @param configuration the {@link AuthorizationConfiguration} to apply
-   */
-  void setConfiguration(AuthorizationConfiguration configuration);
-
-  /**
-   * Allows this plugin to contribute additional elements to the system-wide configuration.
-   *
-   * <p>Typically used to declare authorization-specific entities, attributes, or validation steps
-   * required for managing permissions and access control.
-   *
-   * @param configuration the {@link RootConfiguration} to extend or modify
-   */
-  void updateConfiguration(RootConfiguration configuration);
 
   /**
    * Validates the authentication token present in the incoming HTTP request.
    *
    * <p>Should throw an exception if the token is missing, invalid, or expired.
    *
+   * @param configuration the active {@link AuthorizationConfiguration} for this plugin
    * @param request the HTTP request containing the token
    * @param context the current execution context
    */
-  void validateToken(HttpServletRequest request, TaskExecutionContext context);
-
-  /**
-   * Checks whether the request is authorized to perform the specified action on the given entity.
-   *
-   * @param request the HTTP request to evaluate
-   * @param entity the entity on which the action is requested
-   * @param action the action to authorize (e.g., "read", "update", "delete")
-   * @param context the current execution context
-   */
-  void isAuthorized(HttpServletRequest request, DynamicEntity entity, String action, TaskExecutionContext context);
-
-  /**
-   * Checks whether the request is authorized to perform the specified action on a specific record of an entity.
-   *
-   * @param request the HTTP request to evaluate
-   * @param entity the target entity
-   * @param id the ID of the specific record
-   * @param action the action to authorize
-   * @param context the current execution context
-   */
-  void isAuthorized(HttpServletRequest request, DynamicEntity entity, String id, String action, TaskExecutionContext context);
-
-  /**
-   * Checks whether the request is authorized to perform the specified action on a filtered subset of entity data.
-   *
-   * @param request the HTTP request to evaluate
-   * @param entity the target entity
-   * @param filters the filter criteria applied to the dataset
-   * @param action the action to authorize
-   * @param context the current execution context
-   */
-  void isAuthorized(HttpServletRequest request, DynamicEntity entity, MultiValueMap<String, String> filters,
-                    String action, TaskExecutionContext context);
+  void validateToken(AuthorizationConfiguration configuration, HttpServletRequest request, TaskExecutionContext context);
 }

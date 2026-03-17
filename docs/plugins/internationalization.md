@@ -96,10 +96,11 @@ The Identity Manager API provides a set of **default i18n message keys** that ar
 components. These messages cover common error scenarios and can be overridden in your plugin if needed.
 
 | Key                                   | Context Parameters   | Description                                              |
-|---------------------------------------|----------------------|----------------------------------------------------------|
+| ------------------------------------- | -------------------- | -------------------------------------------------------- |
 | `error.plugin.default.missing.option` | `option`             | A required option is missing.                            |
 | `error.plugin.default.invalid.option` | `option`, `value`    | An option has an invalid value.                          |
 | `error.router.unknown.route`          | `route`              | An unknown API route was requested.                      |
+| `error.authentication.unauthorized`   |                      | Unauthorized access attempt.                             |
 | `error.entity.unknown`                | `entity`             | The requested entity does not exist.                     |
 | `error.entity.attributes`             | `entity`             | An error occurred while retrieving entity attributes.    |
 | `error.provider.unknown`              | `provider`, `entity` | The specified provider for the given entity is unknown.  |

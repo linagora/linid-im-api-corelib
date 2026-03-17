@@ -13,7 +13,6 @@ sequenceDiagram
     DynamicEntityService ->> AuthorizationPlugin: validateToken(...)
     DynamicEntityService ->> TaskEngine: AfterTokenValidationCreate
     DynamicEntityService ->> TaskEngine: beforePermissionValidationCreate
-    DynamicEntityService ->> AuthorizationPlugin: isAuthorized(...)
     DynamicEntityService ->> TaskEngine: afterPermissionValidationCreate
     DynamicEntityService ->> TaskEngine: BeforeValidationCreate
     DynamicEntityService ->> ValidationEngine: validate(entity, beforeCreate)
