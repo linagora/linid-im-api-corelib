@@ -13,6 +13,7 @@ package io.github.linagora.linid.im.notnull;
 import io.github.linagora.linid.im.corelib.exception.ApiException;
 import io.github.linagora.linid.im.corelib.i18n.I18nMessage;
 import io.github.linagora.linid.im.corelib.model.ValidationConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import io.github.linagora.linid.im.corelib.plugin.validation.ValidationPlugin;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +28,8 @@ public class NotNullValidationPlugin implements ValidationPlugin {
     }
 
     @Override
-    public Optional<I18nMessage> validate(ValidationConfiguration configuration, Object value) {
+    public Optional<I18nMessage> validate(ValidationConfiguration configuration, Object value,
+                                          TaskExecutionContext context) {
         boolean checkEmpty = this.getOption(configuration, "check-empty", boolean.class).orElse(false);
         if (value == null) {
             return Optional.of(I18nMessage.of("error.plugin.notnull.invalid"));
@@ -46,16 +48,15 @@ public class NotNullValidationPlugin implements ValidationPlugin {
 
 ## 🧠 Key Concepts
 
-* `supports(String type)`:
+- `supports(String type)`:
   Declares which configuration type this validator handles (in this case: `not-null`).
 
-* `validate(ValidationConfiguration configuration, Object value)`:
+- `validate(ValidationConfiguration configuration, Object value, TaskExecutionContext context)`:
   Executes validation logic and returns an `Optional<I18nMessage>`.
+  - Return `Optional.empty()` if the value is valid
+  - Return an `Optional` containing an error message if validation fails
 
-    * Return `Optional.empty()` if the value is valid
-    * Return an `Optional` containing an error message if validation fails
-
-* `getOption()` helper:
+- `getOption()` helper:
   Use this method to retrieve typed options from the validation configuration (e.g., `check-empty`).
 
 ---
@@ -77,7 +78,7 @@ Add this to your `src/main/resources/i18n/en.json` file. Remember to prefix all 
 
 ## 🔍 Related Topics
 
-* [Getting Started with Plugin Creation](./how-to-create-a-plugin.md)
+- [Getting Started with Plugin Creation](./how-to-create-a-plugin.md)
 
 ---
 
