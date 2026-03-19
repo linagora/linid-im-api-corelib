@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.github.linagora.linid.im.corelib.i18n.I18nMessage;
 import io.github.linagora.linid.im.corelib.plugin.config.dto.ValidationConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -51,13 +52,15 @@ class ValidationPluginTest {
 
           @Override
           public Optional<I18nMessage> validate(
-              ValidationConfiguration configuration, Object value) {
+              ValidationConfiguration configuration, Object value,
+              TaskExecutionContext context) {
             return Optional.empty(); // simulate success
           }
         };
 
     ValidationConfiguration config = new ValidationConfiguration();
-    Optional<I18nMessage> result = plugin.validate(config, "someValue");
+    TaskExecutionContext context = new TaskExecutionContext();
+    Optional<I18nMessage> result = plugin.validate(config, "someValue", context);
     assertTrue(result.isEmpty());
   }
 
@@ -73,13 +76,15 @@ class ValidationPluginTest {
 
           @Override
           public Optional<I18nMessage> validate(
-              ValidationConfiguration configuration, Object value) {
+              ValidationConfiguration configuration, Object value,
+              TaskExecutionContext context) {
             return Optional.of(I18nMessage.of("error.code"));
           }
         };
 
     ValidationConfiguration config = new ValidationConfiguration();
-    Optional<I18nMessage> result = plugin.validate(config, "badValue");
+    TaskExecutionContext context = new TaskExecutionContext();
+    Optional<I18nMessage> result = plugin.validate(config, "badValue", context);
     assertTrue(result.isPresent());
     assertEquals("error.code", result.get().key());
   }

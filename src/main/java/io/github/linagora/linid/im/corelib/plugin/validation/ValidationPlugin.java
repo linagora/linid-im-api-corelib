@@ -28,6 +28,7 @@ package io.github.linagora.linid.im.corelib.plugin.validation;
 
 import io.github.linagora.linid.im.corelib.i18n.I18nMessage;
 import io.github.linagora.linid.im.corelib.plugin.config.dto.ValidationConfiguration;
+import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 import java.util.Optional;
 import org.springframework.plugin.core.Plugin;
 
@@ -42,8 +43,10 @@ public interface ValidationPlugin extends Plugin<String> {
    *
    * @param configuration the validation configuration containing validation rules and options
    * @param value the value to be validated
+   * @param context the task execution context providing access to global contextual data
    * @return an {@link Optional} containing an {@link I18nMessage} describing a validation error if
    *     validation fails, or an empty {@link Optional} if validation passes
    */
-  Optional<I18nMessage> validate(ValidationConfiguration configuration, Object value);
+  Optional<I18nMessage> validate(ValidationConfiguration configuration, Object value,
+      TaskExecutionContext context);
 }

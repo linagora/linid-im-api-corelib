@@ -27,6 +27,7 @@
 package io.github.linagora.linid.im.corelib.plugin.validation;
 
 import io.github.linagora.linid.im.corelib.plugin.entity.DynamicEntity;
+import io.github.linagora.linid.im.corelib.plugin.task.TaskExecutionContext;
 
 /**
  * Interface defining a validation engine responsible for validating {@link DynamicEntity} instances
@@ -40,8 +41,9 @@ public interface ValidationEngine {
    * @param dynamicEntity the dynamic entity to validate
    * @param phase the phase of processing during which validation is performed (e.g.,
    *     "beforeCreate", "beforeUpdate")
+   * @param context the task execution context providing access to global contextual data
    */
-  void validate(DynamicEntity dynamicEntity, String phase);
+  void validate(DynamicEntity dynamicEntity, String phase, TaskExecutionContext context);
 
   /**
    * Validates a single attribute value against validations configured for that attribute.
@@ -49,6 +51,8 @@ public interface ValidationEngine {
    * @param entity entity carrying configuration
    * @param attributeName attribute name to validate
    * @param value value to validate
+   * @param context the task execution context providing access to global contextual data
    */
-  void validateAttribute(DynamicEntity entity, String attributeName, Object value);
+  void validateAttribute(DynamicEntity entity, String attributeName, Object value,
+      TaskExecutionContext context);
 }
